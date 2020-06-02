@@ -44,6 +44,9 @@
 	},
 	"eslintConfig": {
 		"root": true,
+		"ignorePatterns": [
+			"/build"
+		],
 		"parser": "@typescript-eslint/parser",
 		"plugins": [
 			"@typescript-eslint"
