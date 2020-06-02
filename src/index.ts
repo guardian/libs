@@ -1,3 +1,4 @@
 import { example } from './example';
+import { storage } from './storage';
 
-export { example };
+export { example, storage };
