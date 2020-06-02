@@ -1,0 +1,23 @@
+{
+	"compilerOptions": {
+		"target": "esnext",
+		"module": "esnext",
+		"lib": ["es2017", "es7", "es6", "dom", "DOM.Iterable"],
+		"outDir": "build",
+		"strict": true,
+		"esModuleInterop": true,
+		"jsx": "react",
+		"moduleResolution": "node",
+		"allowJs": true,
+		"rootDir": "src/",
+		"skipLibCheck": true,
+		"allowSyntheticDefaultImports": true,
+		"forceConsistentCasingInFileNames": true,
+		"resolveJsonModule": true,
+		"isolatedModules": true,
+		"noEmit": true
+	},
+	"files": ["src/types.ts"],
+	"include": ["src/"],
+	"exclude": ["**/*.test.tsx", "**/*.stories.tsx"]
+}
