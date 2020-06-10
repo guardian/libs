@@ -42,7 +42,6 @@ const store = (type: 'sessionStorage' | 'localStorage') => ({
 				return null;
 			}
 		} catch (e) {
-			this.remove(key);
 			return null;
 		}
 
