@@ -4,7 +4,8 @@
 node_modules
 
 # production
-/build
+dist
+coverage
 
 # misc
 .DS_Store
