@@ -2,8 +2,17 @@
 
 > A collection of shared JavaScript libraries for use in Guardian projects
 
-<!-- START doctoc -->
-<!-- END doctoc -->
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+## Table of contents
+
+- [Installation](#installation)
+  - [Bundling](#bundling)
+- [Development](#development)
+  - [Requirements](#requirements)
+  - [Commit messages and releasing to NPM](#commit-messages-and-releasing-to-npm)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## Installation
 
