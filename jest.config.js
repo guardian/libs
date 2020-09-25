@@ -4,7 +4,7 @@
 
 module.exports = {
 	preset: 'ts-jest',
-	testEnvironment: "jest-environment-jsdom-sixteen",
+	testEnvironment: 'jest-environment-jsdom-sixteen',
 	clearMocks: true,
 	collectCoverage: true,
 	collectCoverageFrom: ['src/**/*'],
