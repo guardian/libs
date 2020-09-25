@@ -16,6 +16,7 @@
 	"files": [
 		"dist"
 	],
+	"sideEffects": false,
 	"scripts": {
 		"build": "npm-run-all clean --parallel compile:*",
 		"clean": "rm -rf dist",
