@@ -1,6 +1,5 @@
 {
 	"recommendations": [
-		"esbenp.prettier-vscode",
 		"wix.vscode-import-cost",
 		"orta.vscode-jest",
 		"editorconfig.editorconfig",
