@@ -1,18 +1,17 @@
 {
-  "editor.formatOnSave": true,
-  "eslint.autoFixOnSave": true,
-  "eslint.validate": [
-    {
-      "language": "typescript",
-      "autoFix": true
-    },
-    {
-      "language": "typescriptreact",
-      "autoFix": true
-    }
-  ],
-  "eslint.enable": true,
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
-  }
+	"[javascript]": {
+		"editor.defaultFormatter": "dbaeumer.vscode-eslint",
+		"editor.formatOnSave": false
+	},
+	"[typescript]": {
+		"editor.defaultFormatter": "dbaeumer.vscode-eslint",
+		"editor.formatOnSave": false
+	},
+	"editor.codeActionsOnSave": {
+		"source.fixAll": true,
+		"source.organizeImports": false
+	},
+	"eslint.format.enable": true,
+	"eslint.packageManager": "yarn",
+	"typescript.tsdk": "node_modules/typescript/lib"
 }
