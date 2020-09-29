@@ -54,11 +54,7 @@ const store = (type: 'sessionStorage' | 'localStorage') => ({
 		return data.value;
 	},
 
-	set(
-		key: string,
-		value: unknown,
-		expires?: string | number | Date,
-	): unknown {
+	set(key: string, value: unknown, expires?: string | number | Date): unknown {
 		if (!this.available) {
 			return;
 		}

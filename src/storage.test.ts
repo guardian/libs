@@ -69,18 +69,14 @@ const testStorage = (
 	it(`${storageName} - handles objects`, () => {
 		const myObject = { foo: 'bar' };
 		engine.set('anObject', myObject);
-		expect(engine.storage.getItem('anObject')).toBe(
-			'{"value":{"foo":"bar"}}',
-		);
+		expect(engine.storage.getItem('anObject')).toBe('{"value":{"foo":"bar"}}');
 		expect(engine.get('anObject')).toEqual(myObject);
 	});
 
 	it(`${storageName} - handles arrays`, () => {
 		const myArray = [true, 2, 'bar'];
 		engine.set('anArray', myArray);
-		expect(engine.storage.getItem('anArray')).toBe(
-			'{"value":[true,2,"bar"]}',
-		);
+		expect(engine.storage.getItem('anArray')).toBe('{"value":[true,2,"bar"]}');
 		expect(engine.get('anArray')).toEqual(myArray);
 	});
 
@@ -134,9 +130,7 @@ const testStorage = (
 		expect(engine.getRaw('aString')).toBe(myString);
 		// engine.set is our function which sets the string inside an object
 		engine.set('setAsValue', myString);
-		expect(engine.getRaw('setAsValue')).toBe(
-			'{"value":"a dog sat on a mat"}',
-		);
+		expect(engine.getRaw('setAsValue')).toBe('{"value":"a dog sat on a mat"}');
 	});
 
 	it(`${storageName} - remove() deletes the entry`, () => {
