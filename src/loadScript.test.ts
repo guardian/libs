@@ -10,15 +10,13 @@ const badURL = 'bad-url';
 const fakeLoader = new MutationObserver((mutations) => {
 	mutations.forEach((mutation) => {
 		mutation.addedNodes.forEach((addedNode) => {
-			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-			// @ts-ignore
-			if (addedNode.src.includes(goodURL)) {
-				addedNode.dispatchEvent(new Event('load'));
-			}
-			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-			// @ts-ignore
-			if (addedNode.src.includes(badURL)) {
-				addedNode.dispatchEvent(new Event('error'));
+			if (addedNode.nodeName === 'SCRIPT') {
+				if ((addedNode as HTMLScriptElement).src.includes(goodURL)) {
+					addedNode.dispatchEvent(new Event('load'));
+				}
+				if ((addedNode as HTMLScriptElement).src.includes(badURL)) {
+					addedNode.dispatchEvent(new Event('error'));
+				}
 			}
 		});
 	});
