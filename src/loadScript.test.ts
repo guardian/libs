@@ -61,9 +61,11 @@ describe('loadScript', () => {
 		await loadScript(goodURL, {
 			async: true,
 			referrerPolicy: 'no-referrer',
+			className: 'u6ytfiuyoibnpoim',
 		});
-		expect(getTestScript(goodURL)?.async).toBeTruthy();
-		expect(getTestScript(goodURL)?.referrerPolicy).toBe('no-referrer');
+		expect(document.scripts[0]?.async).toBeTruthy();
+		expect(document.scripts[0]?.referrerPolicy).toBe('no-referrer');
+		expect(document.scripts[0]?.className).toBe('u6ytfiuyoibnpoim');
 	});
 
 	it('rejects if the script fails to load', async () => {
