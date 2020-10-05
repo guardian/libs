@@ -57,6 +57,16 @@ describe('loadScript', () => {
 		expect(document.scripts).toHaveLength(2);
 	});
 
+	it('does not inject duplicate scripts if they are called with and without protocol', async () => {
+		expect(document.scripts).toHaveLength(1);
+		await expect(loadScript(`//${goodURL}`)).resolves.toMatchObject({
+			type: 'load',
+		});
+		// try injecting it again with a full protocol (http-only because we're in jest)
+		await expect(loadScript(`http://${goodURL}`)).resolves.toBeUndefined();
+		expect(document.scripts).toHaveLength(2);
+	});
+
 	it('can add scripts with attributes', async () => {
 		await loadScript(goodURL, {
 			async: true,
