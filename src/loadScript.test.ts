@@ -50,6 +50,7 @@ describe('loadScript', () => {
 		await expect(loadScript(goodURL)).resolves.toMatchObject({
 			type: 'load',
 		});
+		// try injecting it again a random amount of times
 		await expect(loadScript(goodURL)).resolves.toBeUndefined();
 		await expect(loadScript(goodURL)).resolves.toBeUndefined();
 		await expect(loadScript(goodURL)).resolves.toBeUndefined();
