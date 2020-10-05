@@ -7,31 +7,29 @@ const badURL = 'bad-url';
 // when we detect that a script has been added to the DOM:
 // - if the src is goodURL trigger a load event
 // - if the src is badURL trigger an error event
-const fakeLoader = new MutationObserver((mutations) => {
+new MutationObserver((mutations) => {
 	mutations.forEach((mutation) => {
 		mutation.addedNodes.forEach((addedNode) => {
 			if (addedNode.nodeName === 'SCRIPT') {
-				if ((addedNode as HTMLScriptElement).src.includes(goodURL)) {
+				const addedScript = addedNode as HTMLScriptElement;
+
+				if (addedScript.src.includes(goodURL)) {
 					addedNode.dispatchEvent(new Event('load'));
 				}
-				if ((addedNode as HTMLScriptElement).src.includes(badURL)) {
+
+				if (addedScript.src.includes(badURL)) {
 					addedNode.dispatchEvent(new Event('error'));
 				}
 			}
 		});
 	});
+}).observe(document.body, {
+	childList: true,
 });
 
 beforeEach(() => {
 	document.body.innerHTML = '';
 	document.body.appendChild(document.createElement('script'));
-	fakeLoader.observe(document.body, {
-		childList: true,
-	});
-});
-
-afterEach(() => {
-	fakeLoader.disconnect();
 });
 
 describe('loadScript', () => {
