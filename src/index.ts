@@ -1,3 +1,1 @@
-import { example } from './example';
-
-export { example };
+export { loadScript } from './loadScript';
