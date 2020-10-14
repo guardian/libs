@@ -1,6 +1,6 @@
 {
 	"name": "@guardian/libs",
-	"version": "1.0.0",
+	"version": "0.0.0-this-never-updates-in-source",
 	"private": false,
 	"description": "A collection of shared JavaScript libraries for use in Guardian projects",
 	"homepage": "https://github.com/guardian/libs#readme",
