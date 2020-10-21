@@ -1,58 +1,60 @@
 {
-	"name": "@guardian/libs",
+  "name": "@guardian/libs",
 	"version": "0.0.0-this-never-updates-in-source-code-refer-to-git-tags",
-	"private": false,
-	"description": "A collection of shared JavaScript libraries for use in Guardian projects",
-	"homepage": "https://github.com/guardian/libs#readme",
-	"bugs": {
-		"url": "https://github.com/guardian/libs/issues"
-	},
-	"repository": "https://github.com/guardian/libs.git",
-	"license": "Apache-2.0",
-	"author": "Guardian developers",
-	"sideEffects": false,
-	"main": "dist/cjs/index.js",
-	"module": "dist/esm/index.js",
-	"source": "src/index.ts",
-	"files": [
-		"dist"
-	],
-	"scripts": {
-		"build": "npm-run-all clean --parallel compile:*",
-		"clean": "rm -rf dist",
-		"compile:common": "tsc --project ./tsconfig.build.json --outDir ./dist/cjs --module CommonJS",
-		"compile:esm": "tsc --project ./tsconfig.build.json --outDir ./dist/esm",
-		"lint": "eslint .",
-		"prepush:test": "jest --runInBand --onlyChanged --coverage=false",
-		"test": "jest",
-		"tsc": "tsc --noEmit",
-		"validate": "npm-run-all tsc lint test build"
-	},
-	"husky": {
-		"hooks": {
-			"pre-push": "npm-run-all prepush:*"
-		}
-	},
-	"devDependencies": {
-		"@semantic-release/github": "^7.1.1",
-		"@types/jest": "^26.0.14",
-		"@typescript-eslint/eslint-plugin": "^4.4.1",
-		"@typescript-eslint/parser": "^4.4.1",
-		"eslint": "^7.11.0",
-		"eslint-config-prettier": "^6.12.0",
-		"eslint-plugin-import": "^2.22.1",
-		"eslint-plugin-jest": "^24.1.0",
-		"eslint-plugin-prettier": "^3.1.4",
-		"husky": "^4.3.0",
-		"jest": "^26.5.3",
-		"jest-environment-jsdom-sixteen": "^1.0.3",
-		"npm-run-all": "^4.1.5",
-		"prettier": "^2.1.2",
-		"semantic-release": "^17.2.1",
-		"ts-jest": "^26.4.1",
-		"typescript": "^4.0.3"
-	},
-	"publishConfig": {
-		"access": "public"
-	}
+  "private": false,
+  "description": "A collection of shared JavaScript libraries for use in Guardian projects",
+  "homepage": "https://github.com/guardian/libs#readme",
+  "bugs": {
+    "url": "https://github.com/guardian/libs/issues"
+  },
+  "repository": "https://github.com/guardian/libs.git",
+  "license": "Apache-2.0",
+  "author": "Guardian developers",
+  "sideEffects": false,
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "source": "src/index.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "npm-run-all clean --parallel compile:*",
+    "clean": "rm -rf dist",
+    "compile:common": "tsc --project ./tsconfig.build.json --outDir ./dist/cjs --module CommonJS",
+    "compile:esm": "tsc --project ./tsconfig.build.json --outDir ./dist/esm",
+    "lint": "eslint . --ext .js,.ts",
+    "prepush:test": "jest --runInBand --onlyChanged --coverage=false",
+    "test": "jest",
+    "tsc": "tsc --noEmit",
+    "validate": "npm-run-all tsc lint test build"
+  },
+  "husky": {
+    "hooks": {
+      "pre-push": "npm-run-all prepush:*"
+    }
+  },
+  "devDependencies": {
+    "@guardian/eslint-config-typescript": "^0.3.0",
+    "@guardian/prettier": "^0.3.0",
+    "@semantic-release/github": "^7.1.1",
+    "@types/jest": "^26.0.14",
+    "@typescript-eslint/eslint-plugin": "^4.4.1",
+    "@typescript-eslint/parser": "^4.4.1",
+    "eslint": "^7.11.0",
+    "eslint-config-prettier": "^6.12.0",
+    "eslint-plugin-eslint-comments": "^3.2.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jest": "^24.1.0",
+    "husky": "^4.3.0",
+    "jest": "^26.5.3",
+    "jest-environment-jsdom-sixteen": "^1.0.3",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.1.2",
+    "semantic-release": "^17.2.1",
+    "ts-jest": "^26.4.1",
+    "typescript": "^4.0.3"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
 }
