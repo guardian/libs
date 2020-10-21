@@ -20,5 +20,6 @@ export const loadScript = (
 		};
 
 		const ref = document.scripts[0];
-		ref?.parentNode?.insertBefore(script, ref);
+		ref.parentNode?.insertBefore(script, ref);
 	});
+
