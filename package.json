@@ -1,6 +1,6 @@
 {
   "name": "@guardian/libs",
-	"version": "0.0.0-this-never-updates-in-source-code-refer-to-git-tags",
+  "version": "0.0.0-this-never-updates-in-source-code-refer-to-git-tags",
   "private": false,
   "description": "A collection of shared JavaScript libraries for use in Guardian projects",
   "homepage": "https://github.com/guardian/libs#readme",
@@ -34,8 +34,8 @@
     }
   },
   "devDependencies": {
-    "@guardian/eslint-config-typescript": "^0.3.0",
-    "@guardian/prettier": "^0.3.0",
+    "@guardian/eslint-config-typescript": "^0.4.0",
+    "@guardian/prettier": "^0.4.0",
     "@semantic-release/github": "^7.1.1",
     "@types/jest": "^26.0.14",
     "@typescript-eslint/eslint-plugin": "^4.4.1",
@@ -45,6 +45,7 @@
     "eslint-plugin-eslint-comments": "^3.2.0",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-jest": "^24.1.0",
+    "eslint-plugin-prettier": "^3.1.4",
     "husky": "^4.3.0",
     "jest": "^26.5.3",
     "jest-environment-jsdom-sixteen": "^1.0.3",
