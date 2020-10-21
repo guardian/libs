@@ -1,4 +1,2 @@
-import { example } from './example';
-import { storage } from './storage';
-
-export { example, storage };
+export { loadScript } from './loadScript';
+export { storage } from './storage';
