@@ -1,12 +1,9 @@
 import { storage } from './storage';
 
 const testStorage = (
-	storageName: 'localStorage' | 'sessionStorage',
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	fn: any,
+	storageName: string,
+	engine: typeof storage[keyof typeof storage],
 ) => {
-	const engine = fn(storageName);
-
 	beforeEach(() => {
 		engine.available = true;
 	});
@@ -26,10 +23,8 @@ const testStorage = (
 
 		// not available, if setItem fails
 		engine.available = undefined;
-		engine.storage = {
-			setItem() {
-				throw new Error('Problem!');
-			},
+		engine.storage.setItem = () => {
+			throw new Error('Problem!');
 		};
 		expect(engine.isAvailable()).toBe(false);
 
@@ -47,11 +42,10 @@ const testStorage = (
 
 		// Here setItem is explictly broken but it still uses the cached true value
 		engine.available = true;
-		engine.storage = {
-			setItem() {
-				throw new Error('Problem!');
-			},
+		engine.storage.setItem = () => {
+			throw new Error('Problem!');
 		};
+
 		expect(engine.isAvailable()).toBe(true);
 
 		engine.storage = origStorage;
@@ -69,14 +63,18 @@ const testStorage = (
 	it(`${storageName} - handles objects`, () => {
 		const myObject = { foo: 'bar' };
 		engine.set('anObject', myObject);
-		expect(engine.storage.getItem('anObject')).toBe('{"value":{"foo":"bar"}}');
+		expect(engine.storage.getItem('anObject')).toBe(
+			'{"value":{"foo":"bar"}}',
+		);
 		expect(engine.get('anObject')).toEqual(myObject);
 	});
 
 	it(`${storageName} - handles arrays`, () => {
 		const myArray = [true, 2, 'bar'];
 		engine.set('anArray', myArray);
-		expect(engine.storage.getItem('anArray')).toBe('{"value":[true,2,"bar"]}');
+		expect(engine.storage.getItem('anArray')).toBe(
+			'{"value":[true,2,"bar"]}',
+		);
 		expect(engine.get('anArray')).toEqual(myArray);
 	});
 
@@ -130,7 +128,9 @@ const testStorage = (
 		expect(engine.getRaw('aString')).toBe(myString);
 		// engine.set is our function which sets the string inside an object
 		engine.set('setAsValue', myString);
-		expect(engine.getRaw('setAsValue')).toBe('{"value":"a dog sat on a mat"}');
+		expect(engine.getRaw('setAsValue')).toBe(
+			'{"value":"a dog sat on a mat"}',
+		);
 	});
 
 	it(`${storageName} - remove() deletes the entry`, () => {

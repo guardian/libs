@@ -1,7 +1,12 @@
-const store = (type: 'sessionStorage' | 'localStorage') => ({
-	available: undefined as boolean | undefined,
-	storage: window[type],
-	isAvailable(): boolean | undefined {
+class Storage {
+	storage: globalThis.Storage;
+	available: boolean | undefined;
+
+	constructor(type: 'sessionStorage' | 'localStorage') {
+		this.storage = window[type];
+	}
+
+	isAvailable(): boolean {
 		const key = 'local-storage-test';
 
 		if (this.available !== undefined) {
@@ -19,71 +24,65 @@ const store = (type: 'sessionStorage' | 'localStorage') => ({
 		}
 
 		return this.available;
-	},
+	}
 
-	get(key: string): unknown | null {
-		if (!this.available) {
-			return;
-		}
-
-		let data;
-
-		// try and parse the data
+	getRaw(key: string): string | null {
 		try {
-			const value = this.getRaw(key);
-
-			if (value === null || value === undefined) {
-				return null;
-			}
-
-			data = JSON.parse(value);
-
-			if (data === null) {
-				return null;
-			}
+			return this.storage.getItem(key);
 		} catch (e) {
 			return null;
 		}
+	}
 
-		// has it expired?
-		if (data.expires && new Date() > new Date(data.expires)) {
-			this.remove(key);
+	get(key: string): unknown {
+		try {
+			/* eslint-disable @typescript-eslint/no-unsafe-assignment --
+				- we're using the `try` to handle anything bad
+			*/
+
+			const { value, expires } = JSON.parse(this.getRaw(key) ?? '');
+
+			if (value === null) {
+				return null;
+			}
+
+			if (expires && new Date() > new Date(expires)) {
+				this.remove(key);
+				return null;
+			}
+
+			/* eslint-enable @typescript-eslint/no-unsafe-assignment */
+
+			return value;
+		} catch (e) {
 			return null;
 		}
+	}
 
-		return data.value;
-	},
-
-	set(key: string, value: unknown, expires?: string | number | Date): unknown {
-		if (!this.available) {
-			return;
+	set(key: string, value: unknown, expires?: string | number | Date): void {
+		try {
+			return this.storage.setItem(
+				key,
+				JSON.stringify({
+					value,
+					expires,
+				}),
+			);
+		} catch (e) {
+			// do nothing
 		}
+	}
 
-		return this.storage.setItem(
-			key,
-			JSON.stringify({
-				value,
-				expires,
-			}),
-		);
-	},
-
-	getRaw(key: string): string | null {
-		if (this.available) {
-			return this.storage.getItem(key);
-		}
-		return null;
-	},
-
-	remove(key: string): null | void {
-		if (this.available) {
+	remove(key: string): void {
+		try {
 			return this.storage.removeItem(key);
+		} catch (e) {
+			// do nothing
 		}
-		return null;
-	},
-});
+	}
+}
 
 export const storage = {
-	local: (): unknown => store('localStorage'),
-	session: (): unknown => store('sessionStorage'),
+	local: new Storage('localStorage'),
+	session: new Storage('sessionStorage'),
 };
