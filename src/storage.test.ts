@@ -1,5 +1,9 @@
 import { storage } from './storage';
 
+function functionThatThrowsAnError() {
+	throw new Error('bang');
+}
+
 describe.each([
 	['local', storage.local, global.localStorage],
 	['session', storage.session, global.sessionStorage],
@@ -26,8 +30,8 @@ describe.each([
 	});
 
 	it(`returns false for availability when there is an error`, () => {
-		setSpy.mockImplementation(undefined);
-		getSpy.mockImplementation(undefined);
+		setSpy.mockImplementation(functionThatThrowsAnError);
+		getSpy.mockImplementation(functionThatThrowsAnError);
 
 		expect(implementation.__getAvailable()).toBeUndefined();
 		expect(implementation.isAvailable()).toBe(false);
@@ -42,7 +46,7 @@ describe.each([
 	it(`returns cached availability, even if broken`, () => {
 		// Here setItem is explicitly broken but it still uses the cached true value
 		implementation.__setAvailable(true);
-		setSpy.mockImplementation(undefined);
+		setSpy.mockImplementation(functionThatThrowsAnError);
 		expect(implementation.isAvailable()).toBe(true);
 	});
 
