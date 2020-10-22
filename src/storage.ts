@@ -9,8 +9,8 @@
  */
 
 class Storage {
-	private storage: globalThis.Storage;
-	private available: boolean | undefined;
+	storage: globalThis.Storage;
+	available: boolean | undefined;
 
 	constructor(type: 'sessionStorage' | 'localStorage') {
 		this.storage = window[type];
