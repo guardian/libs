@@ -1,2 +1,1 @@
 export { loadScript } from './loadScript';
-
