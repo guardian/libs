@@ -105,12 +105,6 @@ const testStorage = (
 		expect(engine.get('')).toEqual('I have no name');
 	});
 
-	it(`${storageName} - handles numbers as key names`, () => {
-		engine.set(6, 'I am six');
-		expect(engine.storage.getItem(6)).toBe('{"value":"I am six"}');
-		expect(engine.get(6)).toEqual('I am six');
-	});
-
 	it(`${storageName} - get() with expired item`, () => {
 		engine.set('iAmExpired', 'data', new Date('1901-01-01'));
 		expect(engine.get('iAmExpired')).toBeNull();
