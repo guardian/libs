@@ -79,7 +79,7 @@ class Storage {
 	 * @param expires - optional date on which this data will expire
 	 */
 	set(key: string, value: unknown, expires?: string | number | Date): void {
-		if (this.isAvailable())
+		if (this.isAvailable()) {
 			return this.storage.setItem(
 				key,
 				JSON.stringify({
@@ -87,6 +87,7 @@ class Storage {
 					expires,
 				}),
 			);
+		}
 	}
 
 	/**
@@ -95,7 +96,9 @@ class Storage {
 	 * @param key - the name of the item
 	 */
 	remove(key: string): void {
-		if (this.isAvailable()) return this.storage.removeItem(key);
+		if (this.isAvailable()) {
+			return this.storage.removeItem(key);
+		}
 	}
 
 	/**
