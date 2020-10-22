@@ -12,7 +12,7 @@ describe.each([
 		setSpy = jest.spyOn(native.__proto__, 'setItem');
 
 		native.clear();
-		implementation.available = undefined;
+		implementation.__setAvailable(undefined);
 	});
 
 	afterEach(() => {
@@ -21,7 +21,7 @@ describe.each([
 	});
 
 	it(`sets availability if it isn't defined`, () => {
-		expect(implementation.available).toBeUndefined();
+		expect(implementation.__getAvailable()).toBeUndefined();
 		expect(implementation.isAvailable()).toBe(true);
 	});
 
@@ -29,19 +29,19 @@ describe.each([
 		setSpy.mockImplementation(undefined);
 		getSpy.mockImplementation(undefined);
 
-		expect(implementation.available).toBeUndefined();
+		expect(implementation.__getAvailable()).toBeUndefined();
 		expect(implementation.isAvailable()).toBe(false);
 	});
 
 	it(`returns cached availability when false`, () => {
 		// Even if setItem works, it still returns false from cache
-		implementation.available = false;
+		implementation.__setAvailable(false);
 		expect(implementation.isAvailable()).toBe(false);
 	});
 
 	it(`returns cached availability, even if broken`, () => {
 		// Here setItem is explicitly broken but it still uses the cached true value
-		implementation.available = true;
+		implementation.__setAvailable(true);
 		setSpy.mockImplementation(undefined);
 		expect(implementation.isAvailable()).toBe(true);
 	});
