@@ -12,8 +12,8 @@ class Storage {
 	private storage: globalThis.Storage;
 	private available: boolean | undefined;
 
-	constructor(type: 'sessionStorage' | 'localStorage') {
-		this.storage = window[type];
+	constructor(storage: globalThis.Storage) {
+		this.storage = storage;
 	}
 
 	/**
@@ -97,9 +97,17 @@ class Storage {
 	remove(key: string): void {
 		if (this.isAvailable()) return this.storage.removeItem(key);
 	}
+
+	// just used in tests
+	__setAvailable(available: boolean | undefined) {
+		this.available = available;
+	}
+	__getAvailable() {
+		return this.available;
+	}
 }
 
 export const storage = {
-	local: new Storage('localStorage'),
-	session: new Storage('sessionStorage'),
+	local: new Storage(window.localStorage),
+	session: new Storage(window.sessionStorage),
 };
