@@ -98,10 +98,18 @@ class Storage {
 		if (this.isAvailable()) return this.storage.removeItem(key);
 	}
 
-	// just used in tests
+	/**
+	 * @ignore
+	 * just for tests
+	 */
 	__setAvailable(available: boolean | undefined) {
 		this.available = available;
 	}
+
+	/**
+	 * @ignore
+	 * just for tests
+	 */
 	__getAvailable() {
 		return this.available;
 	}
