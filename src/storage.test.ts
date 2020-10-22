@@ -40,14 +40,10 @@ describe.each([
 	});
 
 	it(`returns cached availability, even if broken`, () => {
-		const origStorage = native;
-
 		// Here setItem is explicitly broken but it still uses the cached true value
 		implementation.available = true;
 		setSpy.mockImplementation(undefined);
 		expect(implementation.isAvailable()).toBe(true);
-
-		native = origStorage;
 	});
 
 	it(`handles strings`, () => {
