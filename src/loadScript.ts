@@ -19,7 +19,9 @@ export const loadScript = (
 		script.src = src;
 
 		// dont inject 2 scripts with the same src
-		if (Array.from(document.scripts).some(({ src }) => script.src === src)) {
+		if (
+			Array.from(document.scripts).some(({ src }) => script.src === src)
+		) {
 			return resolve();
 		}
 
@@ -33,4 +35,3 @@ export const loadScript = (
 		const ref = document.scripts[0];
 		ref.parentNode?.insertBefore(script, ref);
 	});
-
