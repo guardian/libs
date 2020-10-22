@@ -121,18 +121,6 @@ const testStorage = (
 		expect(engine.get('iAmNotExpired')).toBeTruthy();
 	});
 
-	it(`${storageName} - getRaw() returns the unparsed string`, () => {
-		const myString = 'a dog sat on a mat';
-		// storage.setItem just sets the string
-		engine.storage.setItem('aString', myString);
-		expect(engine.getRaw('aString')).toBe(myString);
-		// engine.set is our function which sets the string inside an object
-		engine.set('setAsValue', myString);
-		expect(engine.getRaw('setAsValue')).toBe(
-			'{"value":"a dog sat on a mat"}',
-		);
-	});
-
 	it(`${storageName} - remove() deletes the entry`, () => {
 		engine.storage.setItem('deleteMe', 'please delete me');
 		expect(engine.storage.getItem('deleteMe')).toBeTruthy();
