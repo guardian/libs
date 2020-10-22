@@ -99,16 +99,14 @@ class Storage {
 	}
 
 	/**
-	 * @ignore
-	 * just for tests
+	 * @ignore just for tests
 	 */
 	__setAvailable(available: boolean | undefined) {
 		this.available = available;
 	}
 
 	/**
-	 * @ignore
-	 * just for tests
+	 * @ignore just for tests
 	 */
 	__getAvailable() {
 		return this.available;
