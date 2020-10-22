@@ -30,11 +30,11 @@ class Storage {
 			this.storage.setItem(uid, uid);
 
 			// ensure value we get is the one we set
-			const result = this.storage.getItem(uid) === uid;
+			const available = this.storage.getItem(uid) === uid;
 			this.storage.removeItem(uid);
 
-			// if we haven't failed by now, `result` is the last thing we need to check
-			this.available = result;
+			// if we haven't failed by now, it is `available`
+			this.available = available;
 		} catch (err) {
 			this.available = false;
 		}
