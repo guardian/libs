@@ -17,7 +17,7 @@ class Storage {
 	}
 
 	/**
-	 * Check whether storage type is available.
+	 * Check whether storage is available.
 	 */
 	isAvailable(): boolean {
 		if (this.available !== undefined) {
@@ -43,9 +43,9 @@ class Storage {
 	}
 
 	/**
-	 * Retrieve a value from the storage type.
+	 * Retrieve an item from storage.
 	 *
-	 * @param key - the name of the value
+	 * @param key - the name of the item
 	 */
 	get(key: string): unknown {
 		if (this.isAvailable()) {
@@ -72,9 +72,9 @@ class Storage {
 	}
 
 	/**
-	 * Save a value to the storage type.
+	 * Save a value to storage.
 	 *
-	 * @param key - the name of the value
+	 * @param key - the name of the item
 	 * @param value - the data to save
 	 * @param expires - optional date on which this data will expire
 	 */
@@ -90,9 +90,9 @@ class Storage {
 	}
 
 	/**
-	 * Remove an item from the storage type.
+	 * Remove an item from storage.
 	 *
-	 * @param key - the name of the value
+	 * @param key - the name of the item
 	 */
 	remove(key: string): void {
 		if (this.isAvailable()) return this.storage.removeItem(key);
