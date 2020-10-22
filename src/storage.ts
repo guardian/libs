@@ -20,7 +20,7 @@ class Storage {
 	 * Check whether storage is available.
 	 */
 	isAvailable(): boolean {
-		if (this.available !== undefined) {
+		if (typeof this.available !== 'undefined') {
 			return this.available;
 		}
 
