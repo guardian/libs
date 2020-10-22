@@ -98,7 +98,7 @@ describe.each([
 		expect(implementation.get('')).toEqual('I have no name');
 	});
 
-	it(`get() with expired item`, () => {
+	it(`does not return an expired item`, () => {
 		implementation.set('iAmExpired', 'data', new Date('1901-01-01'));
 		expect(implementation.get('iAmExpired')).toBeNull();
 
@@ -106,12 +106,12 @@ describe.each([
 		expect(native.getItem('iAmExpired')).toBeNull();
 	});
 
-	it(`get() with non-expired item`, () => {
+	it(`returns a non-expired item`, () => {
 		implementation.set('iAmNotExpired', 'data', new Date('2040-01-01'));
 		expect(implementation.get('iAmNotExpired')).toBeTruthy();
 	});
 
-	it(`remove() deletes the entry`, () => {
+	it(`deletes the entry`, () => {
 		native.setItem('deleteMe', 'please delete me');
 		expect(native.getItem('deleteMe')).toBeTruthy();
 
