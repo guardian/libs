@@ -1,35 +1,40 @@
 /**
  * Manages using `localStorage` and `sessionStorage`.
  *
- * Advantages:
+ * Has a few advantages over the native API, including
+ * - failing gracefully if storage is not available
+ * - you can save and retrieve any JSONable data
  *
- * - fails gracefully is storage is not available
- * - provides `isAvailable` if you want to manually check
- * - `set` accepts a 3rd argument for an expiry date
- *
+ * All methods are available for both `localStorage` and `sessionStorage`.
  */
 
 class Storage {
-	storage: globalThis.Storage;
-	available: boolean | undefined;
+	private storage: globalThis.Storage;
+	private available: boolean | undefined;
 
 	constructor(type: 'sessionStorage' | 'localStorage') {
 		this.storage = window[type];
 	}
 
+	/**
+	 * Check whether storage type is available.
+	 */
 	isAvailable(): boolean {
-		const key = 'local-storage-test';
-
 		if (this.available !== undefined) {
 			return this.available;
 		}
 
 		try {
-			// to fully test, need to set item
-			// http://stackoverflow.com/questions/9077101/iphone-localstorage-quota-exceeded-err-issue#answer-12976988
-			this.storage.setItem(key, key);
-			this.storage.removeItem(key);
-			this.available = true;
+			// https://mathiasbynens.be/notes/localstorage-pattern
+			const uid = new Date().toString();
+			this.storage.setItem(uid, uid);
+
+			// ensure value we get is the one we set
+			const result = this.storage.getItem(uid) === uid;
+			this.storage.removeItem(uid);
+
+			// if we haven't failed by now, `result` is the last thing we need to check
+			this.available = result;
 		} catch (err) {
 			this.available = false;
 		}
@@ -37,28 +42,44 @@ class Storage {
 		return this.available;
 	}
 
+	/**
+	 * Retrieve a value from the storage type.
+	 *
+	 * @param key - the name of the value
+	 */
 	get(key: string): unknown {
-		try {
-			/* eslint-disable @typescript-eslint/no-unsafe-assignment --
+		if (this.isAvailable()) {
+			try {
+				/* eslint-disable @typescript-eslint/no-unsafe-assignment --
 				we're using the `try` to handle anything bad happening */
-			const { value, expires } = JSON.parse(
-				this.storage.getItem(key) ?? '',
-			);
-			/* eslint-enable @typescript-eslint/no-unsafe-assignment */
+				const { value, expires } = JSON.parse(
+					this.storage.getItem(key) ?? '',
+				);
+				/* eslint-enable @typescript-eslint/no-unsafe-assignment */
 
-			if (expires && new Date() > new Date(expires)) {
-				this.remove(key);
+				// is this item has passed its sell-by-date,
+				// remove it and return null
+				if (expires && new Date() > new Date(expires)) {
+					this.remove(key);
+					return null;
+				}
+
+				return value;
+			} catch (e) {
 				return null;
 			}
-
-			return value;
-		} catch (e) {
-			return null;
 		}
 	}
 
+	/**
+	 * Save a value to the storage type.
+	 *
+	 * @param key - the name of the value
+	 * @param value - the data to save
+	 * @param expires - optional date on which this data will expire
+	 */
 	set(key: string, value: unknown, expires?: string | number | Date): void {
-		try {
+		if (this.isAvailable())
 			return this.storage.setItem(
 				key,
 				JSON.stringify({
@@ -66,17 +87,15 @@ class Storage {
 					expires,
 				}),
 			);
-		} catch (e) {
-			// do nothing
-		}
 	}
 
+	/**
+	 * Remove an item from the storage type.
+	 *
+	 * @param key - the name of the value
+	 */
 	remove(key: string): void {
-		try {
-			return this.storage.removeItem(key);
-		} catch (e) {
-			// do nothing
-		}
+		if (this.isAvailable()) return this.storage.removeItem(key);
 	}
 }
 
