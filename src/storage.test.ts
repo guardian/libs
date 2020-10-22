@@ -116,6 +116,6 @@ describe.each([
 		expect(native.getItem('deleteMe')).toBeTruthy();
 
 		implementation.remove('deleteMe');
-		expect(native.getItem('deleteMe')).toBeFalsy();
+		expect(native.getItem('deleteMe')).toBeNull();
 	});
 });
