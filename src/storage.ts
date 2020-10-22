@@ -1,3 +1,14 @@
+/**
+ * Manages using `localStorage` and `sessionStorage`.
+ *
+ * Advantages:
+ *
+ * - fails gracefully is storage is not available
+ * - provides `isAvailable` if you want to manually check
+ * - `set` accepts a 3rd argument for an expiry date
+ *
+ */
+
 class Storage {
 	storage: globalThis.Storage;
 	available: boolean | undefined;
@@ -16,7 +27,7 @@ class Storage {
 		try {
 			// to fully test, need to set item
 			// http://stackoverflow.com/questions/9077101/iphone-localstorage-quota-exceeded-err-issue#answer-12976988
-			this.storage.setItem(key, 'graun');
+			this.storage.setItem(key, key);
 			this.storage.removeItem(key);
 			this.available = true;
 		} catch (err) {
@@ -26,32 +37,19 @@ class Storage {
 		return this.available;
 	}
 
-	getRaw(key: string): string | null {
-		try {
-			return this.storage.getItem(key);
-		} catch (e) {
-			return null;
-		}
-	}
-
 	get(key: string): unknown {
 		try {
 			/* eslint-disable @typescript-eslint/no-unsafe-assignment --
-				- we're using the `try` to handle anything bad
-			*/
-
-			const { value, expires } = JSON.parse(this.getRaw(key) ?? '');
-
-			if (value === null) {
-				return null;
-			}
+				we're using the `try` to handle anything bad happening */
+			const { value, expires } = JSON.parse(
+				this.storage.getItem(key) ?? '',
+			);
+			/* eslint-enable @typescript-eslint/no-unsafe-assignment */
 
 			if (expires && new Date() > new Date(expires)) {
 				this.remove(key);
 				return null;
 			}
-
-			/* eslint-enable @typescript-eslint/no-unsafe-assignment */
 
 			return value;
 		} catch (e) {
