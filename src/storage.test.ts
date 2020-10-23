@@ -27,17 +27,23 @@ describe.each([
 		setSpy.mockRestore();
 	});
 
-	it(`detects availability`, () => {
+	it(`detects native API availability`, async () => {
 		expect(implementation.isAvailable()).toBe(true);
+
+		setSpy.mockImplementation(functionThatThrowsAnError);
+		getSpy.mockImplementation(functionThatThrowsAnError);
+
+		// re-import now we've disabled native storage API
+		const { storage } = await import('./storage');
+		expect(storage[name].isAvailable()).toBe(false);
 	});
 
 	it(`is not available if getItem does not return what you setItem`, async () => {
 		getSpy.mockImplementation(() => '🚫');
 
-		// re-import now we've disabled native storage API
-		const { storage: freshStorage } = await import('./storage');
-
-		expect(freshStorage[name].isAvailable()).toBe(false);
+		// re-import now we've fiddled with the native storage API
+		const { storage } = await import('./storage');
+		expect(storage[name].isAvailable()).toBe(false);
 	});
 
 	it(`behaves nicely when storage is not available`, async () => {
@@ -45,21 +51,13 @@ describe.each([
 		getSpy.mockImplementation(functionThatThrowsAnError);
 
 		// re-import now we've disabled native storage API
-		const { storage: freshStorage } = await import('./storage');
-
-		expect(freshStorage[name].isAvailable()).toBe(false);
-		expect(() =>
-			freshStorage[name].set('goodluckwiththis', true),
-		).not.toThrowError();
-		expect(() =>
-			freshStorage[name].get('goodluckwiththis'),
-		).not.toThrowError();
-		expect(() =>
-			freshStorage[name].remove('goodluckwiththis'),
-		).not.toThrowError();
+		const { storage } = await import('./storage');
+		expect(() => storage[name].set('🚫', true)).not.toThrowError();
+		expect(() => storage[name].get('🚫')).not.toThrowError();
+		expect(() => storage[name].remove('🚫')).not.toThrowError();
 	});
 
-	it(`handles strings`, () => {
+	it(`stores and retrieves strings`, () => {
 		const myString = 'a dog sat on a mat';
 		implementation.set('aString', myString);
 
@@ -70,21 +68,21 @@ describe.each([
 		expect(implementation.get('aString')).toEqual(myString);
 	});
 
-	it(`handles objects`, () => {
+	it(`stores and retrieves objects`, () => {
 		const myObject = { foo: 'bar' };
 		implementation.set('anObject', myObject);
 		expect(native.getItem('anObject')).toBe('{"value":{"foo":"bar"}}');
 		expect(implementation.get('anObject')).toEqual(myObject);
 	});
 
-	it(`handles arrays`, () => {
+	it(`stores and retrieves arrays`, () => {
 		const myArray = [true, 2, 'bar'];
 		implementation.set('anArray', myArray);
 		expect(native.getItem('anArray')).toBe('{"value":[true,2,"bar"]}');
 		expect(implementation.get('anArray')).toEqual(myArray);
 	});
 
-	it(`handles booleans`, () => {
+	it(`stores and retrieves booleans`, () => {
 		implementation.set('iAmFalse', false);
 		implementation.set('iAmTrue', true);
 		expect(native.getItem('iAmFalse')).toBe('{"value":false}');
@@ -93,19 +91,19 @@ describe.each([
 		expect(implementation.get('iAmTrue')).toEqual(true);
 	});
 
-	it(`handles empty strings`, () => {
+	it(`stores and retrieves empty strings`, () => {
 		implementation.set('emptyString', '');
 		expect(native.getItem('emptyString')).toBe('{"value":""}');
 		expect(implementation.get('emptyString')).toEqual('');
 	});
 
-	it(`handles null`, () => {
+	it(`stores and retrieves null`, () => {
 		implementation.set('nullValue', null);
 		expect(native.getItem('nullValue')).toBe('{"value":null}');
 		expect(implementation.get('nullValue')).toEqual(null);
 	});
 
-	it(`handles empty key values`, () => {
+	it(`stores and retrieves empty key values`, () => {
 		implementation.set('', 'I have no name');
 		expect(native.getItem('')).toBe('{"value":"I have no name"}');
 		expect(implementation.get('')).toEqual('I have no name');
@@ -128,7 +126,7 @@ describe.each([
 		expect(implementation.get('iAmNotExpired')).toBeTruthy();
 	});
 
-	it(`deletes the entry`, () => {
+	it(`deletes items`, () => {
 		native.setItem('deleteMe', 'please delete me');
 		expect(native.getItem('deleteMe')).toBeTruthy();
 
