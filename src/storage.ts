@@ -8,6 +8,8 @@
  * All methods are available for both `localStorage` and `sessionStorage`.
  */
 
+import { lazyProp } from './lazyProp';
+
 class Storage {
 	private storage: globalThis.Storage | undefined;
 
@@ -95,7 +97,12 @@ class Storage {
 	}
 }
 
-export const storage = {
-	local: new Storage(window.localStorage),
-	session: new Storage(window.sessionStorage),
+const storage = {} as {
+	local: Storage;
+	session: Storage;
 };
+
+lazyProp(storage, 'local', () => new Storage(window.localStorage));
+lazyProp(storage, 'session', () => new Storage(window.sessionStorage));
+
+export { storage };
