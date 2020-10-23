@@ -27,11 +27,20 @@ describe.each([
 		setSpy.mockRestore();
 	});
 
-	it(`sets availability if it isn't defined`, () => {
+	it(`detects availability`, () => {
 		expect(implementation.isAvailable()).toBe(true);
 	});
 
-	it(`returns false for availability when there is an error`, async () => {
+	it(`is not available if getItem does not return what you setItem`, async () => {
+		getSpy.mockImplementation(() => '🚫');
+
+		// re-import now we've disabled native storage API
+		const { storage: freshStorage } = await import('./storage');
+
+		expect(freshStorage[name].isAvailable()).toBe(false);
+	});
+
+	it(`behaves nicely when storage is not available`, async () => {
 		setSpy.mockImplementation(functionThatThrowsAnError);
 		getSpy.mockImplementation(functionThatThrowsAnError);
 
@@ -39,6 +48,15 @@ describe.each([
 		const { storage: freshStorage } = await import('./storage');
 
 		expect(freshStorage[name].isAvailable()).toBe(false);
+		expect(() =>
+			freshStorage[name].set('goodluckwiththis', true),
+		).not.toThrowError();
+		expect(() =>
+			freshStorage[name].get('goodluckwiththis'),
+		).not.toThrowError();
+		expect(() =>
+			freshStorage[name].remove('goodluckwiththis'),
+		).not.toThrowError();
 	});
 
 	it(`handles strings`, () => {
@@ -91,6 +109,10 @@ describe.each([
 		implementation.set('', 'I have no name');
 		expect(native.getItem('')).toBe('{"value":"I have no name"}');
 		expect(implementation.get('')).toEqual('I have no name');
+	});
+
+	it(`does not return a non-existing item`, () => {
+		expect(implementation.get('thisDoesNotExist')).toBeNull();
 	});
 
 	it(`does not return an expired item`, () => {
