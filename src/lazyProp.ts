@@ -1,5 +1,5 @@
 /**
- * Lazily initializes an object's property when it's first accessed.
+ * Lazily initialises a property on an object when the property is first accessed.
  * https://davidwalsh.name/lazy-object-initialization
  */
 
@@ -14,13 +14,10 @@ export const lazyProp: LazyProp = (hostObj, name, initializer) => {
 
 	Object.defineProperty(hostObj, name, {
 		get: function () {
-			// If not already defined, define it by executing
-			// its initializer and setting it as value
+			// If property has not been defined, we're going to do it now
 			if (!defined) {
-				defined = true;
-
-				// Overrides the original property definition
-				// which is the initializer
+				// Define the property by assigning the return value of
+				// the initialiser to the property
 				Object.defineProperty(hostObj, name, {
 					configurable: true,
 					enumerable: true,
@@ -28,6 +25,10 @@ export const lazyProp: LazyProp = (hostObj, name, initializer) => {
 					writable: true,
 				});
 
+				// don't do all this more than once
+				defined = true;
+
+				// return the value, since that's what we wanted in the first place
 				return hostObj[name];
 			}
 		},
