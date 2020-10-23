@@ -9,37 +9,30 @@
  */
 
 class Storage {
-	private storage: globalThis.Storage;
-	private available: boolean | undefined;
+	private storage: globalThis.Storage | undefined;
 
 	constructor(storage: globalThis.Storage) {
-		this.storage = storage;
+		// Inspired by https://mathiasbynens.be/notes/localstorage-pattern
+		try {
+			const uid = new Date().toString();
+			storage.setItem(uid, uid);
+
+			// ensure value we get is the one we set
+			const available = storage.getItem(uid) == uid;
+			storage.removeItem(uid);
+
+			// if we haven't failed by now, it is `available`
+			if (available) this.storage = storage;
+		} catch (e) {
+			// do nothing
+		}
 	}
 
 	/**
 	 * Check whether storage is available.
 	 */
 	isAvailable(): boolean {
-		if (typeof this.available !== 'undefined') {
-			return this.available;
-		}
-
-		try {
-			// https://mathiasbynens.be/notes/localstorage-pattern
-			const uid = new Date().toString();
-			this.storage.setItem(uid, uid);
-
-			// ensure value we get is the one we set
-			const available = this.storage.getItem(uid) === uid;
-			this.storage.removeItem(uid);
-
-			// if we haven't failed by now, it is `available`
-			this.available = available;
-		} catch (err) {
-			this.available = false;
-		}
-
-		return this.available;
+		return typeof this.storage !== 'undefined';
 	}
 
 	/**
@@ -48,7 +41,7 @@ class Storage {
 	 * @param key - the name of the item
 	 */
 	get(key: string): unknown {
-		if (this.isAvailable()) {
+		if (this.storage) {
 			try {
 				/* eslint-disable @typescript-eslint/no-unsafe-assignment --
 				we're using the `try` to handle anything bad happening */
@@ -79,7 +72,7 @@ class Storage {
 	 * @param expires - optional date on which this data will expire
 	 */
 	set(key: string, value: unknown, expires?: string | number | Date): void {
-		if (this.isAvailable()) {
+		if (this.storage) {
 			return this.storage.setItem(
 				key,
 				JSON.stringify({
@@ -96,23 +89,9 @@ class Storage {
 	 * @param key - the name of the item
 	 */
 	remove(key: string): void {
-		if (this.isAvailable()) {
+		if (this.storage) {
 			return this.storage.removeItem(key);
 		}
-	}
-
-	/**
-	 * @ignore just for tests
-	 */
-	__setAvailable(available: boolean | undefined) {
-		this.available = available;
-	}
-
-	/**
-	 * @ignore just for tests
-	 */
-	__getAvailable() {
-		return this.available;
 	}
 }
 

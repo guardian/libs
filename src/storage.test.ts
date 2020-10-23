@@ -14,9 +14,8 @@ describe.each([
 	beforeEach(() => {
 		getSpy = jest.spyOn(native.__proto__, 'getItem');
 		setSpy = jest.spyOn(native.__proto__, 'setItem');
-
+		jest.resetModules();
 		native.clear();
-		implementation.__setAvailable(undefined);
 	});
 
 	afterEach(() => {
@@ -25,29 +24,15 @@ describe.each([
 	});
 
 	it(`sets availability if it isn't defined`, () => {
-		expect(implementation.__getAvailable()).toBeUndefined();
 		expect(implementation.isAvailable()).toBe(true);
 	});
 
-	it(`returns false for availability when there is an error`, () => {
+	it(`returns false for availability when there is an error`, async () => {
 		setSpy.mockImplementation(functionThatThrowsAnError);
 		getSpy.mockImplementation(functionThatThrowsAnError);
 
-		expect(implementation.__getAvailable()).toBeUndefined();
-		expect(implementation.isAvailable()).toBe(false);
-	});
-
-	it(`returns cached availability when false`, () => {
-		// Even if setItem works, it still returns false from cache
-		implementation.__setAvailable(false);
-		expect(implementation.isAvailable()).toBe(false);
-	});
-
-	it(`returns cached availability, even if broken`, () => {
-		// Here setItem is explicitly broken but it still uses the cached true value
-		implementation.__setAvailable(true);
-		setSpy.mockImplementation(functionThatThrowsAnError);
-		expect(implementation.isAvailable()).toBe(true);
+		const { storage: freshStorage } = await import('./storage');
+		expect(freshStorage[title].isAvailable()).toBe(false);
 	});
 
 	it(`handles strings`, () => {
