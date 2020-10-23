@@ -1,11 +1,15 @@
 import { lazyProp } from './lazyProp';
 
-const x: Record<string, unknown> = {};
+const a: Record<string, unknown> = {};
 
 describe('loadScript', () => {
 	it('sets a property', () => {
-		expect(x.p).toBeUndefined();
-		lazyProp(x, 'p', () => 'hi');
-		expect(x.p).toBe('hi');
+		expect(a.b).toBeUndefined();
+
+		lazyProp(a, 'b', () => 'b');
+		expect(a.b).toBe('b');
+
+		a.b = 'B,B,B,B,B,B,B,B,B,B,B';
+		expect(a.b).toBe('B,B,B,B,B,B,B,B,B,B,B');
 	});
 });
