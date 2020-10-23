@@ -4,10 +4,14 @@ function functionThatThrowsAnError() {
 	throw new Error('bang');
 }
 
+type StorageName = 'local' | 'session';
+const LOCAL: StorageName = 'local';
+const SESSION: StorageName = 'session';
+
 describe.each([
-	['local', storage.local, global.localStorage],
-	['session', storage.session, global.sessionStorage],
-])('storage.%s', (title, implementation, native) => {
+	[LOCAL, storage[LOCAL], global.localStorage],
+	[SESSION, storage[SESSION], global.sessionStorage],
+])('storage.%s', (name, implementation, native) => {
 	let getSpy: jest.SpyInstance;
 	let setSpy: jest.SpyInstance;
 
@@ -31,8 +35,10 @@ describe.each([
 		setSpy.mockImplementation(functionThatThrowsAnError);
 		getSpy.mockImplementation(functionThatThrowsAnError);
 
+		// re-import now we've disabled native storage API
 		const { storage: freshStorage } = await import('./storage');
-		expect(freshStorage[title].isAvailable()).toBe(false);
+
+		expect(freshStorage[name].isAvailable()).toBe(false);
 	});
 
 	it(`handles strings`, () => {
