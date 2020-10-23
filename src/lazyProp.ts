@@ -6,10 +6,10 @@
 export type LazyProp = (
 	hostObj: Record<string, unknown>,
 	name: string,
-	initializer: () => unknown,
+	initialiser: () => unknown,
 ) => void;
 
-export const lazyProp: LazyProp = (hostObj, name, initializer) => {
+export const lazyProp: LazyProp = (hostObj, name, initialiser) => {
 	let defined = false;
 
 	Object.defineProperty(hostObj, name, {
@@ -21,7 +21,7 @@ export const lazyProp: LazyProp = (hostObj, name, initializer) => {
 				Object.defineProperty(hostObj, name, {
 					configurable: true,
 					enumerable: true,
-					value: initializer.apply(hostObj),
+					value: initialiser.apply(hostObj),
 					writable: true,
 				});
 
