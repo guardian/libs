@@ -20,7 +20,7 @@ class Storage {
 			storage.setItem(uid, uid);
 
 			// ensure value we get is the one we set
-			const available = storage.getItem(uid) == uid;
+			const available = storage.getItem(uid) === uid;
 			storage.removeItem(uid);
 
 			// if we haven't failed by now, it is `available`
