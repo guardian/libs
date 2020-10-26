@@ -1,6 +1,13 @@
 /**
  * Lazily initialises a property on an object when the property is first accessed.
  * Based on https://davidwalsh.name/lazy-object-initialization
+ *
+ * ```
+ * const x = { a: 'a' };
+ * lazyProp(x, 'b', anExpensiveCalculation)
+ * // x.b is undefined until it's accessed, like a cat in a box
+ * alert(x.b) // anExpensiveCalculation runs and x.b has the value it returns
+ * ```
  */
 
 export type LazyProp = (
