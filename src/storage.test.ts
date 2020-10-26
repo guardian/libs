@@ -55,58 +55,22 @@ describe.each([
 		expect(() => storage[name].set('🚫', true)).not.toThrowError();
 		expect(() => storage[name].get('🚫')).not.toThrowError();
 		expect(() => storage[name].remove('🚫')).not.toThrowError();
+		expect(() => storage[name].getRaw('🚫')).not.toThrowError();
+		expect(() => storage[name].setRaw('🚫', '')).not.toThrowError();
 	});
 
-	it(`stores and retrieves strings`, () => {
-		const myString = 'a dog sat on a mat';
-		implementation.set('aString', myString);
-
-		expect(native.getItem('aString')).toBe(
-			'{"value":"a dog sat on a mat"}',
-		);
-
-		expect(implementation.get('aString')).toEqual(myString);
-	});
-
-	it(`stores and retrieves objects`, () => {
-		const myObject = { foo: 'bar' };
-		implementation.set('anObject', myObject);
-		expect(native.getItem('anObject')).toBe('{"value":{"foo":"bar"}}');
-		expect(implementation.get('anObject')).toEqual(myObject);
-	});
-
-	it(`stores and retrieves arrays`, () => {
-		const myArray = [true, 2, 'bar'];
-		implementation.set('anArray', myArray);
-		expect(native.getItem('anArray')).toBe('{"value":[true,2,"bar"]}');
-		expect(implementation.get('anArray')).toEqual(myArray);
-	});
-
-	it(`stores and retrieves booleans`, () => {
-		implementation.set('iAmFalse', false);
-		implementation.set('iAmTrue', true);
-		expect(native.getItem('iAmFalse')).toBe('{"value":false}');
-		expect(native.getItem('iAmTrue')).toBe('{"value":true}');
-		expect(implementation.get('iAmFalse')).toEqual(false);
-		expect(implementation.get('iAmTrue')).toEqual(true);
-	});
-
-	it(`stores and retrieves empty strings`, () => {
-		implementation.set('emptyString', '');
-		expect(native.getItem('emptyString')).toBe('{"value":""}');
-		expect(implementation.get('emptyString')).toEqual('');
-	});
-
-	it(`stores and retrieves null`, () => {
-		implementation.set('nullValue', null);
-		expect(native.getItem('nullValue')).toBe('{"value":null}');
-		expect(implementation.get('nullValue')).toEqual(null);
-	});
-
-	it(`stores and retrieves empty key values`, () => {
-		implementation.set('', 'I have no name');
-		expect(native.getItem('')).toBe('{"value":"I have no name"}');
-		expect(implementation.get('')).toEqual('I have no name');
+	it.each([
+		['strings', 'a string'],
+		['empty strings', ''],
+		['objects', { foo: 'bar' }],
+		['arrays', [true, 2, 'bar']],
+		['true booleans', true],
+		['false booleans', false],
+		['null', null],
+	])('stores and retrieves %s', (type, data) => {
+		implementation.set(type, data);
+		expect(native.getItem(type)).toBe(`{"value":${JSON.stringify(data)}}`);
+		expect(implementation.get(type)).toEqual(data);
 	});
 
 	it(`does not return a non-existing item`, () => {
@@ -132,5 +96,23 @@ describe.each([
 
 		implementation.remove('deleteMe');
 		expect(native.getItem('deleteMe')).toBeNull();
+	});
+
+	it(`gets items in the raw`, async () => {
+		native.setItem('raw item', '🦁');
+		expect(implementation.getRaw('raw item')).toBe('🦁');
+		expect(implementation.get('raw item')).toBeNull();
+
+		setSpy.mockImplementation(functionThatThrowsAnError);
+		getSpy.mockImplementation(functionThatThrowsAnError);
+
+		// re-import now we've disabled native storage API
+		const { storage } = await import('./storage');
+		expect(storage[name].getRaw('raw item')).toBeNull();
+	});
+
+	it(`sets items in the raw`, () => {
+		implementation.setRaw('raw item', '🦁');
+		expect(native.getItem('raw item')).toBe('🦁');
 	});
 });
