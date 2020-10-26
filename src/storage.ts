@@ -8,33 +8,34 @@
  * All methods are available for both `localStorage` and `sessionStorage`.
  */
 
-import { lazyProp } from './lazyProp';
-
 class Storage {
-	private storage: globalThis.Storage | undefined;
+	private __storage: globalThis.Storage;
+	private __available: boolean | undefined;
 
 	constructor(storage: globalThis.Storage) {
-		// Inspired by https://mathiasbynens.be/notes/localstorage-pattern
-		try {
-			const uid = new Date().toString();
-			storage.setItem(uid, uid);
-
-			// ensure value we get is the one we set
-			const available = storage.getItem(uid) === uid;
-			storage.removeItem(uid);
-
-			// if we haven't failed by now, it is `available`
-			if (available) this.storage = storage;
-		} catch (e) {
-			// do nothing
-		}
+		this.__storage = storage;
 	}
 
 	/**
 	 * Check whether storage is available.
 	 */
 	isAvailable(): boolean {
-		return typeof this.storage !== 'undefined';
+		if (typeof this.__available !== 'undefined') return this.__available;
+
+		// Inspired by https://mathiasbynens.be/notes/localstorage-pattern
+		try {
+			const uid = new Date().toString();
+			this.__storage.setItem(uid, uid);
+
+			// ensure value we get is the one we set
+			const available = this.__storage.getItem(uid) === uid;
+			this.__storage.removeItem(uid);
+
+			// if we haven't failed by now, it is `available`
+			return (this.__available = available);
+		} catch (e) {
+			return false;
+		}
 	}
 
 	/**
@@ -43,12 +44,12 @@ class Storage {
 	 * @param key - the name of the item
 	 */
 	get(key: string): unknown {
-		if (this.storage) {
+		if (this.isAvailable()) {
 			try {
 				/* eslint-disable @typescript-eslint/no-unsafe-assignment --
 				we're using the `try` to handle anything bad happening */
 				const { value, expires } = JSON.parse(
-					this.storage.getItem(key) ?? '',
+					this.__storage.getItem(key) ?? '',
 				);
 				/* eslint-enable @typescript-eslint/no-unsafe-assignment */
 
@@ -74,8 +75,8 @@ class Storage {
 	 * @param expires - optional date on which this data will expire
 	 */
 	set(key: string, value: unknown, expires?: string | number | Date): void {
-		if (this.storage) {
-			return this.storage.setItem(
+		if (this.isAvailable()) {
+			return this.__storage.setItem(
 				key,
 				JSON.stringify({
 					value,
@@ -91,18 +92,13 @@ class Storage {
 	 * @param key - the name of the item
 	 */
 	remove(key: string): void {
-		if (this.storage) {
-			return this.storage.removeItem(key);
+		if (this.isAvailable()) {
+			return this.__storage.removeItem(key);
 		}
 	}
 }
 
-const storage = {} as {
-	local: Storage;
-	session: Storage;
+export const storage = {
+	local: new Storage(window.localStorage),
+	session: new Storage(window.sessionStorage),
 };
-
-lazyProp(storage, 'local', () => new Storage(window.localStorage));
-lazyProp(storage, 'session', () => new Storage(window.sessionStorage));
-
-export { storage };
