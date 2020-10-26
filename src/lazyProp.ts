@@ -13,15 +13,15 @@
 export type LazyProp = (
 	object: Record<string, unknown>,
 	name: string,
-	initialiser: () => unknown,
+	getValue: () => unknown,
 ) => void;
 
-export const lazyProp: LazyProp = (object, name, initialiser) => {
+export const lazyProp: LazyProp = (object, name, getValue) => {
 	Object.defineProperty(object, name, {
 		configurable: true,
 		enumerable: true,
 		get: function () {
-			const value = initialiser.apply(this);
+			const value = getValue.apply(this);
 			Object.defineProperty(this, name, {
 				configurable: true,
 				enumerable: true,
