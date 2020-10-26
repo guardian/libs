@@ -96,6 +96,30 @@ class Storage {
 			return this.__storage.removeItem(key);
 		}
 	}
+
+	/**
+	 * Retrieve an item from storage in its raw state.
+	 *
+	 * @param key - the name of the item
+	 */
+	getRaw(key: string): string | null {
+		if (this.isAvailable()) {
+			return this.__storage.getItem(key);
+		}
+		return null;
+	}
+
+	/**
+	 * Save a raw value to storage.
+	 *
+	 * @param key - the name of the item
+	 * @param value - the data to save
+	 */
+	setRaw(key: string, value: string): void {
+		if (this.isAvailable()) {
+			return this.__storage.setItem(key, value);
+		}
+	}
 }
 
 export const storage = {
