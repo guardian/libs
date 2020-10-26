@@ -98,6 +98,15 @@ class Storage {
 	}
 
 	/**
+	 * Removes all items from storage.
+	 */
+	clear(): void {
+		if (this.isAvailable()) {
+			return this.__storage.clear();
+		}
+	}
+
+	/**
 	 * Retrieve an item from storage in its raw state.
 	 *
 	 * @param key - the name of the item

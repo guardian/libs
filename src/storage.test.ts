@@ -57,6 +57,7 @@ describe.each([
 		expect(() => storage[name].remove('🚫')).not.toThrowError();
 		expect(() => storage[name].getRaw('🚫')).not.toThrowError();
 		expect(() => storage[name].setRaw('🚫', '')).not.toThrowError();
+		expect(() => storage[name].clear()).not.toThrowError();
 	});
 
 	it.each([
@@ -96,6 +97,16 @@ describe.each([
 
 		implementation.remove('deleteMe');
 		expect(native.getItem('deleteMe')).toBeNull();
+	});
+
+	it(`clears all items`, () => {
+		native.setItem('deleteMe', 'please delete me');
+		native.setItem('deleteMe2', 'please delete me too');
+
+		implementation.clear();
+
+		expect(native.getItem('deleteMe')).toBeNull();
+		expect(native.getItem('deleteMe2')).toBeNull();
 	});
 
 	it(`gets items in the raw`, async () => {
