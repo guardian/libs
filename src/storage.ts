@@ -1,41 +1,25 @@
-/**
- * Manages using `localStorage` and `sessionStorage`.
- *
- * Has a few advantages over the native API, including
- * - failing gracefully if storage is not available
- * - you can save and retrieve any JSONable data
- *
- * All methods are available for both `localStorage` and `sessionStorage`.
- */
+class StorageFactory {
+	#storage: Storage | undefined;
 
-class Storage {
-	private __storage: globalThis.Storage;
-	private __available: boolean | undefined;
+	constructor(storage: Storage) {
+		try {
+			const uid = new Date().toString();
+			storage.setItem(uid, uid);
 
-	constructor(storage: globalThis.Storage) {
-		this.__storage = storage;
+			const available = storage.getItem(uid) == uid;
+			storage.removeItem(uid);
+
+			if (available) this.#storage = storage;
+		} catch (e) {
+			// do nothing
+		}
 	}
 
 	/**
 	 * Check whether storage is available.
 	 */
 	isAvailable(): boolean {
-		if (typeof this.__available !== 'undefined') return this.__available;
-
-		// Inspired by https://mathiasbynens.be/notes/localstorage-pattern
-		try {
-			const uid = new Date().toString();
-			this.__storage.setItem(uid, uid);
-
-			// ensure value we get is the one we set
-			const available = this.__storage.getItem(uid) === uid;
-			this.__storage.removeItem(uid);
-
-			// if we haven't failed by now, it is `available`
-			return (this.__available = available);
-		} catch (e) {
-			return false;
-		}
+		return Boolean(this.#storage);
 	}
 
 	/* eslint-disable
@@ -52,22 +36,20 @@ class Storage {
 	 * @param key - the name of the item
 	 */
 	get(key: string): any {
-		if (this.isAvailable()) {
-			try {
-				const { value, expires } = JSON.parse(
-					this.__storage.getItem(key) ?? '',
-				);
+		try {
+			const { value, expires } = JSON.parse(
+				this.#storage?.getItem(key) ?? '',
+			);
 
-				// is this item has passed its sell-by-date, remove it
-				if (expires && new Date() > new Date(expires)) {
-					this.remove(key);
-					return null;
-				}
-
-				return value;
-			} catch (e) {
+			// is this item has passed its sell-by-date, remove it
+			if (expires && new Date() > new Date(expires)) {
+				this.remove(key);
 				return null;
 			}
+
+			return value;
+		} catch (e) {
+			return null;
 		}
 	}
 	/* eslint-enable
@@ -84,15 +66,13 @@ class Storage {
 	 * @param expires - optional date on which this data will expire
 	 */
 	set(key: string, value: unknown, expires?: string | number | Date): void {
-		if (this.isAvailable()) {
-			return this.__storage.setItem(
-				key,
-				JSON.stringify({
-					value,
-					expires,
-				}),
-			);
-		}
+		return this.#storage?.setItem(
+			key,
+			JSON.stringify({
+				value,
+				expires,
+			}),
+		);
 	}
 
 	/**
@@ -101,18 +81,14 @@ class Storage {
 	 * @param key - the name of the item
 	 */
 	remove(key: string): void {
-		if (this.isAvailable()) {
-			return this.__storage.removeItem(key);
-		}
+		return this.#storage?.removeItem(key);
 	}
 
 	/**
 	 * Removes all items from storage.
 	 */
 	clear(): void {
-		if (this.isAvailable()) {
-			return this.__storage.clear();
-		}
+		return this.#storage?.clear();
 	}
 
 	/**
@@ -121,10 +97,7 @@ class Storage {
 	 * @param key - the name of the item
 	 */
 	getRaw(key: string): string | null {
-		if (this.isAvailable()) {
-			return this.__storage.getItem(key);
-		}
-		return null;
+		return this.#storage?.getItem(key) ?? null;
 	}
 
 	/**
@@ -134,13 +107,32 @@ class Storage {
 	 * @param value - the data to save
 	 */
 	setRaw(key: string, value: string): void {
-		if (this.isAvailable()) {
-			return this.__storage.setItem(key, value);
-		}
+		return this.#storage?.setItem(key, value);
 	}
 }
 
-export const storage = {
-	local: new Storage(window.localStorage),
-	session: new Storage(window.sessionStorage),
-};
+/**
+ * Manages using `localStorage` and `sessionStorage`.
+ *
+ * Has a few advantages over the native API, including
+ * - failing gracefully if storage is not available
+ * - you can save and retrieve any JSONable data
+ *
+ * All methods are available for both `localStorage` and `sessionStorage`.
+ */
+export const storage = new (class {
+	#local: StorageFactory | undefined;
+	#session: StorageFactory | undefined;
+
+	// creating the instance requires testing the native implementation
+	// which is blocking. therefore, only create new instances of the factory
+	// when it's accessed i.e. we know we're going to use it
+
+	get local() {
+		return (this.#local ||= new StorageFactory(localStorage));
+	}
+
+	get session() {
+		return (this.#session ||= new StorageFactory(sessionStorage));
+	}
+})();
