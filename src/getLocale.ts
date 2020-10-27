@@ -24,15 +24,21 @@ export const getLocale = async (): Promise<CountryCode | null> => {
 	if (isValidCountryCode(stored)) return stored as CountryCode;
 
 	// use our API to get one
-	// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- it's json
-	const { country } = await fetch(URL).then((response) => response.json());
+	try {
+		// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- it's json
+		const { country } = await fetch(URL).then((response) =>
+			response.json(),
+		);
 
-	if (isValidCountryCode(country)) {
-		// save it for 10 days
-		storage.local.set(KEY, country, daysFromNow(10));
+		if (isValidCountryCode(country)) {
+			// save it for 10 days
+			storage.local.set(KEY, country, daysFromNow(10));
 
-		// return it
-		return country as CountryCode;
+			// return it
+			return country as CountryCode;
+		}
+	} catch (e) {
+		// do nothing
 	}
 
 	return null;

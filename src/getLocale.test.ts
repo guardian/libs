@@ -37,4 +37,11 @@ describe('getLocale', () => {
 		expect(locale).toBeNull();
 		expect(storage.local.get(KEY)).toBeNull();
 	});
+
+	it('ignores an error in the remote response', async () => {
+		fetchMock.mockResponseOnce('regregergreg');
+		const locale = await getLocale();
+		expect(locale).toBeNull();
+		expect(storage.local.get(KEY)).toBeNull();
+	});
 });
