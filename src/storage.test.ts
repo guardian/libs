@@ -53,6 +53,7 @@ describe.each([
 		// re-import now we've disabled native storage API
 		const { storage } = await import('./storage');
 		expect(() => storage[name].set('🚫', true)).not.toThrowError();
+		// eslint-disable-next-line @typescript-eslint/no-unsafe-return -- it's correct
 		expect(() => storage[name].get('🚫')).not.toThrowError();
 		expect(() => storage[name].remove('🚫')).not.toThrowError();
 		expect(() => storage[name].getRaw('🚫')).not.toThrowError();
