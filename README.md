@@ -1,7 +1,6 @@
 # Libs
 
 [![npm (scoped)](https://img.shields.io/npm/v/@guardian/libs)](https://www.npmjs.com/package/@guardian/libs)
-<!-- [![minzipped (scoped)](https://badgen.net/bundlephobia/minzip/@guardian/libs)](https://bundlephobia.com/result?p=@guardian/libs) fails currently -->
 [![ES version](https://badgen.net/badge/ES/2020/cyan)](https://tc39.es/ecma262/2020/)
 [![npm type definitions](https://img.shields.io/npm/types/@guardian/libs)](https://www.typescriptlang.org/)
 [![Coverage Status](https://coveralls.io/repos/github/guardian/libs/badge.svg)](https://coveralls.io/github/guardian/libs)
