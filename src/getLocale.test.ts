@@ -17,16 +17,24 @@ describe('getLocale', () => {
 		expect(locale).toBe('CY');
 	});
 
+	it('fetches the remote value is local is missing', async () => {
+		fetchMock.mockResponseOnce(JSON.stringify({ country: 'CZ' }));
+		const locale = await getLocale();
+		expect(locale).toBe('CZ');
+	});
+
 	it('ignores a stored invalid locale', async () => {
 		fetchMock.mockResponseOnce(JSON.stringify({ country: 'CZ' }));
 		storage.local.set(KEY, 'outerspace');
 		const locale = await getLocale();
 		expect(locale).toBe('CZ');
+		expect(storage.local.get(KEY)).toBe('CZ');
 	});
 
 	it('ignores an invalid remote response', async () => {
 		fetchMock.mockResponseOnce(JSON.stringify({ country: 'outerspace' }));
 		const locale = await getLocale();
 		expect(locale).toBeNull();
+		expect(storage.local.get(KEY)).toBeNull();
 	});
 });
