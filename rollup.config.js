@@ -35,7 +35,4 @@ export default {
 		terser(),
 		size(),
 	],
-	watch: {
-		clearScreen: false,
-	},
 };
