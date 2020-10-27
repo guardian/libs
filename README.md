@@ -1,5 +1,7 @@
 # Libs
 
+[![Coverage Status](https://coveralls.io/repos/github/guardian/libs/badge.svg)](https://coveralls.io/github/guardian/libs)
+
 > A collection of shared JavaScript libraries for use in Guardian projects
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
