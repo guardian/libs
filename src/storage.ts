@@ -38,23 +38,27 @@ class Storage {
 		}
 	}
 
+	/* eslint-disable
+		@typescript-eslint/no-unsafe-assignment,
+		@typescript-eslint/no-unsafe-return,
+		@typescript-eslint/no-explicit-any
+		--
+		- we're using the `try` to handle anything bad happening
+		- JSON.parse returns an `any`, we really are returning an `any`
+	*/
 	/**
 	 * Retrieve an item from storage.
 	 *
 	 * @param key - the name of the item
 	 */
-	get(key: string): unknown {
+	get(key: string): any {
 		if (this.isAvailable()) {
 			try {
-				/* eslint-disable @typescript-eslint/no-unsafe-assignment --
-				we're using the `try` to handle anything bad happening */
 				const { value, expires } = JSON.parse(
 					this.__storage.getItem(key) ?? '',
 				);
-				/* eslint-enable @typescript-eslint/no-unsafe-assignment */
 
-				// is this item has passed its sell-by-date,
-				// remove it and return null
+				// is this item has passed its sell-by-date, remove it
 				if (expires && new Date() > new Date(expires)) {
 					this.remove(key);
 					return null;
@@ -66,6 +70,11 @@ class Storage {
 			}
 		}
 	}
+	/* eslint-enable
+		@typescript-eslint/no-unsafe-assignment,
+		@typescript-eslint/no-unsafe-return,
+		@typescript-eslint/no-explicit-any
+	*/
 
 	/**
 	 * Save a value to storage.
