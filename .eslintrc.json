@@ -5,6 +5,15 @@
     "browser": true,
     "node": true
   },
-  "extends": ["@guardian/eslint-config-typescript"],
-  "ignorePatterns": ["dist", "coverage"]
+  "parserOptions": {
+    "sourceType": "module"
+  },
+  "extends": ["@guardian/eslint-config"],
+  "ignorePatterns": ["dist", "coverage"],
+  "overrides": [
+    {
+      "files": ["**/*.ts"],
+      "extends": ["@guardian/eslint-config-typescript"]
+    }
+  ]
 }

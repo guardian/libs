@@ -1,5 +1,4 @@
 /* eslint-disable
-	@typescript-eslint/no-unsafe-call,
 	import/no-default-export
 --
 rollup wants it

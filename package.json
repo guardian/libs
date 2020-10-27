@@ -37,6 +37,7 @@
     }
   },
   "devDependencies": {
+    "@guardian/eslint-config": "^0.4.0",
     "@guardian/eslint-config-typescript": "^0.4.1",
     "@guardian/prettier": "^0.4.1",
     "@rollup/plugin-typescript": "^6.1.0",
