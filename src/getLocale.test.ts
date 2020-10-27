@@ -1,0 +1,32 @@
+import fetchMock from 'jest-fetch-mock';
+import { getLocale } from './getLocale';
+import { storage } from './storage';
+
+const KEY = 'gu.geolocation';
+
+fetchMock.enableMocks();
+
+describe('getLocale', () => {
+	beforeEach(() => {
+		storage.local.clear();
+	});
+
+	it('gets a stored valid locale', async () => {
+		storage.local.set(KEY, 'CY');
+		const locale = await getLocale();
+		expect(locale).toBe('CY');
+	});
+
+	it('ignores a stored invalid locale', async () => {
+		fetchMock.mockResponseOnce(JSON.stringify({ country: 'CZ' }));
+		storage.local.set(KEY, 'outerspace');
+		const locale = await getLocale();
+		expect(locale).toBe('CZ');
+	});
+
+	it('ignores an invalid remote response', async () => {
+		fetchMock.mockResponseOnce(JSON.stringify({ country: 'outerspace' }));
+		const locale = await getLocale();
+		expect(locale).toBeNull();
+	});
+});
