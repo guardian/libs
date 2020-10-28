@@ -6,7 +6,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/guardian/libs/badge.svg)](https://coveralls.io/github/guardian/libs)
 [![gzip size](https://img.badgesize.io/https://unpkg.com/@guardian/libs/dist/umd/index.min.js?compression=gzip)](https://unpkg.com/@guardian/libs/dist/umd/index.min.js)
 
-> A collection of shared JavaScript libraries for use in Guardian projects
+> A collection of JavaScript libraries for Guardian projects
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
@@ -32,6 +32,15 @@ or
 
 ```bash
 npm install @guardian/libs
+```
+
+or
+
+```html
+<script src="https://unpkg.com/@guardian/libs"></script>
+<script>
+    // window.gu.libs = { loadScript, storage, etc }
+</script>
 ```
 
 ### Bundling
