@@ -11,11 +11,18 @@
 type TeamColors = Record<string, Record<string, string>>;
 
 const teamColors: TeamColors = {
+	common: {
+		background: '#052962',
+		font: 'white',
+	},
 	commercial: {
 		background: 'mediumseagreen',
 		font: 'darkgreen',
 	},
 };
+
+const style = (team: string): string =>
+	`background: ${teamColors[team].background}; color: ${teamColors[team].font}; padding: 2px; border-radius:3px`;
 
 // Only runs in dev environments
 export const debug = (team: string, ...args: unknown[]): void => {
@@ -27,11 +34,7 @@ export const debug = (team: string, ...args: unknown[]): void => {
 export const log = (team: string, ...args: unknown[]): void => {
 	// TODO add check for localStorage
 
-	console.log(
-		`%c@guardian%c %c${team}%c`,
-		'background: #052962; color: white; padding: 2px; border-radius:3px',
-		'',
-		`background: ${teamColors[team].background}; color: ${teamColors[team].font}; padding: 2px; border-radius:3px`,
-		args,
-	);
+	const styles = [style('common'), '', style(team)];
+
+	console.log(`%c@guardian%c %c${team}%c`, ...styles, ...args);
 };
