@@ -17,7 +17,14 @@ const teamColors: TeamColors = {
 	},
 };
 
-export const logger = (team: string, ...args: unknown[]): void => {
+// Only runs in dev environments
+export const debug = (team: string, ...args: unknown[]): void => {
+	const isDevEnv = window.location.host.endsWith('.dev-theguardian.com');
+	if (isDevEnv) log(team, ...args);
+};
+
+// Runs in all environments, if local storage values are set
+export const log = (team: string, ...args: unknown[]): void => {
 	// TODO add check for localStorage
 
 	console.log(
