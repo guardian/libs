@@ -34,6 +34,15 @@ or
 npm install @guardian/libs
 ```
 
+or
+
+```html
+<script src="https://unpkg.com/@guardian/libs"></script>
+<script>
+    // window.gu.libs = { loadScript, storage, etc }
+</script>
+```
+
 ### Bundling
 
 This package uses `ES2020`.
