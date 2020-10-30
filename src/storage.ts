@@ -1,4 +1,5 @@
 class StorageFactory {
+	// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/Private_class_fields
 	#storage: Storage | undefined;
 
 	constructor(storage: Storage) {
