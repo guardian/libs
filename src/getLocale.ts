@@ -6,7 +6,7 @@ const KEY = 'gu.geolocation';
 const URL = 'https://api.nextgen.guardianapps.co.uk/geolocation';
 
 // best guess that we have a valid code, without actually shipping the entire list
-const isValidCountryCode = (country: unknown) =>
+const validate = (country: unknown) =>
 	isString(country) && /^[A-Z]{2}$/.test(country as string);
 
 const daysFromNow = (days: number) =>
@@ -21,7 +21,7 @@ export const getLocale = async (): Promise<CountryCode | null> => {
 	const stored = storage.local.get(KEY);
 
 	// if we've got a locale, return it
-	if (isValidCountryCode(stored)) return stored as CountryCode;
+	if (validate(stored)) return stored as CountryCode;
 
 	// use our API to get one
 	try {
@@ -30,7 +30,7 @@ export const getLocale = async (): Promise<CountryCode | null> => {
 			response.json(),
 		);
 
-		if (isValidCountryCode(country)) {
+		if (validate(country)) {
 			// save it for 10 days
 			storage.local.set(KEY, country, daysFromNow(10));
 
