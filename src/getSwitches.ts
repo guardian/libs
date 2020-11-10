@@ -4,9 +4,6 @@ import type { Switches } from './types/window';
 
 const URL = '';
 
-// cache to store any retrieved switches
-let switches: Switches | undefined;
-
 const validate = (switches: unknown) =>
 	// eslint-disable-next-line @typescript-eslint/no-unsafe-call -- isObject handles any arg
 	isObject(switches) && Object.values(switches).every(isBoolean);
@@ -21,6 +18,9 @@ const fetchRemote = () =>
 						new Error('remote switch config is malformed'),
 				  ),
 		);
+
+// cache to store any retrieved switches
+let switches: Switches | undefined;
 
 /**
  * Get the active guardian switch config

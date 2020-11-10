@@ -3,9 +3,6 @@ import type { Tests } from './types/window';
 
 const URL = '';
 
-// cache to store any retrieved tests
-let tests: Tests | undefined;
-
 const validate = (tests: unknown) =>
 	// eslint-disable-next-line @typescript-eslint/no-unsafe-call -- isObject handles any arg
 	isObject(tests) &&
@@ -21,6 +18,9 @@ const fetchRemote = async () =>
 				? (tests as Tests)
 				: Promise.reject(new Error('remote test config is malformed')),
 		);
+
+// cache to store any retrieved tests
+let tests: Tests | undefined;
 
 /**
  * Get the active guardian test config
