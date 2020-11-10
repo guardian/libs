@@ -4,15 +4,11 @@ import type { Tests } from './types/window';
 
 fetchMock.enableMocks();
 
-const fixture: { tests: Tests } = {
+const config: { tests: Tests } = {
 	tests: {
 		testA: 'control',
 		testB: 'variant',
 	},
-};
-
-const setConfig = () => {
-	window.guardian = { config: fixture };
 };
 
 describe('getTests', () => {
@@ -21,37 +17,42 @@ describe('getTests', () => {
 		delete window.guardian;
 	});
 
-	it('gets tests from guardian config', async () => {
-		setConfig();
+	it('gets tests from window.guardian.config', async () => {
+		window.guardian = { config };
 		const tests = await getTests();
-		expect(tests).toMatchObject(fixture.tests);
+		expect(tests).toMatchObject(config.tests);
 	});
 
 	it('fetches the remote config if local is missing', async () => {
-		fetchMock.mockResponseOnce(JSON.stringify(fixture));
+		fetchMock.mockResponseOnce(JSON.stringify(config));
 		const tests = await getTests();
-		expect(tests).toMatchObject(fixture.tests);
+		expect(tests).toMatchObject(config.tests);
 	});
 
-	it('resolves nothing if the tests are malformed', async () => {
+	it('returns an empty object if there are no tests in the system', async () => {
+		fetchMock.mockResponseOnce(JSON.stringify({ tests: {} }));
+		const switches = await getTests();
+		expect(switches).toMatchObject({});
+	});
+
+	it('rejects if the test config is malformed', async () => {
 		fetchMock.mockResponseOnce(
 			JSON.stringify({
-				tests: { badSwitch: 'this is not a boolean' },
+				tests: { badTest: Infinity },
 			}),
 		);
-		const tests = await getTests();
-		expect(tests).toBeUndefined();
+		await expect(getTests()).rejects.toThrow(
+			'remote test config is malformed',
+		);
 	});
 
-	it('resolves nothing if the fetch response is malformed', async () => {
+	it('rejects if the fetch response is malformed', async () => {
 		fetchMock.mockResponseOnce('rewgrewgwegew');
-		const tests = await getTests();
-		expect(tests).toBeUndefined();
+		await expect(getTests()).rejects.toThrow('invalid json');
 	});
 
-	it('resolves nothing if the fetch fails', async () => {
+	it('rejects if the fetch fails', async () => {
 		fetchMock.mockRejectOnce();
-		const tests = await getTests();
-		expect(tests).toBeUndefined();
+		await expect(getTests()).rejects.toBeUndefined();
 	});
 });

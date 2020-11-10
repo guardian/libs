@@ -4,15 +4,11 @@ import type { Switches } from './types/window';
 
 fetchMock.enableMocks();
 
-const fixture: { switches: Switches } = {
+const config: { switches: Switches } = {
 	switches: {
 		switchA: true,
 		switchB: false,
 	},
-};
-
-const setConfig = () => {
-	window.guardian = { config: fixture };
 };
 
 describe('getSwitches', () => {
@@ -21,37 +17,42 @@ describe('getSwitches', () => {
 		delete window.guardian;
 	});
 
-	it('gets switches from guardian config', async () => {
-		setConfig();
+	it('gets switches from window.guardian.config', async () => {
+		window.guardian = { config };
 		const switches = await getSwitches();
-		expect(switches).toMatchObject(fixture.switches);
+		expect(switches).toMatchObject(config.switches);
 	});
 
 	it('fetches the remote config if local is missing', async () => {
-		fetchMock.mockResponseOnce(JSON.stringify(fixture));
+		fetchMock.mockResponseOnce(JSON.stringify(config));
 		const switches = await getSwitches();
-		expect(switches).toMatchObject(fixture.switches);
+		expect(switches).toMatchObject(config.switches);
 	});
 
-	it('resolves nothing if the switches are malformed', async () => {
+	it('returns an empty object if there are no switches in the system', async () => {
+		fetchMock.mockResponseOnce(JSON.stringify({ switches: {} }));
+		const switches = await getSwitches();
+		expect(switches).toMatchObject({});
+	});
+
+	it('rejects if the switch config is malformed', async () => {
 		fetchMock.mockResponseOnce(
 			JSON.stringify({
 				switches: { badSwitch: 'this is not a boolean' },
 			}),
 		);
-		const switches = await getSwitches();
-		expect(switches).toBeUndefined();
+		await expect(getSwitches()).rejects.toThrow(
+			'remote switch config is malformed',
+		);
 	});
 
-	it('resolves nothing if the fetch response is malformed', async () => {
+	it('rejects if the fetch response is malformed', async () => {
 		fetchMock.mockResponseOnce('rewgrewgwegew');
-		const switches = await getSwitches();
-		expect(switches).toBeUndefined();
+		await expect(getSwitches()).rejects.toThrow('invalid json');
 	});
 
-	it('resolves nothing if the fetch fails', async () => {
+	it('rejects if the fetch fails', async () => {
 		fetchMock.mockRejectOnce();
-		const switches = await getSwitches();
-		expect(switches).toBeUndefined();
+		await expect(getSwitches()).rejects.toBeUndefined();
 	});
 });
