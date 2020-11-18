@@ -4,6 +4,8 @@
 rollup wants it
 */
 
+import commonjs from '@rollup/plugin-commonjs';
+import { nodeResolve } from '@rollup/plugin-node-resolve';
 import typescript from '@rollup/plugin-typescript';
 import size from 'rollup-plugin-size';
 import { terser } from 'rollup-plugin-terser';
@@ -31,6 +33,8 @@ export default {
 			],
 			target: 'es2015',
 		}),
+		nodeResolve(),
+		commonjs(),
 		terser(),
 		size(),
 	],

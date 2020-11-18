@@ -40,6 +40,8 @@
     "@guardian/eslint-config": "0.4.0",
     "@guardian/eslint-config-typescript": "0.4.1",
     "@guardian/prettier": "0.4.1",
+    "@rollup/plugin-commonjs": "16.0.0",
+    "@rollup/plugin-node-resolve": "10.0.0",
     "@rollup/plugin-typescript": "6.1.0",
     "@semantic-release/github": "7.1.1",
     "@types/jest": "26.0.15",
