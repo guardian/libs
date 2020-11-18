@@ -69,8 +69,5 @@
   },
   "publishConfig": {
     "access": "public"
-  },
-  "dependencies": {
-    "is-plain-obj": "3.0.0"
   }
 }
