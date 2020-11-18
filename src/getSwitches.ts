@@ -2,7 +2,7 @@ import { isBoolean } from './isBoolean';
 import { isObject } from './isObject';
 import type { Switches } from './types/switches';
 
-const URL = '';
+const URL = 'https://www.theguardian.com/switches.json';
 
 const validate = (switches: unknown) =>
 	isObject(switches) && Object.values(switches).every(isBoolean);

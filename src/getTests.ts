@@ -1,7 +1,7 @@
 import { isObject } from './isObject';
 import type { Tests } from './types/tests';
 
-const URL = '';
+const URL = 'https://www.theguardian.com/tests.json';
 
 const isVariantOrControl = (value: unknown): boolean =>
 	value === 'variant' || value === 'control';
