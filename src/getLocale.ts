@@ -12,16 +12,24 @@ const validate = (country: unknown) =>
 const daysFromNow = (days: number) =>
 	new Date().getTime() + 60 * 60 * 24 * days;
 
+// we'll cache any successful lookups so we only have to do this once
+let locale: CountryCode | undefined;
+
+// just used for tests
+export const __resetCachedValue = (): void => (locale = void 0);
+
 /**
  * Fetches the user's current location as an ISO 3166-1 alpha-2 string e.g. 'GB', 'AU' etc
  */
 
 export const getLocale = async (): Promise<CountryCode | null> => {
+	if (locale) return locale;
+
 	// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- it _is_ any
 	const stored = storage.local.get(KEY);
 
 	// if we've got a locale, return it
-	if (validate(stored)) return stored as CountryCode;
+	if (validate(stored)) return (locale = stored as CountryCode);
 
 	// use our API to get one
 	try {
@@ -35,7 +43,7 @@ export const getLocale = async (): Promise<CountryCode | null> => {
 			storage.local.set(KEY, country, daysFromNow(10));
 
 			// return it
-			return country as CountryCode;
+			return (locale = country as CountryCode);
 		}
 	} catch (e) {
 		// do nothing
