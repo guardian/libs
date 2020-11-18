@@ -22,6 +22,7 @@ describe('getLocale', () => {
 		fetchMock.mockResponseOnce(JSON.stringify({ country: 'CZ' }));
 		const locale = await getLocale();
 		expect(locale).toBe('CZ');
+		expect(storage.local.get(KEY)).toBe('CZ');
 	});
 
 	it('ignores a stored invalid locale', async () => {
@@ -44,5 +45,17 @@ describe('getLocale', () => {
 		const locale = await getLocale();
 		expect(locale).toBeNull();
 		expect(storage.local.get(KEY)).toBeNull();
+	});
+
+	it('uses the cached value if available', async () => {
+		const spy = jest.spyOn(storage.local, 'get');
+
+		storage.local.set(KEY, 'CY');
+		const locale = await getLocale();
+		const locale2 = await getLocale();
+
+		expect(locale).toBe(locale2);
+		expect(spy).toHaveBeenCalledTimes(1);
+		expect(fetchMock).not.toHaveBeenCalled();
 	});
 });
