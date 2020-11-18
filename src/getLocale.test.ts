@@ -1,5 +1,5 @@
 import fetchMock from 'jest-fetch-mock';
-import { getLocale } from './getLocale';
+import { __resetCachedValue, getLocale } from './getLocale';
 import { storage } from './storage';
 
 const KEY = 'gu.geolocation';
@@ -9,6 +9,7 @@ fetchMock.enableMocks();
 describe('getLocale', () => {
 	beforeEach(() => {
 		storage.local.clear();
+		__resetCachedValue();
 	});
 
 	it('gets a stored valid locale', async () => {
