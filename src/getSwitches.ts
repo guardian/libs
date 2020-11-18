@@ -1,6 +1,6 @@
 import { isBoolean } from './isBoolean';
 import { isObject } from './isObject';
-import type { Switches } from './types/window';
+import type { Switches } from './types/switches';
 
 const URL = '';
 
@@ -10,7 +10,7 @@ const validate = (switches: unknown) =>
 const fetchRemote = () =>
 	fetch(URL)
 		.then((response) => response.json())
-		.then(({ switches }) =>
+		.then((switches) =>
 			validate(switches)
 				? (switches as Switches)
 				: Promise.reject(

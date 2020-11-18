@@ -1,14 +1,12 @@
 import fetchMock from 'jest-fetch-mock';
 import { __resetCachedValue, getTests } from './getTests';
-import type { Tests } from './types/window';
+import type { Tests } from './types/tests';
 
 fetchMock.enableMocks();
 
-const config: { tests: Tests } = {
-	tests: {
-		testA: 'control',
-		testB: 'variant',
-	},
+const fixture: Tests = {
+	testA: 'control',
+	testB: 'variant',
 };
 
 describe('getTests', () => {
@@ -18,19 +16,19 @@ describe('getTests', () => {
 	});
 
 	it('gets tests from window.guardian.config', async () => {
-		window.guardian = { config };
+		window.guardian = { config: { tests: fixture } };
 		const tests = await getTests();
-		expect(tests).toMatchObject(config.tests);
+		expect(tests).toMatchObject(fixture);
 	});
 
 	it('fetches the remote config if local is missing', async () => {
-		fetchMock.mockResponseOnce(JSON.stringify(config));
+		fetchMock.mockResponseOnce(JSON.stringify(fixture));
 		const tests = await getTests();
-		expect(tests).toMatchObject(config.tests);
+		expect(tests).toMatchObject(fixture);
 	});
 
 	it('returns an empty object if there are no tests in the system', async () => {
-		fetchMock.mockResponseOnce(JSON.stringify({ tests: {} }));
+		fetchMock.mockResponseOnce(JSON.stringify({}));
 		const switches = await getTests();
 		expect(switches).toMatchObject({});
 	});

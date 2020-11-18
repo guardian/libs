@@ -1,5 +1,5 @@
-export type Switches = Record<string, boolean>;
-export type Tests = Record<string, string>;
+import type { Switches } from './switches';
+import type { Tests } from './tests';
 
 declare global {
 	interface Window {

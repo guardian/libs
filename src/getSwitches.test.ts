@@ -1,14 +1,12 @@
 import fetchMock from 'jest-fetch-mock';
 import { __resetCachedValue, getSwitches } from './getSwitches';
-import type { Switches } from './types/window';
+import type { Switches } from './types/switches';
 
 fetchMock.enableMocks();
 
-const config: { switches: Switches } = {
-	switches: {
-		switchA: true,
-		switchB: false,
-	},
+const fixture: Switches = {
+	switchA: true,
+	switchB: false,
 };
 
 describe('getSwitches', () => {
@@ -18,19 +16,19 @@ describe('getSwitches', () => {
 	});
 
 	it('gets switches from window.guardian.config', async () => {
-		window.guardian = { config };
+		window.guardian = { config: { switches: fixture } };
 		const switches = await getSwitches();
-		expect(switches).toMatchObject(config.switches);
+		expect(switches).toMatchObject(fixture);
 	});
 
 	it('fetches the remote config if local is missing', async () => {
-		fetchMock.mockResponseOnce(JSON.stringify(config));
+		fetchMock.mockResponseOnce(JSON.stringify(fixture));
 		const switches = await getSwitches();
-		expect(switches).toMatchObject(config.switches);
+		expect(switches).toMatchObject(fixture);
 	});
 
 	it('returns an empty object if there are no switches in the system', async () => {
-		fetchMock.mockResponseOnce(JSON.stringify({ switches: {} }));
+		fetchMock.mockResponseOnce(JSON.stringify({}));
 		const switches = await getSwitches();
 		expect(switches).toMatchObject({});
 	});

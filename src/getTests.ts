@@ -1,18 +1,18 @@
 import { isObject } from './isObject';
-import type { Tests } from './types/window';
+import type { Tests } from './types/tests';
 
 const URL = '';
 
+const isVariantOrControl = (value: unknown): boolean =>
+	value === 'variant' || value === 'control';
+
 const validate = (tests: unknown) =>
-	isObject(tests) &&
-	Object.values(tests).every(
-		(value) => value === 'variant' || value === 'control',
-	);
+	isObject(tests) && Object.values(tests).every(isVariantOrControl);
 
 const fetchRemote = async () =>
 	fetch(URL)
 		.then((response) => response.json())
-		.then(({ tests }) =>
+		.then((tests) =>
 			validate(tests)
 				? (tests as Tests)
 				: Promise.reject(new Error('remote test config is malformed')),
