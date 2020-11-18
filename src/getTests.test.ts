@@ -1,5 +1,5 @@
 import fetchMock from 'jest-fetch-mock';
-import { __reset, getTests } from './getTests';
+import { __resetCachedValue, getTests } from './getTests';
 import type { Tests } from './types/window';
 
 fetchMock.enableMocks();
@@ -13,7 +13,7 @@ const config: { tests: Tests } = {
 
 describe('getTests', () => {
 	beforeEach(() => {
-		__reset();
+		__resetCachedValue();
 		delete window.guardian;
 	});
 

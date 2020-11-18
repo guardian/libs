@@ -28,4 +28,4 @@ let tests: Tests | undefined;
 export const getTests = async (): Promise<Tests> =>
 	(tests ||= window.guardian?.config?.tests ?? (await fetchRemote()));
 
-export const __reset = (): void => (tests = void 0);
+export const __resetCachedValue = (): void => (tests = void 0);

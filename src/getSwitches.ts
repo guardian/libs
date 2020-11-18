@@ -28,4 +28,4 @@ let switches: Switches | undefined;
 export const getSwitches = async (): Promise<Switches> =>
 	(switches ||= window.guardian?.config?.switches ?? (await fetchRemote()));
 
-export const __reset = (): void => (switches = void 0);
+export const __resetCachedValue = (): void => (switches = void 0);
