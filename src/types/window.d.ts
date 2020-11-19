@@ -1,4 +1,3 @@
-import type { Experiments } from './experiments';
 import type { Switches } from './switches';
 
 declare global {
@@ -6,7 +5,6 @@ declare global {
 		guardian?: {
 			config?: {
 				switches?: Switches;
-				experiments?: Experiments;
 				[key: string]: unknown;
 			};
 		};
