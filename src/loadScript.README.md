@@ -1,3 +1,14 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+## Table of contents
+
+- [`loadScript(src, props?)`](#loadscriptsrc-props)
+    - [`src`](#src)
+    - [`props?`](#props)
+  - [Example](#example)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # `loadScript(src, props?)`
 
 Returns: `Promise<Event | undefined>`
