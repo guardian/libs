@@ -28,9 +28,7 @@ export const loadScript = (
 		Object.assign(script, props);
 
 		script.onload = resolve;
-		script.onerror = () => {
-			reject(new Error(`Failed to load script ${src}`));
-		};
+		script.onerror = reject;
 
 		const ref = document.scripts[0];
 		ref.parentNode?.insertBefore(script, ref);

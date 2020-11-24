@@ -2,7 +2,7 @@
 
 [![npm (scoped)](https://img.shields.io/npm/v/@guardian/libs)](https://www.npmjs.com/package/@guardian/libs)
 [![ES version](https://badgen.net/badge/ES/2020/cyan)](https://tc39.es/ecma262/2020/)
-[![npm type definitions](https://img.shields.io/npm/types/@guardian/libs)](https://www.typescriptlang.org/)
+[![npm Type definitions](https://img.shields.io/npm/Types/@guardian/libs)](https://www.Typescriptlang.org/)
 [![Coverage Status](https://coveralls.io/repos/github/guardian/libs/badge.svg)](https://coveralls.io/github/guardian/libs)
 [![gzip size](https://img.badgesize.io/https://unpkg.com/@guardian/libs/dist/umd/index.min.js?compression=gzip)](https://unpkg.com/@guardian/libs/dist/umd/index.min.js)
 
@@ -10,13 +10,14 @@
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
 ## Table of contents
 
-- [Installation](#installation)
-  - [Bundling](#bundling)
-- [Development](#development)
-  - [Requirements](#requirements)
-  - [Releasing](#releasing)
+-   [Installation](#installation)
+    -   [Bundling](#bundling)
+-   [Development](#development)
+    -   [Requirements](#requirements)
+    -   [Releasing](#releasing)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -49,6 +50,15 @@ This package uses `ES2020`.
 
 If your target environment does not support that, make sure you transpile this package when bundling your application.
 
+## Modules
+
+See the linked READMEs for module documentation.
+
+-   [`getLocale()`](./getLocale.README.md)
+-   [`isString(value)`](./isString.README.md)
+-   [`loadScript(src, props?)`](./loadScript.README.md)
+-   [`storage.local` / `storage.session`](./loadScript.README.md)
+
 ## Development
 
 ### Requirements
@@ -62,7 +72,7 @@ Changes are automatically released to NPM.
 
 The `main` branch on GitHub is analysed by [semantic-release](https://semantic-release.gitbook.io/) after every push.
 
-If a commit message follows the [conventional commit format](https://www.conventionalcommits.org/en/v1.0.0), semantic-release can determine what types of changes are included in that commit.
+If a commit message follows the [conventional commit format](https://www.conventionalcommits.org/en/v1.0.0), semantic-release can determine what Types of changes are included in that commit.
 
 If necessary, it will then automatically release a new, [semver](https://semver.org/)-compliant version of the package to NPM.
 
