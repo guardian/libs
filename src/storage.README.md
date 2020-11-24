@@ -1,6 +1,6 @@
-# `storage.local` / `storage.session`
+# `storage`
 
-API over `localStorage` and `sessionStorage`.
+Robust API over `localStorage` and `sessionStorage`.
 
 ### Example
 
