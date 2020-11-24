@@ -10,14 +10,15 @@
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
 ## Table of contents
 
-- [Installation](#installation)
-  - [Bundling](#bundling)
-- [Libs](#libs)
-- [Development](#development)
-  - [Requirements](#requirements)
-  - [Releasing](#releasing)
+-   [Installation](#installation)
+    -   [Bundling](#bundling)
+-   [Modules](#Modules)
+-   [Development](#development)
+    -   [Requirements](#requirements)
+    -   [Releasing](#releasing)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -50,7 +51,7 @@ This package uses `ES2020`.
 
 If your target environment does not support that, make sure you transpile this package when bundling your application.
 
-## Libs
+## Modules
 
 See the linked READMEs for module documentation.
 
