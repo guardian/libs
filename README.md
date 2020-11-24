@@ -1,4 +1,4 @@
-# Libs
+# `@guardian/libs`
 
 [![npm (scoped)](https://img.shields.io/npm/v/@guardian/libs)](https://www.npmjs.com/package/@guardian/libs)
 [![ES version](https://badgen.net/badge/ES/2020/cyan)](https://tc39.es/ecma262/2020/)
@@ -10,17 +10,40 @@
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-
 ## Table of contents
 
--   [Installation](#installation)
-    -   [Bundling](#bundling)
--   [Modules](#Modules)
--   [Development](#development)
-    -   [Requirements](#requirements)
-    -   [Releasing](#releasing)
+- [Libs](#libs)
+  - [`getLocale`](#getlocale)
+  - [`isString`](#isstring)
+  - [`loadScript`](#loadscript)
+  - [`storage.local` / `storage.session`](#storagelocal--storagesession)
+- [Installation](#installation)
+  - [Bundling](#bundling)
+- [Development](#development)
+  - [Requirements](#requirements)
+  - [Releasing](#releasing)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+## Libs
+
+The following modules are available:
+
+### [`getLocale`](./src/getLocale.README.md)
+
+Get the user’s current location.
+
+### [`isString`](./src/isString.README.md)
+
+Check whether a value is a string.
+
+### [`loadScript`](./src/loadScript.README.md)
+
+Inject an external JavaScript file.
+
+### [`storage.local` / `storage.session`](./src/loadScript.README.md)
+
+Robust API over `localStorage` and `sessionStorage`.
 
 ## Installation
 
@@ -36,12 +59,18 @@ or
 npm install @guardian/libs
 ```
 
+then
+
+```js
+import { loadScript, storage, ...etc } from '@guardian/libs';
+```
+
 or
 
 ```html
 <script src="https://unpkg.com/@guardian/libs"></script>
 <script>
-    // window.gu.libs = { loadScript, storage, etc }
+    // window.gu.libs = { loadScript, storage, ...etc }
 </script>
 ```
 
@@ -50,15 +79,6 @@ or
 This package uses `ES2020`.
 
 If your target environment does not support that, make sure you transpile this package when bundling your application.
-
-## Modules
-
-See the linked READMEs for module documentation.
-
--   [`getLocale()`](./src/getLocale.README.md)
--   [`isString(value)`](./src/isString.README.md)
--   [`loadScript(src, props?)`](./src/loadScript.README.md)
--   [`storage.local` / `storage.session`](./src/loadScript.README.md)
 
 ## Development
 
