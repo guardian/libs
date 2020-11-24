@@ -22,7 +22,7 @@ export const loadScript = (
 		if (
 			Array.from(document.scripts).some(({ src }) => script.src === src)
 		) {
-			return resolve();
+			return resolve(void 0);
 		}
 
 		Object.assign(script, props);
