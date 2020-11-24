@@ -12,9 +12,10 @@
   "author": "Guardian developers",
   "sideEffects": false,
   "main": "dist/cjs/index.js",
+  "unpkg": "dist/umd/index.min.js",
   "module": "dist/esm/index.js",
   "source": "src/index.ts",
-  "unpkg": "dist/umd/index.min.js",
+  "types": "dist/esm/index.d.ts",
   "files": [
     "dist",
     "src"
