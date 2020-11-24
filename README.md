@@ -54,10 +54,10 @@ If your target environment does not support that, make sure you transpile this p
 
 See the linked READMEs for module documentation.
 
--   [`getLocale()`](./getLocale.README.md)
--   [`isString(value)`](./isString.README.md)
--   [`loadScript(src, props?)`](./loadScript.README.md)
--   [`storage.local` / `storage.session`](./loadScript.README.md)
+-   [`getLocale()`](./src/getLocale.README.md)
+-   [`isString(value)`](./src/isString.README.md)
+-   [`loadScript(src, props?)`](./src/loadScript.README.md)
+-   [`storage.local` / `storage.session`](./src/loadScript.README.md)
 
 ## Development
 
