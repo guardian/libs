@@ -1,22 +1,3 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-## Table of contents
-
-- [`storage.local` / `storage.session`](#storagelocal--storagesession)
-    - [Example](#example)
-  - [`get(key)`](#getkey)
-    - [Example](#example-1)
-  - [`set(key, value, expires?)`](#setkey-value-expires)
-    - [Example](#example-2)
-  - [`remove(key)`](#removekey)
-    - [Example](#example-3)
-  - [`clear()`](#clear)
-    - [Example](#example-4)
-  - [`isAvailable()`](#isavailable)
-    - [Example](#example-5)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
 # `storage.local` / `storage.session`
 
 API over `localStorage` and `sessionStorage`.
@@ -38,6 +19,14 @@ Has a few advantages over the native API:
 -   stored items can expire
 
 _n.b. the examples below use `storage.local`, but all methods are available for both `storage.local` and `storage.session`._
+
+## Methods
+
+-   [`get(key)`](#getkey)
+-   [`set(key, value, expires?)`](#setkey-value-expires)
+-   [`remove(key)`](#removekey)
+-   [`clear()`](#clear)
+-   [`isAvailable()`](#isavailable)
 
 ## `get(key)`
 

@@ -1,12 +1,3 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-## Table of contents
-
-- [`getLocale()`](#getlocale)
-  - [Example](#example)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
 # `getLocale()`
 
 Returns: `Promise<string | null>`
