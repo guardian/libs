@@ -16,7 +16,7 @@
   - [`getLocale`](#getlocale)
   - [`isString`](#isstring)
   - [`loadScript`](#loadscript)
-  - [`storage.local` / `storage.session`](#storagelocal--storagesession)
+  - [`storage`](#storage)
 - [Installation](#installation)
   - [Bundling](#bundling)
 - [Development](#development)
@@ -41,7 +41,7 @@ Check whether a value is a string.
 
 Inject an external JavaScript file.
 
-### [`storage.local` / `storage.session`](./src/loadScript.README.md)
+### [`storage`](./src/storage.README.md)
 
 Robust API over `localStorage` and `sessionStorage`.
 
