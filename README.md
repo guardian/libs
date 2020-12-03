@@ -15,6 +15,7 @@
 - [Libs](#libs)
   - [`getLocale`](#getlocale)
   - [`isString`](#isstring)
+  - [`isUndefined`](#isundefined)
   - [`loadScript`](#loadscript)
   - [`storage`](#storage)
 - [Installation](#installation)
@@ -36,6 +37,10 @@ Get the user’s current location.
 ### [`isString`](./src/isString.README.md)
 
 Check whether a value is a string.
+
+### [`isUndefined`](./src/isUndefined.README.md)
+
+Check whether a value is `undefined`.
 
 ### [`loadScript`](./src/loadScript.README.md)
 
