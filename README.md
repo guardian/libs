@@ -15,6 +15,7 @@
 - [Libs](#libs)
   - [`getLocale`](#getlocale)
   - [`isString`](#isstring)
+  - [`isUndefined`](#isundefined)
   - [`loadScript`](#loadscript)
   - [`storage`](#storage)
 - [Installation](#installation)
