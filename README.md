@@ -37,6 +37,10 @@ Get the user’s current location.
 
 Check whether a value is a string.
 
+### [`isUndefined`](./src/isUndefined.README.md)
+
+Check whether a value is `undefined`.
+
 ### [`loadScript`](./src/loadScript.README.md)
 
 Inject an external JavaScript file.
