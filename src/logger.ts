@@ -8,6 +8,8 @@
  * Team registration relies on LocalStorage
  */
 
+import { storage } from './storage';
+
 type TeamColors = Record<string, Record<string, string>>;
 
 const teamColors: TeamColors = {
@@ -21,8 +23,11 @@ const teamColors: TeamColors = {
 	},
 };
 
-const style = (team: string): string =>
-	`background: ${teamColors[team].background}; color: ${teamColors[team].font}; padding: 2px; border-radius:3px`;
+const style = (team: string): string => {
+	const { background = 'black' } = { ...teamColors[team] };
+	const { font = 'white' } = { ...teamColors[team] };
+	return `background: ${background}; color: ${font}; padding: 2px; border-radius:3px`;
+};
 
 // Only runs in dev environments
 export const debug = (team: string, ...args: unknown[]): void => {
@@ -33,6 +38,12 @@ export const debug = (team: string, ...args: unknown[]): void => {
 // Runs in all environments, if local storage values are set
 export const log = (team: string, ...args: unknown[]): void => {
 	// TODO add check for localStorage
+
+	const registeredTeams = new String(storage.local.get('gu.logger')).split(
+		',',
+	);
+
+	if (team !== 'common' && !registeredTeams.includes(team)) return;
 
 	const styles = [style('common'), '', style(team)];
 
