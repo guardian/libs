@@ -22,15 +22,13 @@ export const loadScript = (
 		if (
 			Array.from(document.scripts).some(({ src }) => script.src === src)
 		) {
-			return resolve();
+			return resolve(void 0);
 		}
 
 		Object.assign(script, props);
 
 		script.onload = resolve;
-		script.onerror = () => {
-			reject(new Error(`Failed to load script ${src}`));
-		};
+		script.onerror = reject;
 
 		const ref = document.scripts[0];
 		ref.parentNode?.insertBefore(script, ref);
