@@ -32,5 +32,6 @@ export const isHexCode = (hex: string): boolean =>
 export const isNamedColour = (
 	colour: string | ColourName,
 ): colour is ColourName => {
+	// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- Needed for typechecking despite what the linter says
 	return NamedColours[colour as ColourName] !== undefined;
 };
