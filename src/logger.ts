@@ -15,11 +15,11 @@ type TeamColours = Record<string, Record<string, string>>;
 const teamColours: TeamColours = {
 	common: {
 		background: '#052962',
-		font: 'white',
+		font: '#ffffff',
 	},
 	commercial: {
-		background: 'mediumseagreen',
-		font: 'darkgreen',
+		background: '#77EEAA',
+		font: '#004400',
 	},
 };
 
@@ -48,4 +48,8 @@ export const log = (team: string, ...args: unknown[]): void => {
 	const styles = [style('common'), '', style(team)];
 
 	console.log(`%c@guardian%c %c${team}%c`, ...styles, ...args);
+};
+
+export const _ = {
+	teamColours,
 };

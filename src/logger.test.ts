@@ -1,4 +1,5 @@
-import { log } from './logger';
+import fetch from 'node-fetch';
+import { _, log } from './logger';
 import { storage } from './storage';
 
 const KEY = 'gu.logger';
@@ -36,4 +37,31 @@ describe('Team-based logging', () => {
 		});
 		expect(consoleMessage()).toBe(`a message for ${team}`);
 	});
+});
+
+describe('Ensure labels are accessible', () => {
+	it.each(Object.entries(_.teamColours))(
+		'should pass webaim API check for %s',
+		(key, colour) => {
+			const { font, background } = colour;
+			const fcolor = font.replace('#', '');
+			const bcolor = background.replace('#', '');
+			const url = `https://webaim.org/resources/contrastchecker/?fcolor=${fcolor}&bcolor=${bcolor}&api`;
+			/* eslint-disable
+			@typescript-eslint/no-unsafe-return,
+			@typescript-eslint/no-unsafe-call,
+			@typescript-eslint/no-unsafe-member-access
+			-- it’s a fetch */
+			return fetch(url)
+				.then((response) => response.json())
+				.then((data) => {
+					expect(data.AA).toBe('pass');
+				});
+			/* eslint-enable
+			@typescript-eslint/no-unsafe-return,
+			@typescript-eslint/no-unsafe-call,
+			@typescript-eslint/no-unsafe-member-access
+			*/
+		},
+	);
 });
