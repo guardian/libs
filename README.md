@@ -10,19 +10,20 @@
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
 ## Table of contents
 
-- [Libs](#libs)
-  - [`getLocale`](#getlocale)
-  - [`isString`](#isstring)
-  - [`isUndefined`](#isundefined)
-  - [`loadScript`](#loadscript)
-  - [`storage`](#storage)
-- [Installation](#installation)
-  - [Bundling](#bundling)
-- [Development](#development)
-  - [Requirements](#requirements)
-  - [Releasing](#releasing)
+-   [Libs](#libs)
+    -   [`getLocale`](#getlocale)
+    -   [`isString`](#isstring)
+    -   [`isUndefined`](#isundefined)
+    -   [`loadScript`](#loadscript)
+    -   [`storage`](#storage)
+-   [Installation](#installation)
+    -   [Bundling](#bundling)
+-   [Development](#development)
+    -   [Requirements](#requirements)
+    -   [Releasing](#releasing)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -45,6 +46,10 @@ Check whether a value is `undefined`.
 ### [`loadScript`](./src/loadScript.README.md)
 
 Inject an external JavaScript file.
+
+### [`logger`](./src/logger.README.md)
+
+Logs team-specific messages in production.
 
 ### [`storage`](./src/storage.README.md)
 
