@@ -40,6 +40,13 @@ describe('Team-based logging', () => {
 });
 
 describe('Ensure labels are accessible', () => {
+	type WebAIMContrastApiResponse = {
+		ratio: string;
+		AA: string;
+		AALarge: string;
+		AAA: string;
+		AAALarge: string;
+	};
 	it.each(Object.entries(_.teamColours))(
 		'should pass webaim API check for %s',
 		(key, colour) => {
@@ -47,21 +54,16 @@ describe('Ensure labels are accessible', () => {
 			const fcolor = font.replace('#', '');
 			const bcolor = background.replace('#', '');
 			const url = `https://webaim.org/resources/contrastchecker/?fcolor=${fcolor}&bcolor=${bcolor}&api`;
-			/* eslint-disable
-			@typescript-eslint/no-unsafe-return,
-			@typescript-eslint/no-unsafe-call,
-			@typescript-eslint/no-unsafe-member-access
-			-- it’s a fetch */
+
 			return fetch(url)
 				.then((response) => response.json())
-				.then((data) => {
-					expect(data.AA).toBe('pass');
+				.then((data: WebAIMContrastApiResponse) => {
+					if (data.AA) expect(data.AA).toBe('pass');
+					else fail('data is malformed');
+				})
+				.catch((e) => {
+					throw e;
 				});
-			/* eslint-enable
-			@typescript-eslint/no-unsafe-return,
-			@typescript-eslint/no-unsafe-call,
-			@typescript-eslint/no-unsafe-member-access
-			*/
 		},
 	);
 });
