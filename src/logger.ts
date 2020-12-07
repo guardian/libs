@@ -21,6 +21,10 @@ const teamColours: TeamColours = {
 		background: '#77EEAA',
 		font: '#004400',
 	},
+	dotcom: {
+		background: '#000000',
+		font: '#ff7300',
+	},
 };
 
 const style = (team: string): string => {
