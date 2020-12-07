@@ -10,6 +10,8 @@
 
 import { storage } from './storage';
 
+const KEY = 'gu.logger';
+
 type TeamColours = Record<string, Record<string, string>>;
 
 const teamColours: TeamColours = {
@@ -43,9 +45,7 @@ export const debug = (team: string, ...args: unknown[]): void => {
 export const log = (team: string, ...args: unknown[]): void => {
 	// TODO add check for localStorage
 
-	const registeredTeams = new String(storage.local.get('gu.logger')).split(
-		',',
-	);
+	const registeredTeams = new String(storage.local.get(KEY)).split(',');
 
 	if (team !== 'common' && !registeredTeams.includes(team)) return;
 
@@ -56,4 +56,5 @@ export const log = (team: string, ...args: unknown[]): void => {
 
 export const _ = {
 	teamColours,
+	KEY,
 };

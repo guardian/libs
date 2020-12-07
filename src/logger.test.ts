@@ -2,7 +2,7 @@ import fetch from 'node-fetch';
 import { _, log } from './logger';
 import { storage } from './storage';
 
-const KEY = 'gu.logger';
+const KEY = _.KEY;
 
 const spy = jest.spyOn(console, 'log');
 const consoleMessage = (): string => {
