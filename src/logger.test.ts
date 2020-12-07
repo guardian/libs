@@ -48,7 +48,7 @@ describe('Ensure labels are accessible', () => {
 		AAALarge: string;
 	};
 	it.each(Object.entries(_.teamColours))(
-		'should pass webaim API check for %s',
+		'should have a minimum contrast ratio of 4.5 (AA) for %s',
 		(key, colour) => {
 			const { font, background } = colour;
 			const fcolor = font.replace('#', '');
@@ -58,8 +58,8 @@ describe('Ensure labels are accessible', () => {
 			return fetch(url)
 				.then((response) => response.json())
 				.then((data: WebAIMContrastApiResponse) => {
-					if (data.AA) expect(data.AA).toBe('pass');
-					else fail('data is malformed');
+					const ratio = Number.parseFloat(data.ratio);
+					expect(ratio).toBeGreaterThanOrEqual(4.5);
 				})
 				.catch((e) => {
 					throw e;
