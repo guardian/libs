@@ -10,9 +10,9 @@
 
 import { storage } from './storage';
 
-type TeamColors = Record<string, Record<string, string>>;
+type TeamColours = Record<string, Record<string, string>>;
 
-const teamColors: TeamColors = {
+const teamColours: TeamColours = {
 	common: {
 		background: '#052962',
 		font: 'white',
@@ -24,8 +24,8 @@ const teamColors: TeamColors = {
 };
 
 const style = (team: string): string => {
-	const { background = 'black' } = { ...teamColors[team] };
-	const { font = 'white' } = { ...teamColors[team] };
+	const { background = 'black' } = { ...teamColours[team] };
+	const { font = 'white' } = { ...teamColours[team] };
 	return `background: ${background}; color: ${font}; padding: 2px; border-radius:3px`;
 };
 
