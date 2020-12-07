@@ -10,20 +10,20 @@
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-
 ## Table of contents
 
--   [Libs](#libs)
-    -   [`getLocale`](#getlocale)
-    -   [`isString`](#isstring)
-    -   [`isUndefined`](#isundefined)
-    -   [`loadScript`](#loadscript)
-    -   [`storage`](#storage)
--   [Installation](#installation)
-    -   [Bundling](#bundling)
--   [Development](#development)
-    -   [Requirements](#requirements)
-    -   [Releasing](#releasing)
+- [Libs](#libs)
+  - [`getLocale`](#getlocale)
+  - [`isString`](#isstring)
+  - [`isUndefined`](#isundefined)
+  - [`loadScript`](#loadscript)
+  - [`logger`](#logger)
+  - [`storage`](#storage)
+- [Installation](#installation)
+  - [Bundling](#bundling)
+- [Development](#development)
+  - [Requirements](#requirements)
+  - [Releasing](#releasing)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
