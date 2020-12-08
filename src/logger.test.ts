@@ -1,5 +1,5 @@
 import fetch from 'node-fetch';
-import { _, log } from './logger';
+import { _, debug, log } from './logger';
 import { storage } from './storage';
 
 const KEY = _.KEY;
@@ -30,6 +30,18 @@ describe('Logs messages for a team', () => {
 	it(`should log ${message} for team ${team}`, () => {
 		log(team, message);
 		expect(consoleMessage()).toBe(message);
+	});
+
+	it('should log debug messages in dev', () => {
+		debug(team, message);
+		expect(consoleMessage()).toBe(message);
+	});
+
+	it('should not log debug messages in prod', () => {
+		delete window.location;
+		window.location = { host: 'www.theguardian.com' };
+		debug(team, message);
+		expect(consoleMessage()).toBe(undefined);
 	});
 });
 

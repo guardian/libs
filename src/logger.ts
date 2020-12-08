@@ -43,6 +43,7 @@ const style = (team: string): string => {
 export const debug: LogCall = (team, ...args) => {
 	const isDevEnv =
 		window.location.host.includes('localhost') ||
+		window.location.host.endsWith('thegulocal.com') ||
 		window.location.host.endsWith('.dev-theguardian.com');
 	if (isDevEnv) log(team, ...args);
 };
