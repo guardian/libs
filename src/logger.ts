@@ -27,14 +27,14 @@ const teams = {
 	},
 };
 
-export type TeamName = keyof typeof teams;
+export type TeamName = Exclude<keyof typeof teams, 'common'>;
 type Teams<K extends string> = Record<K, Record<string, string>>;
-const teamColours: Teams<TeamName> = teams;
+const teamColours: Teams<TeamName | 'common'> = teams;
 
 type LogCall = (team: TeamName, ...args: unknown[]) => void;
 export type TeamFunction = (arg: TeamName) => void;
 
-const style = (team: TeamName): string => {
+const style = (team: TeamName | 'common'): string => {
 	const { background = 'black' } = { ...teamColours[team] };
 	const { font = 'white' } = { ...teamColours[team] };
 	return `background: ${background}; color: ${font}; padding: 2px; border-radius:3px`;
