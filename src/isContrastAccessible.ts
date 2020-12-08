@@ -28,7 +28,7 @@ export const getContrast = (
 	}
 };
 
-export const isContrastFriendly = (
+export const isContrastAccessible = (
 	fg: string | ColourName,
 	bg: string | ColourName,
 ): { AA: boolean; AAA: boolean } => {

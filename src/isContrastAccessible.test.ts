@@ -1,7 +1,7 @@
 import {
 	calculateLuminance,
 	getContrast,
-	isContrastFriendly,
+	isContrastAccessible,
 } from './contrastChecker';
 
 describe('`calculateLuminance`', () => {
@@ -28,20 +28,20 @@ describe('`getContrast`', () => {
 	});
 });
 
-describe('`isContrastFriendly`', () => {
+describe('`isContrastAccessible`', () => {
 	const seagreen = 'seagreen';
 	const lightseagreen = 'lightseagreen';
 	const blackHex = '#000000';
 	test('should correctly identify AA contrast', () => {
-		expect(isContrastFriendly(blackHex, seagreen).AA).toBe(true);
-		expect(isContrastFriendly(blackHex, seagreen).AAA).toBe(false);
+		expect(isContrastAccessible(blackHex, seagreen).AA).toBe(true);
+		expect(isContrastAccessible(blackHex, seagreen).AAA).toBe(false);
 	});
 	test('should correctly identify AAA contrast', () => {
-		expect(isContrastFriendly(blackHex, lightseagreen).AA).toBe(true);
-		expect(isContrastFriendly(blackHex, lightseagreen).AAA).toBe(true);
+		expect(isContrastAccessible(blackHex, lightseagreen).AA).toBe(true);
+		expect(isContrastAccessible(blackHex, lightseagreen).AAA).toBe(true);
 	});
 	test('should return all false for invalid', () => {
-		expect(isContrastFriendly('bar', 'soap').AA).toBe(false);
-		expect(isContrastFriendly('bar', 'soap').AAA).toBe(false);
+		expect(isContrastAccessible('bar', 'soap').AA).toBe(false);
+		expect(isContrastAccessible('bar', 'soap').AAA).toBe(false);
 	});
 });
