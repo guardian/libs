@@ -27,7 +27,7 @@ const teams = {
 	},
 };
 
-export type TeamName = keyof typeof teams;
+export type TeamName = Exclude<keyof typeof teams, 'common'>;
 type Teams<K extends string> = Record<K, Record<string, string>>;
 const teamColours: Teams<TeamName> = teams;
 
