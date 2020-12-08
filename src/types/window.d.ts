@@ -6,6 +6,7 @@ declare global {
 			logger?: {
 				subscribeTo: TeamFunction;
 				unsubscribeFrom: TeamFunction;
+				registeredTeams: () => string[];
 			};
 		};
 	}

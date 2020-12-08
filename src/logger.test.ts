@@ -67,6 +67,15 @@ describe('Add and remove teams', () => {
 		const registered: string = storage.local.get(KEY) as string;
 		expect(registered).toBe('two');
 	});
+
+	it('should return the list of registered teams', () => {
+		let teams: string[] = [];
+		if (window.guardian?.logger)
+			teams = window.guardian.logger.registeredTeams();
+		console.log(teams);
+		expect(Array.isArray(teams)).toBe(true);
+		expect(teams).toContain('common');
+	});
 });
 
 describe('Team-based logging', () => {

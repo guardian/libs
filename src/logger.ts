@@ -82,11 +82,16 @@ const unsubscribeFrom: TeamFunction = (team) => {
 	storage.local.set(KEY, teams.join(','));
 };
 
+const registeredTeams = (): string[] => {
+	return Object.keys(teamColours);
+};
+
 if (typeof window !== 'undefined') {
 	window.guardian ||= {};
 	window.guardian.logger ||= {
 		subscribeTo,
 		unsubscribeFrom,
+		registeredTeams,
 	};
 }
 
