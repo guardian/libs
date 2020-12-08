@@ -40,8 +40,7 @@ type LogCall = (team: TeamName, ...args: unknown[]) => void;
 export type TeamSubscription = (arg: TeamName) => void;
 
 const style = (team: Styles): string => {
-	const { background = 'black' } = { ...teamColours[team] };
-	const { font = 'white' } = { ...teamColours[team] };
+	const { background, font } = teamColours[team];
 	return `background: ${background}; color: ${font}; padding: 2px; border-radius:3px`;
 };
 
