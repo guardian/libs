@@ -82,8 +82,7 @@ const unsubscribeFrom: TeamFunction = (team) => {
 	storage.local.set(KEY, teams.join(','));
 };
 
-// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- we only register subscription if window is available
-if (window) {
+if (typeof window !== 'undefined') {
 	window.guardian ||= {};
 	window.guardian.logger = {
 		subscribeTo,
