@@ -1,12 +1,12 @@
-import type { TeamFunction } from '../logger';
+import type { TeamSubscription } from '../logger';
 
 declare global {
 	interface Window {
 		guardian?: {
 			logger?: {
-				subscribeTo: TeamFunction;
-				unsubscribeFrom: TeamFunction;
-				registeredTeams: () => string[];
+				subscribeTo: TeamSubscription;
+				unsubscribeFrom: TeamSubscription;
+				teams: () => string[];
 			};
 		};
 	}

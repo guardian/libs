@@ -37,7 +37,7 @@ type Teams<K extends string> = Record<K, Record<string, string>>;
 const teamColours: Teams<Styles> = teams;
 
 type LogCall = (team: TeamName, ...args: unknown[]) => void;
-export type TeamFunction = (arg: TeamName) => void;
+export type TeamSubscription = (arg: TeamName) => void;
 
 const style = (team: Styles): string => {
 	const { background = 'black' } = { ...teamColours[team] };
@@ -73,27 +73,23 @@ export const log: LogCall = (team, ...args) => {
  * Subscribe to a team’s log
  * @param team the team’s unique ID
  */
-const subscribeTo: TeamFunction = (team) => {
-	const teams: string[] = storage.local.get(KEY)
+const subscribeTo: TeamSubscription = (team) => {
+	const teamSubscriptions: string[] = storage.local.get(KEY)
 		? (storage.local.get(KEY) as string).split(',')
 		: [];
-	teams.push(team);
-	storage.local.set(KEY, teams.join(','));
+	teamSubscriptions.push(team);
+	storage.local.set(KEY, teamSubscriptions.join(','));
 };
 
 /**
  * Unsubscribe to a team’s log
  * @param team the team’s unique ID
  */
-const unsubscribeFrom: TeamFunction = (team) => {
-	const teams: string[] = (storage.local.get(KEY) as string)
+const unsubscribeFrom: TeamSubscription = (team) => {
+	const teamSubscriptions: string[] = (storage.local.get(KEY) as string)
 		.split(',')
 		.filter((t) => t !== team);
-	storage.local.set(KEY, teams.join(','));
-};
-
-const teams = (): string[] => {
-	return Object.keys(teamColours);
+	storage.local.set(KEY, teamSubscriptions.join(','));
 };
 
 if (typeof window !== 'undefined') {
@@ -101,7 +97,7 @@ if (typeof window !== 'undefined') {
 	window.guardian.logger ||= {
 		subscribeTo,
 		unsubscribeFrom,
-		teams,
+		teams: () => Object.keys(teamColours),
 	};
 }
 
