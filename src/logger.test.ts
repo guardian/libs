@@ -5,12 +5,20 @@ import { storage } from './storage';
 const KEY = _.KEY;
 
 const spy = jest.spyOn(console, 'log');
-const consoleMessage = (): string => {
-	if (typeof spy.mock.calls[0][4] === 'string') return spy.mock.calls[0][4];
-	return '';
+const consoleMessage = (): string | undefined => {
+	if (spy.mock.calls[0] && typeof spy.mock.calls[0][4] === 'string')
+		return spy.mock.calls[0][4];
+	return undefined;
 };
 
-describe('Logs messages', () => {
+describe('Logs messages for a team', () => {
+	it(`should not log any messages by default`, () => {
+		log('commong', 'this will not log');
+		log('commercial', 'neither will this');
+		log('dotcom', 'or this');
+		expect(consoleMessage()).toBeUndefined();
+	});
+
 	const message = 'Hello, world!';
 
 	it(`should log ${message}`, () => {
