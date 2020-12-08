@@ -40,7 +40,9 @@ const style = (team: string): string => {
  * Only logs in dev environments.
  */
 export const debug = (team: string, ...args: unknown[]): void => {
-	const isDevEnv = window.location.host.endsWith('.dev-theguardian.com');
+	const isDevEnv =
+		window.location.host.includes('localhost') ||
+		window.location.host.endsWith('.dev-theguardian.com');
 	if (isDevEnv) log(team, ...args);
 };
 
