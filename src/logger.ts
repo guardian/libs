@@ -1,22 +1,18 @@
 /**
  *
- * Handles team-based logging for developers in PROD
+ * Handles team-based logging to the browser console
  *
  * Prevents a proliferation of console.log in client-side
  * code.
  *
- * Team registration relies on LocalStorage
+ * Subscribing to logs relies on LocalStorage
  */
 
 import { storage } from './storage';
 
 const KEY = 'gu.logger';
 
-type TeamColours = Record<string, Record<string, string>>;
-type LogCall = (team: string, ...args: unknown[]) => void;
-export type TeamFunction = (arg: string) => void;
-
-const teamColours: TeamColours = {
+const teams = {
 	common: {
 		background: '#052962',
 		font: '#ffffff',
@@ -29,9 +25,21 @@ const teamColours: TeamColours = {
 		background: '#000000',
 		font: '#ff7300',
 	},
+	cmp: {
+		background: '#FF3399',
+		font: '#332020',
+	},
 };
 
-const style = (team: string): string => {
+export type Styles = keyof typeof teams;
+export type TeamName = Exclude<Styles, 'common'>;
+type Teams<K extends string> = Record<K, Record<string, string>>;
+const teamColours: Teams<Styles> = teams;
+
+type LogCall = (team: TeamName, ...args: unknown[]) => void;
+export type TeamFunction = (arg: TeamName) => void;
+
+const style = (team: Styles): string => {
 	const { background = 'black' } = { ...teamColours[team] };
 	const { font = 'white' } = { ...teamColours[team] };
 	return `background: ${background}; color: ${font}; padding: 2px; border-radius:3px`;
@@ -84,7 +92,7 @@ const unsubscribeFrom: TeamFunction = (team) => {
 	storage.local.set(KEY, teams.join(','));
 };
 
-const registeredTeams = (): string[] => {
+const teams = (): string[] => {
 	return Object.keys(teamColours);
 };
 
@@ -93,7 +101,7 @@ if (typeof window !== 'undefined') {
 	window.guardian.logger ||= {
 		subscribeTo,
 		unsubscribeFrom,
-		registeredTeams,
+		teams,
 	};
 }
 
