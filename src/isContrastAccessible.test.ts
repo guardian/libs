@@ -2,7 +2,7 @@ import {
 	calculateLuminance,
 	getContrast,
 	isContrastAccessible,
-} from './contrastChecker';
+} from './isContrastAccessible';
 
 describe('`calculateLuminance`', () => {
 	test('should correctly calculate luminance for correct RGB', () => {
