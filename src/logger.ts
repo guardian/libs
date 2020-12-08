@@ -82,10 +82,14 @@ const unsubscribeFrom: TeamFunction = (team) => {
 	storage.local.set(KEY, teams.join(','));
 };
 
-export const logger: Record<string, TeamFunction> = (window.logger ||= {
-	subscribeTo,
-	unsubscribeFrom,
-});
+// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- we only register subscription if window is available
+if (window) {
+	window.guardian ||= {};
+	window.guardian.logger = {
+		subscribeTo,
+		unsubscribeFrom,
+	};
+}
 
 export const _ = {
 	teamColours,

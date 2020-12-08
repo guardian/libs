@@ -1,5 +1,5 @@
 import fetch from 'node-fetch';
-import { _, log, logger } from './logger';
+import { _, log } from './logger';
 import { storage } from './storage';
 
 const KEY = _.KEY;
@@ -23,7 +23,7 @@ describe('Logs messages for a team', () => {
 	const team = 'common';
 
 	it(`should be able to add team ${team}`, () => {
-		logger.subscribeTo(team);
+		if (window.guardian?.logger) window.guardian.logger.subscribeTo(team);
 		const registered: string = storage.local.get(KEY) as string;
 		expect(registered).toBe(team);
 	});
@@ -39,26 +39,31 @@ describe('Add and remove teams', () => {
 		expect(storage.local.get(KEY)).toBe(null);
 	});
 	it(`should be able to add two teams`, () => {
-		logger.subscribeTo('one');
-		logger.subscribeTo('two');
+		if (window.guardian?.logger) {
+			window.guardian.logger.subscribeTo('one');
+			window.guardian.logger.subscribeTo('two');
+		}
 		const registered: string = storage.local.get(KEY) as string;
 		expect(registered).toBe('one,two');
 	});
 
-	it(`should be able to add a third team via the window`, () => {
-		if (window.logger) window.logger.subscribeTo('three');
+	it(`should be able to add a third team`, () => {
+		if (window.guardian?.logger)
+			window.guardian.logger.subscribeTo('three');
 		const registered: string = storage.local.get(KEY) as string;
 		expect(registered).toBe('one,two,three');
 	});
 
-	it(`should be able to remove a third team via the window`, () => {
-		if (window.logger) window.logger.unsubscribeFrom('three');
+	it(`should be able to remove a third team`, () => {
+		if (window.guardian?.logger)
+			window.guardian.logger.unsubscribeFrom('three');
 		const registered: string = storage.local.get(KEY) as string;
 		expect(registered).toBe('one,two');
 	});
 
 	it(`should be able to remove a team`, () => {
-		logger.unsubscribeFrom('one');
+		if (window.guardian?.logger)
+			window.guardian.logger.unsubscribeFrom('one');
 		const registered: string = storage.local.get(KEY) as string;
 		expect(registered).toBe('two');
 	});
