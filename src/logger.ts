@@ -13,6 +13,7 @@ import { storage } from './storage';
 const KEY = 'gu.logger';
 
 type TeamColours = Record<string, Record<string, string>>;
+type LogCall = (team: string, ...args: unknown[]) => void;
 export type TeamFunction = (arg: string) => void;
 
 const teamColours: TeamColours = {
@@ -39,7 +40,7 @@ const style = (team: string): string => {
 /**
  * Only logs in dev environments.
  */
-export const debug = (team: string, ...args: unknown[]): void => {
+export const debug: LogCall = (team, ...args) => {
 	const isDevEnv =
 		window.location.host.includes('localhost') ||
 		window.location.host.endsWith('.dev-theguardian.com');
@@ -49,7 +50,7 @@ export const debug = (team: string, ...args: unknown[]): void => {
 /**
  * Runs in all environments, if local storage values are set.
  */
-export const log = (team: string, ...args: unknown[]): void => {
+export const log: LogCall = (team, ...args) => {
 	// TODO add check for localStorage
 
 	if (!((storage.local.get(KEY) || '') as string).includes(team)) return;
