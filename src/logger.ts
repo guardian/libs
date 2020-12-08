@@ -26,8 +26,8 @@ const teams = {
 		font: '#ff7300',
 	},
 	cmp: {
-		background: '#FF1493',
-		font: '#333333',
+		background: '#FF3399',
+		font: '#332020',
 	},
 };
 
