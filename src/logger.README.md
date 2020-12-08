@@ -9,8 +9,8 @@ A developer can register to multiple teams by comma-separating them.
 
 -   [`log(team, args)`][`log`]
 -   [`debug(team, args)`][`debug`]
--   [`window.logger.subscribeTo(team)`](#windowloggersubscribeToteam)
--   [`window.logger.subscribeTo(team)`](#windowloggerunsubscribeFromteam)
+-   [`window.logger.subscribeTo(team)`](#windowloggersubscribetoteam)
+-   [`window.logger.unsubscribeFrom(team)`](#windowloggerunsubscribefromteam)
 
 ### Example
 
