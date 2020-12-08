@@ -73,7 +73,7 @@ export const log: LogCall = (team, ...args) => {
  * Subscribe to a team’s log
  * @param team the team’s unique ID
  */
-const subscribeTo: TeamFunction = (team: TeamName) => {
+const subscribeTo: TeamFunction = (team) => {
 	const teams: string[] = storage.local.get(KEY)
 		? (storage.local.get(KEY) as string).split(',')
 		: [];
