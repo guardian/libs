@@ -1,11 +1,11 @@
 /**
  *
- * Handles team-based logging for developers in PROD
+ * Handles team-based logging to the browser console
  *
  * Prevents a proliferation of console.log in client-side
  * code.
  *
- * Team registration relies on LocalStorage
+ * Subscribing to logs relies on LocalStorage
  */
 
 import { storage } from './storage';
@@ -92,7 +92,7 @@ const unsubscribeFrom: TeamFunction = (team) => {
 	storage.local.set(KEY, teams.join(','));
 };
 
-const registeredTeams = (): string[] => {
+const teams = (): string[] => {
 	return Object.keys(teamColours);
 };
 
@@ -101,7 +101,7 @@ if (typeof window !== 'undefined') {
 	window.guardian.logger ||= {
 		subscribeTo,
 		unsubscribeFrom,
-		registeredTeams,
+		teams,
 	};
 }
 
