@@ -13,6 +13,7 @@ import { storage } from './storage';
 const KEY = 'gu.logger';
 
 type TeamColours = Record<string, Record<string, string>>;
+export type TeamFunction = (arg: string) => void;
 
 const teamColours: TeamColours = {
 	common: {
@@ -35,24 +36,54 @@ const style = (team: string): string => {
 	return `background: ${background}; color: ${font}; padding: 2px; border-radius:3px`;
 };
 
-// Only runs in dev environments
+/**
+ * Only logs in dev environments.
+ */
 export const debug = (team: string, ...args: unknown[]): void => {
 	const isDevEnv = window.location.host.endsWith('.dev-theguardian.com');
 	if (isDevEnv) log(team, ...args);
 };
 
-// Runs in all environments, if local storage values are set
+/**
+ * Runs in all environments, if local storage values are set.
+ */
 export const log = (team: string, ...args: unknown[]): void => {
 	// TODO add check for localStorage
 
-	const registeredTeams = new String(storage.local.get(KEY)).split(',');
-
-	if (team !== 'common' && !registeredTeams.includes(team)) return;
+	if (!((storage.local.get(KEY) || '') as string).includes(team)) return;
 
 	const styles = [style('common'), '', style(team)];
 
 	console.log(`%c@guardian%c %c${team}%c`, ...styles, ...args);
 };
+
+/**
+ * Subscribe to a team’s log
+ * @param team the team’s unique ID
+ */
+const addTeam = (team: string): void => {
+	const teams: string[] = storage.local.get(KEY)
+		? (storage.local.get(KEY) as string).split(',')
+		: [];
+	teams.push(team);
+	storage.local.set(KEY, teams.join(','));
+};
+
+/**
+ * Unsubscribe to a team’s log
+ * @param team the team’s unique ID
+ */
+const removeTeam = (team: string): void => {
+	const teams: string[] = (storage.local.get(KEY) as string)
+		.split(',')
+		.filter((t) => t !== team);
+	storage.local.set(KEY, teams.join(','));
+};
+
+export const logger: Record<string, TeamFunction> = (window.logger ||= {
+	addTeam,
+	removeTeam,
+});
 
 export const _ = {
 	teamColours,

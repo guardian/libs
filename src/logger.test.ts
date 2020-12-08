@@ -1,5 +1,5 @@
 import fetch from 'node-fetch';
-import { _, log } from './logger';
+import { _, log, logger } from './logger';
 import { storage } from './storage';
 
 const KEY = _.KEY;
@@ -20,22 +20,52 @@ describe('Logs messages for a team', () => {
 	});
 
 	const message = 'Hello, world!';
+	const team = 'common';
 
-	it(`should log ${message}`, () => {
-		log('common', message);
-		expect(consoleMessage()).toBe(message);
+	it(`should be able to add team ${team}`, () => {
+		logger.addTeam(team);
+		const registered: string = storage.local.get(KEY) as string;
+		expect(registered).toBe(team);
 	});
-
-	it(`should only log common messages by default`, () => {
-		log('fake', 'no');
-		log('will-not-log', 'no');
-		log('common', message);
+	it(`should log ${message} for team ${team}`, () => {
+		log(team, message);
 		expect(consoleMessage()).toBe(message);
 	});
 });
 
+describe('Add and remove teams', () => {
+	it(`should first clear local storage`, () => {
+		storage.local.clear();
+		expect(storage.local.get(KEY)).toBe(null);
+	});
+	it(`should be able to add two teams`, () => {
+		logger.addTeam('one');
+		logger.addTeam('two');
+		const registered: string = storage.local.get(KEY) as string;
+		expect(registered).toBe('one,two');
+	});
+
+	it(`should be able to add a third team via the window`, () => {
+		if (window.logger) window.logger.addTeam('three');
+		const registered: string = storage.local.get(KEY) as string;
+		expect(registered).toBe('one,two,three');
+	});
+
+	it(`should be able to remove a third team via the window`, () => {
+		if (window.logger) window.logger.removeTeam('three');
+		const registered: string = storage.local.get(KEY) as string;
+		expect(registered).toBe('one,two');
+	});
+
+	it(`should be able to remove a team`, () => {
+		logger.removeTeam('one');
+		const registered: string = storage.local.get(KEY) as string;
+		expect(registered).toBe('two');
+	});
+});
+
 describe('Team-based logging', () => {
-	const teams = ['commercial', 'fake-team'];
+	const teams = ['common', 'commercial', 'dotcom', 'new-team'];
 
 	it.each(teams)(`should only log message for team: %s`, (team) => {
 		storage.local.set(KEY, team);
