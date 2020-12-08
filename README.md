@@ -47,9 +47,9 @@ Check whether a value is `undefined`.
 
 Inject an external JavaScript file.
 
-### [`logger`](./src/logger.README.md)
+### [`log`/`debug`](./src/logger.README.md)
 
-Logs team-specific messages in production.
+Selectively log team-specific messages to the console.
 
 ### [`storage`](./src/storage.README.md)
 

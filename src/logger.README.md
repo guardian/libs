@@ -1,9 +1,9 @@
 # `logger`
 
-Team-specific production logging API. Messages will be logged to the console
+Selectively log team-specific messages to the console.
 only if the `gu.logger` local storage item contains the team name.
 
-A developer can register to multiple teams by comma-separating them.
+You can subscribe to multiple teams by comma-separating them.
 
 ## Methods
 
