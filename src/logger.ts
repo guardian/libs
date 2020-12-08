@@ -25,16 +25,21 @@ const teams = {
 		background: '#000000',
 		font: '#ff7300',
 	},
+	cmp: {
+		background: '#FF1493',
+		font: '#333',
+	},
 };
 
-export type TeamName = keyof typeof teams;
+export type Styles = keyof typeof teams;
+export type TeamName = Exclude<Styles, 'common'>;
 type Teams<K extends string> = Record<K, Record<string, string>>;
-const teamColours: Teams<TeamName> = teams;
+const teamColours: Teams<Styles> = teams;
 
-type LogCall = (team: Exclude<TeamName, 'common'>, ...args: unknown[]) => void;
+type LogCall = (team: TeamName, ...args: unknown[]) => void;
 export type TeamFunction = (arg: TeamName) => void;
 
-const style = (team: TeamName): string => {
+const style = (team: Styles): string => {
 	const { background = 'black' } = { ...teamColours[team] };
 	const { font = 'white' } = { ...teamColours[team] };
 	return `background: ${background}; color: ${font}; padding: 2px; border-radius:3px`;
