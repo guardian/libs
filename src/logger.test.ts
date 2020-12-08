@@ -38,8 +38,11 @@ describe('Logs messages for a team', () => {
 	});
 
 	it('should not log debug messages in prod', () => {
+		//@ts-expect-error -- we’re modifying the window
 		delete window.location;
-		window.location = { host: 'www.theguardian.com' };
+		//@ts-expect-error -- we only check window.location.host
+		window.location = new URL('https://www.theguardian.com');
+
 		debug(team, message);
 		expect(consoleMessage()).toBe(undefined);
 	});
