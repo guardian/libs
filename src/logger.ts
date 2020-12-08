@@ -85,7 +85,7 @@ const subscribeTo: TeamFunction = (team) => {
  * Unsubscribe to a team’s log
  * @param team the team’s unique ID
  */
-const unsubscribeFrom: TeamFunction = (team: TeamName) => {
+const unsubscribeFrom: TeamFunction = (team) => {
 	const teams: string[] = (storage.local.get(KEY) as string)
 		.split(',')
 		.filter((t) => t !== team);
