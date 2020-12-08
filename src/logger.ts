@@ -84,7 +84,7 @@ const unsubscribeFrom: TeamFunction = (team) => {
 
 if (typeof window !== 'undefined') {
 	window.guardian ||= {};
-	window.guardian.logger = {
+	window.guardian.logger ||= {
 		subscribeTo,
 		unsubscribeFrom,
 	};
