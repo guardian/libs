@@ -17,7 +17,7 @@
   - [`isString`](#isstring)
   - [`isUndefined`](#isundefined)
   - [`loadScript`](#loadscript)
-  - [`logger`](#logger)
+  - [`log`/`debug`](#logdebug)
   - [`storage`](#storage)
 - [Installation](#installation)
   - [Bundling](#bundling)
