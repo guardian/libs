@@ -1,4 +1,5 @@
 import fetch from 'node-fetch';
+import type { TeamName } from './logger';
 import { _, debug, log } from './logger';
 import { storage } from './storage';
 
@@ -13,7 +14,7 @@ const consoleMessage = (): string | undefined => {
 
 describe('Logs messages for a team', () => {
 	it(`should not log any messages by default`, () => {
-		log('commong', 'this will not log');
+		log('common', 'this will not log');
 		log('commercial', 'neither will this');
 		log('dotcom', 'or this');
 		expect(consoleMessage()).toBeUndefined();
@@ -38,8 +39,11 @@ describe('Logs messages for a team', () => {
 	});
 
 	it('should not log debug messages in prod', () => {
+		//@ts-expect-error -- we’re modifying the window
 		delete window.location;
-		window.location = { host: 'www.theguardian.com' };
+		//@ts-expect-error -- we only check window.location.host
+		window.location = new URL('https://www.theguardian.com');
+
 		debug(team, message);
 		expect(consoleMessage()).toBe(undefined);
 	});
@@ -52,32 +56,32 @@ describe('Add and remove teams', () => {
 	});
 	it(`should be able to add two teams`, () => {
 		if (window.guardian?.logger) {
-			window.guardian.logger.subscribeTo('one');
-			window.guardian.logger.subscribeTo('two');
+			window.guardian.logger.subscribeTo('commercial');
+			window.guardian.logger.subscribeTo('dotcom');
 		}
 		const registered: string = storage.local.get(KEY) as string;
-		expect(registered).toBe('one,two');
+		expect(registered).toBe('commercial,dotcom');
 	});
 
 	it(`should be able to add a third team`, () => {
 		if (window.guardian?.logger)
-			window.guardian.logger.subscribeTo('three');
+			window.guardian.logger.subscribeTo('common');
 		const registered: string = storage.local.get(KEY) as string;
-		expect(registered).toBe('one,two,three');
+		expect(registered).toBe('commercial,dotcom,common');
 	});
 
 	it(`should be able to remove a third team`, () => {
 		if (window.guardian?.logger)
-			window.guardian.logger.unsubscribeFrom('three');
+			window.guardian.logger.unsubscribeFrom('common');
 		const registered: string = storage.local.get(KEY) as string;
-		expect(registered).toBe('one,two');
+		expect(registered).toBe('commercial,dotcom');
 	});
 
 	it(`should be able to remove a team`, () => {
 		if (window.guardian?.logger)
-			window.guardian.logger.unsubscribeFrom('one');
+			window.guardian.logger.unsubscribeFrom('commercial');
 		const registered: string = storage.local.get(KEY) as string;
-		expect(registered).toBe('two');
+		expect(registered).toBe('dotcom');
 	});
 
 	it('should return the list of registered teams', () => {
@@ -91,7 +95,7 @@ describe('Add and remove teams', () => {
 });
 
 describe('Team-based logging', () => {
-	const teams = ['common', 'commercial', 'dotcom', 'new-team'];
+	const teams: TeamName[] = ['common', 'commercial', 'dotcom'];
 
 	it.each(teams)(`should only log message for team: %s`, (team) => {
 		storage.local.set(KEY, team);

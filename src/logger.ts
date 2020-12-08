@@ -12,11 +12,7 @@ import { storage } from './storage';
 
 const KEY = 'gu.logger';
 
-type TeamColours = Record<string, Record<string, string>>;
-type LogCall = (team: string, ...args: unknown[]) => void;
-export type TeamFunction = (arg: string) => void;
-
-const teamColours: TeamColours = {
+const teams = {
 	common: {
 		background: '#052962',
 		font: '#ffffff',
@@ -31,7 +27,14 @@ const teamColours: TeamColours = {
 	},
 };
 
-const style = (team: string): string => {
+export type TeamName = keyof typeof teams;
+type Teams<K extends string> = Record<K, Record<string, string>>;
+const teamColours: Teams<TeamName> = teams;
+
+type LogCall = (team: TeamName, ...args: unknown[]) => void;
+export type TeamFunction = (arg: TeamName) => void;
+
+const style = (team: TeamName): string => {
 	const { background = 'black' } = { ...teamColours[team] };
 	const { font = 'white' } = { ...teamColours[team] };
 	return `background: ${background}; color: ${font}; padding: 2px; border-radius:3px`;
@@ -65,7 +68,7 @@ export const log: LogCall = (team, ...args) => {
  * Subscribe to a team’s log
  * @param team the team’s unique ID
  */
-const subscribeTo: TeamFunction = (team) => {
+const subscribeTo: TeamFunction = (team: TeamName) => {
 	const teams: string[] = storage.local.get(KEY)
 		? (storage.local.get(KEY) as string).split(',')
 		: [];
@@ -77,7 +80,7 @@ const subscribeTo: TeamFunction = (team) => {
  * Unsubscribe to a team’s log
  * @param team the team’s unique ID
  */
-const unsubscribeFrom: TeamFunction = (team) => {
+const unsubscribeFrom: TeamFunction = (team: TeamName) => {
 	const teams: string[] = (storage.local.get(KEY) as string)
 		.split(',')
 		.filter((t) => t !== team);
