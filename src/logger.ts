@@ -61,7 +61,7 @@ export const log = (team: string, ...args: unknown[]): void => {
  * Subscribe to a team’s log
  * @param team the team’s unique ID
  */
-const addTeam = (team: string): void => {
+const subscribeTo: TeamFunction = (team) => {
 	const teams: string[] = storage.local.get(KEY)
 		? (storage.local.get(KEY) as string).split(',')
 		: [];
@@ -73,7 +73,7 @@ const addTeam = (team: string): void => {
  * Unsubscribe to a team’s log
  * @param team the team’s unique ID
  */
-const removeTeam = (team: string): void => {
+const unsubscribeFrom: TeamFunction = (team) => {
 	const teams: string[] = (storage.local.get(KEY) as string)
 		.split(',')
 		.filter((t) => t !== team);
@@ -81,8 +81,8 @@ const removeTeam = (team: string): void => {
 };
 
 export const logger: Record<string, TeamFunction> = (window.logger ||= {
-	addTeam,
-	removeTeam,
+	subscribeTo,
+	unsubscribeFrom,
 });
 
 export const _ = {

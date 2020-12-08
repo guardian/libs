@@ -23,7 +23,7 @@ describe('Logs messages for a team', () => {
 	const team = 'common';
 
 	it(`should be able to add team ${team}`, () => {
-		logger.addTeam(team);
+		logger.subscribeTo(team);
 		const registered: string = storage.local.get(KEY) as string;
 		expect(registered).toBe(team);
 	});
@@ -39,26 +39,26 @@ describe('Add and remove teams', () => {
 		expect(storage.local.get(KEY)).toBe(null);
 	});
 	it(`should be able to add two teams`, () => {
-		logger.addTeam('one');
-		logger.addTeam('two');
+		logger.subscribeTo('one');
+		logger.subscribeTo('two');
 		const registered: string = storage.local.get(KEY) as string;
 		expect(registered).toBe('one,two');
 	});
 
 	it(`should be able to add a third team via the window`, () => {
-		if (window.logger) window.logger.addTeam('three');
+		if (window.logger) window.logger.subscribeTo('three');
 		const registered: string = storage.local.get(KEY) as string;
 		expect(registered).toBe('one,two,three');
 	});
 
 	it(`should be able to remove a third team via the window`, () => {
-		if (window.logger) window.logger.removeTeam('three');
+		if (window.logger) window.logger.unsubscribeFrom('three');
 		const registered: string = storage.local.get(KEY) as string;
 		expect(registered).toBe('one,two');
 	});
 
 	it(`should be able to remove a team`, () => {
-		logger.removeTeam('one');
+		logger.unsubscribeFrom('one');
 		const registered: string = storage.local.get(KEY) as string;
 		expect(registered).toBe('two');
 	});
