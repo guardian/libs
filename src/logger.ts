@@ -45,7 +45,7 @@ export const log: LogCall = (team, ...args) => {
 
 	if (!((storage.local.get(KEY) || '') as string).includes(team)) return;
 
-	const styles = [style('common'), '', style(team)];
+	const styles = [style('common'), '', style(team), ''];
 
 	console.log(`%c@guardian%c %c${team}%c`, ...styles, ...args);
 };
