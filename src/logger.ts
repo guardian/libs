@@ -78,6 +78,7 @@ const subscribeTo: TeamSubscription = (team) => {
 		: [];
 	teamSubscriptions.push(team);
 	storage.local.set(KEY, teamSubscriptions.join(','));
+	log(team, '🔔 Subscribed, hello!');
 };
 
 /**
@@ -85,6 +86,7 @@ const subscribeTo: TeamSubscription = (team) => {
  * @param team the team’s unique ID
  */
 const unsubscribeFrom: TeamSubscription = (team) => {
+	log(team, '🔕 Unsubscribed, good-bye!');
 	const teamSubscriptions: string[] = (storage.local.get(KEY) as string)
 		.split(',')
 		.filter((t) => t !== team);
