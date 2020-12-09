@@ -8,28 +8,10 @@
  * Subscribing to logs relies on LocalStorage
  */
 
+import { teams } from './logger.teams';
 import { storage } from './storage';
 
 const KEY = 'gu.logger';
-
-const teams = {
-	common: {
-		background: '#052962',
-		font: '#ffffff',
-	},
-	commercial: {
-		background: '#77EEAA',
-		font: '#004400',
-	},
-	dotcom: {
-		background: '#000000',
-		font: '#ff7300',
-	},
-	cmp: {
-		background: '#FF3399',
-		font: '#332020',
-	},
-};
 
 export type Styles = keyof typeof teams;
 export type TeamName = Exclude<Styles, 'common'>;
