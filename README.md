@@ -15,7 +15,9 @@
 - [Libs](#libs)
   - [`getLocale`](#getlocale)
   - [`isString`](#isstring)
+  - [`isUndefined`](#isundefined)
   - [`loadScript`](#loadscript)
+  - [`log`/`debug`](#logdebug)
   - [`storage`](#storage)
 - [Installation](#installation)
   - [Bundling](#bundling)
@@ -37,9 +39,17 @@ Get the user’s current location.
 
 Check whether a value is a string.
 
+### [`isUndefined`](./src/isUndefined.README.md)
+
+Check whether a value is `undefined`.
+
 ### [`loadScript`](./src/loadScript.README.md)
 
 Inject an external JavaScript file.
+
+### [`log`/`debug`](./src/logger.README.md)
+
+Selectively log team-specific messages to the console.
 
 ### [`storage`](./src/storage.README.md)
 
