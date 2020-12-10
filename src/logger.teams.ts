@@ -23,6 +23,6 @@ export const teams = {
 	},
 	design: {
 		background: '#185E36',
-		font: '#FFF4F2'
+		font: '#FFF4F2',
 	},
 };
