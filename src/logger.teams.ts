@@ -21,4 +21,8 @@ export const teams = {
 		background: '#000000',
 		font: '#ff7300',
 	},
+	design: {
+		background: '#185E36',
+		font: '#FFF4F2'
+	},
 };
