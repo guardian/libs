@@ -35,7 +35,7 @@ export const isContrastAccessible = (
 	const contrast = getContrast(fg, bg);
 	if (contrast) {
 		return {
-			AA: contrast > 3,
+			AA: contrast > 4.5,
 			AAA: contrast > 7,
 		};
 	} else {
