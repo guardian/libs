@@ -26,8 +26,8 @@ export const hexToRGB = (hex: string): number[] | null => {
 };
 
 export const isHexCode = (hex: string): boolean =>
-	/^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.test(hex) ||
-	/^#?([a-f\d])([a-f\d])([a-f\d])$/i.test(hex);
+	/^#([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.test(hex) ||
+	/^#([a-f\d])([a-f\d])([a-f\d])$/i.test(hex);
 
 export const isNamedColour = (
 	colour: string | ColourName,
