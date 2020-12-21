@@ -18,7 +18,7 @@
   - [`isUndefined`](#isundefined)
   - [`loadScript`](#loadscript)
   - [`storage`](#storage)
-  - [`isContractAccessible`](#isContrastAccessible)
+  - [`isContractAccessible`](#iscontractaccessible)
 - [Installation](#installation)
   - [Bundling](#bundling)
 - [Development](#development)
