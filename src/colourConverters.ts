@@ -7,7 +7,7 @@ export const nameToHex = (name: ColourName): string => {
 };
 
 export const hexToRGB = (hex: string): number[] | null => {
-	const shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+	const shorthandRegex = /^#([a-f\d])([a-f\d])([a-f\d])$/i;
 	hex = hex.replace(
 		shorthandRegex,
 		function (m, r: string, g: string, b: string) {
