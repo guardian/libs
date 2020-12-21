@@ -18,6 +18,7 @@
   - [`isUndefined`](#isundefined)
   - [`loadScript`](#loadscript)
   - [`storage`](#storage)
+  - [`isContractAccessible`](#isContrastAccessible)
 - [Installation](#installation)
   - [Bundling](#bundling)
 - [Development](#development)
@@ -49,6 +50,10 @@ Inject an external JavaScript file.
 ### [`storage`](./src/storage.README.md)
 
 Robust API over `localStorage` and `sessionStorage`.
+
+### [`isContractAccessible`](./src/isContractAccessible.README.md)
+
+Check if two colours meet WebAIM contrast requirements.
 
 ## Installation
 
