@@ -11,7 +11,7 @@ export const hexToRGB = (hex: string): number[] | null => {
 	hex = hex.replace(
 		shorthandRegex,
 		function (m, r: string, g: string, b: string) {
-			return r + r + g + g + b + b;
+			return '#' + r + r + g + g + b + b;
 		},
 	);
 
@@ -25,9 +25,12 @@ export const hexToRGB = (hex: string): number[] | null => {
 		: null;
 };
 
-export const isHexCode = (hex: string): boolean =>
-	/^#([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.test(hex) ||
-	/^#([a-f\d])([a-f\d])([a-f\d])$/i.test(hex);
+export const isHexCode = (hex: string): boolean => {
+	const isLongcode = /^#[a-f\d]{6}$/i.test(hex);
+	const isShortcode = /^#[a-f\d]{3}$/i.test(hex);
+
+	return isShortcode || isLongcode;
+};
 
 export const isNamedColour = (
 	colour: string | ColourName,
