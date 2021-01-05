@@ -25,4 +25,8 @@ export const teams = {
 		background: '#185E36', // green
 		font: '#FFF4F2', // light pink
 	},
+	tx: {
+		background: '#2F4F4F', // dark slate grey
+		font: '#FFFFFF', // white
+	},
 };
