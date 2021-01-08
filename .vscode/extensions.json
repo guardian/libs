@@ -4,6 +4,6 @@
 		"orta.vscode-jest",
 		"editorconfig.editorconfig",
 		"dbaeumer.vscode-eslint",
-		"stkb.rewrap"
+		"stkb.rewrap",
 	]
 }
