@@ -43,7 +43,7 @@
     "@guardian/prettier": "0.4.1",
     "@rollup/plugin-typescript": "8.0.0",
     "@semantic-release/github": "7.2.0",
-    "@types/jest": "26.0.18",
+    "@types/jest": "26.0.20",
     "@types/node-fetch": "2.5.7",
     "@typescript-eslint/eslint-plugin": "4.9.1",
     "@typescript-eslint/parser": "4.9.1",
