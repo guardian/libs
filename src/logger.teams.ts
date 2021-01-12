@@ -6,27 +6,27 @@
  * */
 export const teams = {
 	common: {
-		background: '#052962', // dark blue
-		font: '#ffffff', // white
+		background: '#052962',
+		font: '#ffffff',
 	},
 	commercial: {
-		background: '#77EEAA', // mint green
-		font: '#004400', // dark green
+		background: '#77EEAA',
+		font: '#004400',
 	},
 	cmp: {
-		background: '#FF3399', // bright pink
-		font: '#332020', // dark brown
+		background: '#FF3399',
+		font: '#332020',
 	},
 	dotcom: {
-		background: '#000000', // black
-		font: '#ff7300', // orange
+		background: '#000000',
+		font: '#ff7300',
 	},
 	design: {
-		background: '#185E36', // green
-		font: '#FFF4F2', // light pink
+		background: '#185E36',
+		font: '#FFF4F2',
 	},
 	tx: {
-		background: '#2F4F4F', // dark slate grey
-		font: '#FFFFFF', // white
+		background: '#2F4F4F',
+		font: '#FFFFFF',
 	},
 };
