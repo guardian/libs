@@ -44,7 +44,7 @@
     "@rollup/plugin-typescript": "8.1.0",
     "@semantic-release/github": "7.2.0",
     "@types/jest": "26.0.20",
-    "@types/node-fetch": "2.5.7",
+    "@types/node-fetch": "2.5.8",
     "@typescript-eslint/eslint-plugin": "4.13.0",
     "@typescript-eslint/parser": "4.13.0",
     "eslint": "7.17.0",
