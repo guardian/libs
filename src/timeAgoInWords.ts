@@ -103,7 +103,7 @@ export const timeAgoInWords = (
 	epoch: number,
 	opts: Options = {},
 ): false | string => {
-	const then = new Date(Number(epoch));
+	const then = new Date(epoch);
 	const now = new Date();
 	const format = opts.format ?? 'short';
 	const extendedFormatting = opts.format === 'short' || opts.format === 'med';
