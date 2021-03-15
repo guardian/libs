@@ -103,7 +103,7 @@ const getSuffix = (
 const withTime = (date: Date): string =>
 	` ${date.getHours()}:${pad(date.getMinutes())}`;
 
-export const makeRelativeDate = (
+export const timeAgoInWords = (
 	epoch: number,
 	opts: RelativeDateOptions = {},
 ): false | string => {

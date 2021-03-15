@@ -1,5 +1,5 @@
 
-# `makeRelativeDate`
+# `timeAgoInWords`
 
 Takes an absolute date in [epoch format](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date#description) and returns a string representing relative time ago.
 
@@ -16,8 +16,8 @@ type RelativeDateOptions = {
 
 
 ## Usage
-`makeRelativeDate(twoDaysAgoAsEpoch) // '2d ago'`
-`makeRelativeDate(twoDaysAgoAsEpoch, { format: 'long' }) // '2 days ago'`
-`makeRelativeDate(twoDaysAgoAsEpoch, { format: 'short' }) // '2d'`
-`makeRelativeDate(threeYearsAgo, { maxAge: 1YearAgo }) // false`
-`makeRelativeDate(threeDaysAgo, { showTime: true, format: 'long' }) // 'Friday 12 March 2021 10:00'`
+`timeAgoInWords(twoDaysAgoAsEpoch) // '2d ago'`
+`timeAgoInWords(twoDaysAgoAsEpoch, { format: 'long' }) // '2 days ago'`
+`timeAgoInWords(twoDaysAgoAsEpoch, { format: 'short' }) // '2d'`
+`timeAgoInWords(threeYearsAgo, { maxAge: 1YearAgo }) // false`
+`timeAgoInWords(threeDaysAgo, { showTime: true, format: 'long' }) // 'Friday 12 March 2021 10:00'`
