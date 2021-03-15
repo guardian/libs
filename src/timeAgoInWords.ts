@@ -34,7 +34,7 @@ const shortMonth = (month: number): string =>
 		'Dec',
 	][month];
 
-const pad = (n: number): number | string => (n < 10 ? `0${n}` : n);
+const pad = (n: number): number | string => n.toString().padStart(2, '0');
 
 const isToday = (date: Date): boolean => {
 	const today = new Date();
