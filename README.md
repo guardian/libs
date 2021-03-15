@@ -19,7 +19,7 @@
   - [`loadScript`](#loadscript)
   - [`log`/`debug`](#logdebug)
   - [`storage`](#storage)
-  - [`timeAgoInWords`](#timeAgoInWords)
+  - [`timeAgoInWords`](#timeagoinwords)
 - [Installation](#installation)
   - [Bundling](#bundling)
 - [Development](#development)
