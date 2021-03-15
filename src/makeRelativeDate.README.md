@@ -1,7 +1,7 @@
 
 # `makeRelativeDate`
 
-Takes an absolute date in epoch format and returns a string representing relative time ago.
+Takes an absolute date in [epoch format](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date#description) and returns a string representing relative time ago.
 
 ## Props
 ```typescript
