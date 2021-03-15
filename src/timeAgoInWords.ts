@@ -118,7 +118,7 @@ export const timeAgoInWords = (
 		// Dates in the future are not supported
 		return false;
 	} else if (opts.maxAge && secondsAgo > opts.maxAge) {
-		// If the event occured after the cutoff (maxAge) bail out
+		// If the event occurred after the cutoff (maxAge) bail out
 		return false;
 	} else if (secondsAgo < 55) {
 		// Seconds
