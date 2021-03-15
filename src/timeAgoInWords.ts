@@ -1,11 +1,11 @@
-type RelativeDateOptions = {
+type Options = {
 	maxAge?: number;
 	format?: FormatType;
 	showTime?: boolean;
 };
 
 type FormatType = 'short' | 'med' | 'long';
-type PeriodType = 's' | 'm' | 'h' | 'd';
+type Unit = 's' | 'm' | 'h' | 'd';
 
 const dayOfWeek = (day: number): string =>
 	[
@@ -65,11 +65,7 @@ const isValidDate = (date: Date): boolean => {
 	return !Number.isNaN(date.getTime());
 };
 
-const getSuffix = (
-	type: PeriodType,
-	format: FormatType,
-	value: number,
-): string => {
+const getSuffix = (type: Unit, format: FormatType, value: number): string => {
 	const units = {
 		s: {
 			short: ['s'],
@@ -105,7 +101,7 @@ const withTime = (date: Date): string =>
 
 export const timeAgoInWords = (
 	epoch: number,
-	opts: RelativeDateOptions = {},
+	opts: Options = {},
 ): false | string => {
 	let delta = 0;
 	const then = new Date(Number(epoch));
