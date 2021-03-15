@@ -112,34 +112,33 @@ export const timeAgoInWords = (
 		return false;
 	}
 
-	// delta is the number of seconds since the event happened
-	const delta = Math.floor((now.getTime() - then.getTime()) / 1000);
+	const secondsAgo = Math.floor((now.getTime() - then.getTime()) / 1000);
 
-	if (delta < 0) {
+	if (secondsAgo < 0) {
 		// Dates in the future are not supported
 		return false;
-	} else if (opts.maxAge && delta > opts.maxAge) {
+	} else if (opts.maxAge && secondsAgo > opts.maxAge) {
 		// If the event occured after the cutoff (maxAge) bail out
 		return false;
-	} else if (delta < 55) {
+	} else if (secondsAgo < 55) {
 		// Seconds
-		return `${delta}${getSuffix('s', format, delta)}`;
-	} else if (delta < 55 * 60) {
+		return `${secondsAgo}${getSuffix('s', format, secondsAgo)}`;
+	} else if (secondsAgo < 55 * 60) {
 		// Minutes
-		const minutes = Math.round(delta / 60);
+		const minutes = Math.round(secondsAgo / 60);
 		return `${minutes}${getSuffix('m', format, minutes)}`;
 	} else if (isToday(then) || (extendedFormatting && isWithin24Hours(then))) {
 		// Hours
-		const hours = Math.round(delta / 3600);
+		const hours = Math.round(secondsAgo / 3600);
 		return `${hours}${getSuffix('h', format, hours)}`;
 	} else if (extendedFormatting && isWithinPastWeek(then)) {
 		// Days
-		const days = Math.round(delta / 3600 / 24);
+		const days = Math.round(secondsAgo / 3600 / 24);
 		return `${days}${getSuffix('d', format, days)}`;
 	} else if (isYesterday(then)) {
 		// Yesterday
 		return `Yesterday${withTime(then)}`;
-	} else if (delta < 5 * 24 * 60 * 60) {
+	} else if (secondsAgo < 5 * 24 * 60 * 60) {
 		// Less than 5 days (and *not* extendedFormatting)
 		return (
 			[
