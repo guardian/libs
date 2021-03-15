@@ -88,7 +88,7 @@ describe('makeRelativeDate', () => {
 		const oneYearInSeconds = 60 * 60 * 24 * 365;
 		expect(
 			makeRelativeDate(twoYearsAgo, {
-				notAfter: oneYearInSeconds,
+				maxAge: oneYearInSeconds,
 			}),
 		).toBeFalsy();
 	});

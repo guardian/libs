@@ -1,5 +1,5 @@
 type RelativeDateOptions = {
-	notAfter?: number;
+	maxAge?: number;
 	format?: FormatType;
 	showTime?: boolean;
 };
@@ -123,8 +123,8 @@ export const makeRelativeDate = (
 	if (delta < 0) {
 		// Dates in the future are not supported
 		return false;
-	} else if (opts.notAfter && delta > opts.notAfter) {
-		// If the event occured after the cutoff (notAfter) bail out
+	} else if (opts.maxAge && delta > opts.maxAge) {
+		// If the event occured after the cutoff (maxAge) bail out
 		return false;
 	} else if (delta < 55) {
 		// Seconds
