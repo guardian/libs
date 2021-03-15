@@ -18,7 +18,7 @@ const dayOfWeek = (day: number): string =>
 		'Saturday',
 	][day];
 
-const monthAbbr = (month: number): string =>
+const shortMonth = (month: number): string =>
 	[
 		'Jan',
 		'Feb',
@@ -146,14 +146,14 @@ export const timeAgoInWords = (
 			[
 				dayOfWeek(then.getDay()),
 				then.getDate(),
-				monthAbbr(then.getMonth()),
+				shortMonth(then.getMonth()),
 				then.getFullYear(),
 			].join(' ') + (opts.showTime ? withTime(then) : '')
 		);
 	}
 	return (
 		// Default: long description + optional time
-		[then.getDate(), monthAbbr(then.getMonth()), then.getFullYear()].join(
+		[then.getDate(), shortMonth(then.getMonth()), then.getFullYear()].join(
 			' ',
 		) + (opts.showTime ? withTime(then) : '')
 	);
