@@ -81,7 +81,7 @@ describe('makeRelativeDate', () => {
 		);
 	});
 
-	it('returns false when past any cutoff value given', () => {
+	it('returns false when the epoch value used is greater than maxAge', () => {
 		const twoYearsAgo = new Date(
 			Date.UTC(2017, 10, 17, 10, 0, 0),
 		).getTime();
