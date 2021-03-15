@@ -19,7 +19,7 @@
   - [`loadScript`](#loadscript)
   - [`log`/`debug`](#logdebug)
   - [`storage`](#storage)
-  - [`makeRelativeDate`](#makeRelativeDate)
+  - [`makeRelativeDate`](#makerelativedate)
 - [Installation](#installation)
   - [Bundling](#bundling)
 - [Development](#development)
