@@ -103,7 +103,6 @@ export const timeAgoInWords = (
 	epoch: number,
 	opts: Options = {},
 ): false | string => {
-	let delta = 0;
 	const then = new Date(Number(epoch));
 	const now = new Date();
 	const format = opts.format ?? 'short';
@@ -114,7 +113,7 @@ export const timeAgoInWords = (
 	}
 
 	// delta is the number of seconds since the event happened
-	delta = Math.floor((now.getTime() - then.getTime()) / 1000);
+	const delta = Math.floor((now.getTime() - then.getTime()) / 1000);
 
 	if (delta < 0) {
 		// Dates in the future are not supported
