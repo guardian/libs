@@ -93,19 +93,19 @@ describe('timeAgoInWords', () => {
 	});
 
 	it('does not pluralise the unit when the delta is one', () => {
-		const onHourAgo = new Date(Date.UTC(2019, 10, 17, 11, 0, 0)).getTime();
+		const oneHourAgo = new Date(Date.UTC(2019, 10, 17, 11, 0, 0)).getTime();
 		expect(
-			timeAgoInWords(onHourAgo, {
+			timeAgoInWords(oneHourAgo, {
 				length: 'short',
 			}),
 		).toBe('1h');
 		expect(
-			timeAgoInWords(onHourAgo, {
+			timeAgoInWords(oneHourAgo, {
 				length: 'med',
 			}),
 		).toBe('1h ago');
 		expect(
-			timeAgoInWords(onHourAgo, {
+			timeAgoInWords(oneHourAgo, {
 				length: 'long',
 			}),
 		).toBe('1 hour ago');
