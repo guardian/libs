@@ -21,7 +21,7 @@ The date when an event happened in epoch format
 Type:
 ```typescript
 {
-	length?: 'short' | 'med' | 'long'; // Change string length (default 'med')
+	format?: 'short' | 'med' | 'long'; // Change string format (default 'med')
 	showTime?: boolean; // Append time to string
 }
 ```
@@ -31,7 +31,7 @@ Options to control the response
 ## Examples
 ```
 timeAgoInWords(twoDaysAgoAsEpoch) // '2d ago'
-timeAgoInWords(twoDaysAgoAsEpoch, { length: 'long' }) // '2 days ago'
-timeAgoInWords(twoDaysAgoAsEpoch, { length: 'short' }) // '2d'
-timeAgoInWords(threeDaysAgo, { showTime: true, length: 'long' }) // 'Friday 12 Mar 2021 10:00'
+timeAgoInWords(twoDaysAgoAsEpoch, { format: 'long' }) // '2 days ago'
+timeAgoInWords(twoDaysAgoAsEpoch, { format: 'short' }) // '2d'
+timeAgoInWords(threeDaysAgo, { showTime: true, format: 'long' }) // 'Friday 12 Mar 2021 10:00'
 ```
