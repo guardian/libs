@@ -81,18 +81,6 @@ describe('timeAgoInWords', () => {
 		);
 	});
 
-	it('returns false when the epoch value used is greater than maxAge', () => {
-		const twoYearsAgo = new Date(
-			Date.UTC(2017, 10, 17, 10, 0, 0),
-		).getTime();
-		const oneYearInSeconds = 60 * 60 * 24 * 365;
-		expect(
-			timeAgoInWords(twoYearsAgo, {
-				maxAge: oneYearInSeconds,
-			}),
-		).toBeFalsy();
-	});
-
 	it('returns a string including time when showTime is true', () => {
 		const twoDaysAgo = new Date(Date.UTC(2019, 10, 15, 13, 0, 0)).getTime();
 		expect(

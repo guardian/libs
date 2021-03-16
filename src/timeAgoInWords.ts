@@ -1,5 +1,4 @@
 type Options = {
-	maxAge?: number;
 	format?: FormatType;
 	showTime?: boolean;
 };
@@ -116,9 +115,6 @@ export const timeAgoInWords = (
 
 	if (secondsAgo < 0) {
 		// Dates in the future are not supported
-		return false;
-	} else if (opts.maxAge && secondsAgo > opts.maxAge) {
-		// If the event occurred after the cutoff (maxAge) bail out
 		return false;
 	} else if (secondsAgo < 55) {
 		// Seconds

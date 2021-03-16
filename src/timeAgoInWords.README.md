@@ -21,7 +21,6 @@ The date when an event happened in epoch format
 Type:
 ```typescript
 {
-	maxAge?: number; // Return false if the date ago is past a cutoff
 	format?: 'short' | 'med' | 'long'; // Change string format (default 'med')
 	showTime?: boolean; // Append time to string
 }
@@ -34,6 +33,5 @@ Options to control the response
 timeAgoInWords(twoDaysAgoAsEpoch) // '2d ago'
 timeAgoInWords(twoDaysAgoAsEpoch, { format: 'long' }) // '2 days ago'
 timeAgoInWords(twoDaysAgoAsEpoch, { format: 'short' }) // '2d'
-timeAgoInWords(threeYearsAgo, { maxAge: 1YearAgo }) // false
 timeAgoInWords(threeDaysAgo, { showTime: true, format: 'long' }) // 'Friday 12 Mar 2021 10:00'
 ```
