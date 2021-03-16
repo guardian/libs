@@ -1,9 +1,9 @@
 type Options = {
-	format?: FormatType;
+	length?: Length;
 	showTime?: boolean;
 };
 
-type FormatType = 'short' | 'med' | 'long';
+type Length = 'short' | 'med' | 'long';
 type Unit = 's' | 'm' | 'h' | 'd';
 
 const dayOfWeek = (day: number): string =>
@@ -64,7 +64,7 @@ const isValidDate = (date: Date): boolean => {
 	return !Number.isNaN(date.getTime());
 };
 
-const getSuffix = (type: Unit, format: FormatType, value: number): string => {
+const getSuffix = (type: Unit, length: Length, value: number): string => {
 	const units = {
 		s: {
 			short: ['s'],
@@ -88,7 +88,7 @@ const getSuffix = (type: Unit, format: FormatType, value: number): string => {
 		},
 	};
 
-	const strs = units[type][format];
+	const strs = units[type][length];
 	if (value === 1) {
 		return strs[0];
 	}
@@ -104,8 +104,8 @@ export const timeAgoInWords = (
 ): false | string => {
 	const then = new Date(epoch);
 	const now = new Date();
-	const format = opts.format ?? 'short';
-	const extendedFormatting = opts.format === 'short' || opts.format === 'med';
+	const length = opts.length ?? 'short';
+	const extendedFormatting = opts.length === 'short' || opts.length === 'med';
 
 	if (!isValidDate(then)) {
 		return false;
@@ -118,19 +118,19 @@ export const timeAgoInWords = (
 		return false;
 	} else if (secondsAgo < 55) {
 		// Seconds
-		return `${secondsAgo}${getSuffix('s', format, secondsAgo)}`;
+		return `${secondsAgo}${getSuffix('s', length, secondsAgo)}`;
 	} else if (secondsAgo < 55 * 60) {
 		// Minutes
 		const minutes = Math.round(secondsAgo / 60);
-		return `${minutes}${getSuffix('m', format, minutes)}`;
+		return `${minutes}${getSuffix('m', length, minutes)}`;
 	} else if (isToday(then) || (extendedFormatting && isWithin24Hours(then))) {
 		// Hours
 		const hours = Math.round(secondsAgo / 3600);
-		return `${hours}${getSuffix('h', format, hours)}`;
+		return `${hours}${getSuffix('h', length, hours)}`;
 	} else if (extendedFormatting && isWithinPastWeek(then)) {
 		// Days
 		const days = Math.round(secondsAgo / 3600 / 24);
-		return `${days}${getSuffix('d', format, days)}`;
+		return `${days}${getSuffix('d', length, days)}`;
 	} else if (isYesterday(then)) {
 		// Yesterday
 		return `Yesterday${withTime(then)}`;
