@@ -1,8 +1,3 @@
-type Options = {
-	format?: Format;
-};
-
-type Format = 'short' | 'med' | 'long';
 type Unit = 's' | 'm' | 'h' | 'd';
 
 const dayOfWeek = (day: number): string =>
@@ -34,11 +29,6 @@ const shortMonth = (month: number): string =>
 
 const pad = (n: number): number | string => n.toString().padStart(2, '0');
 
-const isToday = (date: Date): boolean => {
-	const today = new Date();
-	return date.toDateString() === today.toDateString();
-};
-
 const isWithin24Hours = (date: Date): boolean => {
 	const today = new Date();
 	return date.valueOf() > today.valueOf() - 24 * 60 * 60 * 1000;
@@ -63,35 +53,30 @@ const isValidDate = (date: Date): boolean => {
 	return !Number.isNaN(date.getTime());
 };
 
-const getSuffix = (type: Unit, format: Format, value: number): string => {
-	const units = {
-		s: {
-			short: ['s'],
-			med: ['s ago'],
-			long: [' second ago', ' seconds ago'],
-		},
-		m: {
-			short: ['m'],
-			med: ['m ago'],
-			long: [' minute ago', ' minutes ago'],
-		},
-		h: {
-			short: ['h'],
-			med: ['h ago'],
-			long: [' hour ago', ' hours ago'],
-		},
-		d: {
-			short: ['d'],
-			med: ['d ago'],
-			long: [' day ago', ' days ago'],
-		},
-	};
-
-	const strs = units[type][format];
-	if (value === 1) {
-		return strs[0];
+const getSuffix = (type: Unit, value: number, extended?: boolean): string => {
+	const shouldPluralise = value !== 1;
+	switch (type) {
+		case 's': {
+			if (extended && shouldPluralise) return ' seconds ago';
+			if (extended) return ' second ago';
+			return 's ago';
+		}
+		case 'm': {
+			if (extended && shouldPluralise) return ' minutes ago';
+			if (extended) return ' minute ago';
+			return 'm ago';
+		}
+		case 'h': {
+			if (extended && shouldPluralise) return ' hours ago';
+			if (extended) return ' hour ago';
+			return 'h ago';
+		}
+		case 'd': {
+			if (extended && shouldPluralise) return ' days ago';
+			if (extended) return ' day ago';
+			return 'd ago';
+		}
 	}
-	return strs[strs.length - 1];
 };
 
 const withTime = (date: Date): string =>
@@ -99,11 +84,13 @@ const withTime = (date: Date): string =>
 
 export const timeAgoInWords = (
 	epoch: number,
-	opts: Options = {},
+	options?: {
+		extended?: boolean;
+	},
 ): false | string => {
 	const then = new Date(epoch);
 	const now = new Date();
-	const format = opts.format ?? 'short';
+	const extended = options?.extended;
 
 	if (!isValidDate(then)) {
 		return false;
@@ -122,22 +109,22 @@ export const timeAgoInWords = (
 		return false;
 	} else if (within55Seconds) {
 		// Seconds
-		return `${secondsAgo}${getSuffix('s', format, secondsAgo)}`;
+		return `${secondsAgo}${getSuffix('s', secondsAgo, extended)}`;
 	} else if (withinTheHour) {
 		// Minutes
 		const minutes = Math.round(secondsAgo / 60);
-		return `${minutes}${getSuffix('m', format, minutes)}`;
+		return `${minutes}${getSuffix('m', minutes, extended)}`;
 	} else if (within24hrs) {
 		// Hours
 		const hours = Math.round(secondsAgo / 3600);
-		return `${hours}${getSuffix('h', format, hours)}`;
-	} else if (wasYesterday) {
+		return `${hours}${getSuffix('h', hours, extended)}`;
+	} else if (wasYesterday && extended) {
 		// Yesterday
 		return `Yesterday${withTime(then)}`;
 	} else if (within5Days) {
 		// Days
 		const days = Math.round(secondsAgo / 3600 / 24);
-		return `${days}${getSuffix('d', format, days)}`;
+		return `${days}${getSuffix('d', days, extended)}`;
 	} else if (withinTheWeek) {
 		// Include day of week in string - "Friday 15 Nov 2019 13:00"
 		return [
