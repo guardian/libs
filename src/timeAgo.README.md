@@ -21,7 +21,7 @@ The date when an event happened in epoch format
 Type:
 ```typescript
 {
-	format?: 'short' | 'med' | 'long'; // Change string format (default 'med')
+	extended?: `boolean`; // Return a longer, extended string or not
 }
 ```
 
@@ -30,6 +30,5 @@ Options to control the response
 ## Examples
 ```
 timeAgo(twoDaysAgoAsEpoch) // '2d ago'
-timeAgo(twoDaysAgoAsEpoch, { format: 'long' }) // '2 days ago'
-timeAgo(twoDaysAgoAsEpoch, { format: 'short' }) // '2d'
+timeAgo(twoDaysAgoAsEpoch, { extended: true' }) // '2 days ago'
 ```
