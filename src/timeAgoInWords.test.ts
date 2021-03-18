@@ -78,18 +78,18 @@ describe('timeAgoInWords', () => {
 	});
 
 	it('returns "yesterday" correctly', () => {
-		const yesterday = new Date(Date.UTC(2019, 10, 16, 13, 0, 0)).getTime();
+		const yesterday = new Date(Date.UTC(2019, 10, 16, 3, 0, 0)).getTime();
 
-		expect(timeAgoInWords(yesterday)).toBe('Yesterday 13:00');
+		expect(timeAgoInWords(yesterday)).toBe('Yesterday 3:00');
 	});
 
-	it('returns long format for dates within one week when long option given', () => {
+	it('returns days for dates within one week', () => {
 		const twoDaysAgo = new Date(Date.UTC(2019, 10, 15, 13, 0, 0)).getTime();
 		expect(
 			timeAgoInWords(twoDaysAgo, {
 				format: 'long',
 			}),
-		).toBe('Friday 15 Nov 2019');
+		).toBe('2 days ago');
 	});
 
 	it('does not pluralise the unit when the delta is one', () => {
@@ -165,7 +165,7 @@ describe('timeAgoInWords', () => {
 		).toBe('20h');
 	});
 
-	it('returns "yesterday" for dates within 24hs if format long', () => {
+	it('returns hours for dates within 24hs', () => {
 		const twentyHoursAgo = new Date(
 			Date.UTC(2019, 10, 16, 16, 0, 0),
 		).getTime();
@@ -173,7 +173,7 @@ describe('timeAgoInWords', () => {
 			timeAgoInWords(twentyHoursAgo, {
 				format: 'long',
 			}),
-		).toBe('Yesterday 16:00');
+		).toBe('20 hours ago');
 	});
 
 	it('still returns "yesterday" for dates over 24hrs if format long and is yesterday', () => {
@@ -187,7 +187,7 @@ describe('timeAgoInWords', () => {
 		).toBe('Yesterday 6:00');
 	});
 
-	it('uses 1d, not "Yesterday" for dates over 24hrs if format med', () => {
+	it('uses "Yesterday" for dates over 24hrs', () => {
 		const thirtyHoursAgo = new Date(
 			Date.UTC(2019, 10, 16, 6, 0, 0),
 		).getTime();
@@ -195,7 +195,7 @@ describe('timeAgoInWords', () => {
 			timeAgoInWords(thirtyHoursAgo, {
 				format: 'med',
 			}),
-		).toBe('1d ago');
+		).toBe('Yesterday 6:00');
 	});
 
 	it('returns short format dates for dates over one week ago, regardless of options', () => {
@@ -209,13 +209,30 @@ describe('timeAgoInWords', () => {
 		);
 	});
 
-	it('returns a string including time when showTime is true', () => {
+	it('returns days when within 5 days', () => {
 		const twoDaysAgo = new Date(Date.UTC(2019, 10, 15, 13, 0, 0)).getTime();
-		expect(
-			timeAgoInWords(twoDaysAgo, {
-				showTime: true,
-				format: 'long',
-			}),
-		).toBe('Friday 15 Nov 2019 13:00');
+		const fourDaysAgo = new Date(
+			Date.UTC(2019, 10, 13, 13, 0, 0),
+		).getTime();
+		const fiveDaysAgo = new Date(
+			Date.UTC(2019, 10, 12, 13, 0, 0),
+		).getTime();
+		expect(timeAgoInWords(twoDaysAgo)).toBe('2d');
+		expect(timeAgoInWords(fourDaysAgo)).toBe('4d');
+		expect(timeAgoInWords(fiveDaysAgo)).toBe('5d');
+	});
+
+	it('includes day of week when within the week', () => {
+		const sixDaysAgo = new Date(Date.UTC(2019, 10, 11, 13, 0, 0)).getTime();
+		expect(timeAgoInWords(sixDaysAgo)).toBe('Monday 11 Nov 2019');
+	});
+
+	it('defaults to a simple date format for dates over 1 week old', () => {
+		const eightDaysAgo = new Date(
+			Date.UTC(2019, 10, 9, 13, 0, 0),
+		).getTime();
+		const aWhileBack = new Date(Date.UTC(2017, 3, 2, 17, 0, 0)).getTime();
+		expect(timeAgoInWords(eightDaysAgo)).toBe('9 Nov 2019');
+		expect(timeAgoInWords(aWhileBack)).toBe('2 Apr 2017');
 	});
 });

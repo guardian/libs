@@ -105,37 +105,42 @@ export const timeAgoInWords = (
 	const then = new Date(epoch);
 	const now = new Date();
 	const format = opts.format ?? 'short';
-	const extendedFormatting = opts.format === 'short' || opts.format === 'med';
 
 	if (!isValidDate(then)) {
 		return false;
 	}
 
 	const secondsAgo = Math.floor((now.getTime() - then.getTime()) / 1000);
+	const within55Seconds = secondsAgo < 55;
+	const withinTheHour = secondsAgo < 55 * 60;
+	const within24hrs = isWithin24Hours(then);
+	const wasYesterday = isYesterday(then);
+	const withinTheWeek = isWithinPastWeek(then);
+	const within5Days = secondsAgo < 5 * 24 * 60 * 60;
 
 	if (secondsAgo < 0) {
 		// Dates in the future are not supported
 		return false;
-	} else if (secondsAgo < 55) {
+	} else if (within55Seconds) {
 		// Seconds
 		return `${secondsAgo}${getSuffix('s', format, secondsAgo)}`;
-	} else if (secondsAgo < 55 * 60) {
+	} else if (withinTheHour) {
 		// Minutes
 		const minutes = Math.round(secondsAgo / 60);
 		return `${minutes}${getSuffix('m', format, minutes)}`;
-	} else if (isToday(then) || (extendedFormatting && isWithin24Hours(then))) {
+	} else if (within24hrs) {
 		// Hours
 		const hours = Math.round(secondsAgo / 3600);
 		return `${hours}${getSuffix('h', format, hours)}`;
-	} else if (extendedFormatting && isWithinPastWeek(then)) {
+	} else if (wasYesterday) {
+		// Yesterday
+		return `Yesterday${withTime(then)}`;
+	} else if (within5Days) {
 		// Days
 		const days = Math.round(secondsAgo / 3600 / 24);
 		return `${days}${getSuffix('d', format, days)}`;
-	} else if (isYesterday(then)) {
-		// Yesterday
-		return `Yesterday${withTime(then)}`;
-	} else if (secondsAgo < 5 * 24 * 60 * 60) {
-		// Less than 5 days (and *not* extendedFormatting)
+	} else if (withinTheWeek) {
+		// Include day of week in string - "Friday 15 Nov 2019 13:00"
 		return (
 			[
 				dayOfWeek(then.getDay()),
@@ -146,7 +151,7 @@ export const timeAgoInWords = (
 		);
 	}
 	return (
-		// Default: long description + optional time
+		// Simple date - "9 Nov 2019"
 		[then.getDate(), shortMonth(then.getMonth()), then.getFullYear()].join(
 			' ',
 		) + (opts.showTime ? withTime(then) : '')
