@@ -54,16 +54,18 @@ describe('timeAgo', () => {
 		).getTime();
 
 		expect(timeAgo(eightDaysAgo)).toBe('9 Nov 2019');
-		expect(
-			timeAgo(eightDaysAgo, {
-				extended: false,
-			}),
-		).toBe('9 Nov 2019');
+	});
+
+	it('returns a longer absolute date when extended is true', () => {
+		const eightDaysAgo = new Date(
+			Date.UTC(2019, 10, 9, 13, 0, 0),
+		).getTime();
+
 		expect(
 			timeAgo(eightDaysAgo, {
 				extended: true,
 			}),
-		).toBe('9 Nov 2019');
+		).toBe('9 November 2019');
 	});
 
 	it('returns "yesterday" only when extended option given', () => {
@@ -177,7 +179,9 @@ describe('timeAgo', () => {
 		const oneMonthAgo = new Date(Date.UTC(2019, 9, 17, 13, 0, 0)).getTime();
 		expect(timeAgo(oneMonthAgo)).toBe('17 Oct 2019');
 		expect(timeAgo(oneMonthAgo, { extended: false })).toBe('17 Oct 2019');
-		expect(timeAgo(oneMonthAgo, { extended: true })).toBe('17 Oct 2019');
+		expect(timeAgo(oneMonthAgo, { extended: true })).toBe(
+			'17 October 2019',
+		);
 	});
 
 	it('returns days when within 5 days', () => {

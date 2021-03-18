@@ -16,6 +16,22 @@ const shortMonth = (month: number): string =>
 		'Dec',
 	][month];
 
+const longMonth = (month: number): string =>
+	[
+		'January',
+		'Febuary',
+		'March',
+		'April',
+		'May',
+		'June',
+		'July',
+		'August',
+		'September',
+		'October',
+		'November',
+		'December',
+	][month];
+
 const pad = (n: number): number | string => n.toString().padStart(2, '0');
 
 const isWithin24Hours = (date: Date): boolean => {
@@ -123,7 +139,7 @@ export const timeAgo = (
 		// Simple date - "9 Nov 2019"
 		return [
 			then.getDate(),
-			shortMonth(then.getMonth()),
+			extended ? longMonth(then.getMonth()) : shortMonth(then.getMonth()),
 			then.getFullYear(),
 		].join(' ');
 	}
