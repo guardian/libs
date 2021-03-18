@@ -19,7 +19,7 @@
   - [`loadScript`](#loadscript)
   - [`log`/`debug`](#logdebug)
   - [`storage`](#storage)
-  - [`timeAgoInWords`](#timeagoinwords)
+  - [`timeAgo`](#timeago)
 - [Installation](#installation)
   - [Bundling](#bundling)
 - [Development](#development)
@@ -56,7 +56,7 @@ Selectively log team-specific messages to the console.
 
 Robust API over `localStorage` and `sessionStorage`.
 
-### [`timeAgoInWords`](./src/timeAgoInWords.README.md)
+### [`timeAgo`](./src/timeAgo.README.md)
 
 Turns absolute dates into time ago strings.
 

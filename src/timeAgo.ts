@@ -82,7 +82,7 @@ const getSuffix = (type: Unit, value: number, extended?: boolean): string => {
 const withTime = (date: Date): string =>
 	` ${date.getHours()}:${pad(date.getMinutes())}`;
 
-export const timeAgoInWords = (
+export const timeAgo = (
 	epoch: number,
 	options?: {
 		extended?: boolean;

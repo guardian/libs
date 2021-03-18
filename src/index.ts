@@ -5,5 +5,5 @@ export { isString } from './isString';
 export { isUndefined } from './isUndefined';
 export { loadScript } from './loadScript';
 export { storage } from './storage';
-export { timeAgoInWords } from './timeAgoInWords';
+export { timeAgo } from './timeAgo';
 export { log, debug } from './logger';

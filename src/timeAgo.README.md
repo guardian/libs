@@ -1,10 +1,10 @@
 
-# `timeAgoInWords`
+# `timeAgo`
 
 Takes an absolute date in [epoch format](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date#description) and returns a string representing relative time ago.
 
 ## Usage
-`timeAgoInWords(epoch, opts)`
+`timeAgo(epoch, opts)`
 
 Returns: `string | false`
 
@@ -29,7 +29,7 @@ Options to control the response
 
 ## Examples
 ```
-timeAgoInWords(twoDaysAgoAsEpoch) // '2d ago'
-timeAgoInWords(twoDaysAgoAsEpoch, { format: 'long' }) // '2 days ago'
-timeAgoInWords(twoDaysAgoAsEpoch, { format: 'short' }) // '2d'
+timeAgo(twoDaysAgoAsEpoch) // '2d ago'
+timeAgo(twoDaysAgoAsEpoch, { format: 'long' }) // '2 days ago'
+timeAgo(twoDaysAgoAsEpoch, { format: 'short' }) // '2d'
 ```
