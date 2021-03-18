@@ -1,6 +1,5 @@
 type Options = {
 	format?: Format;
-	showTime?: boolean;
 };
 
 type Format = 'short' | 'med' | 'long';
@@ -141,19 +140,17 @@ export const timeAgoInWords = (
 		return `${days}${getSuffix('d', format, days)}`;
 	} else if (withinTheWeek) {
 		// Include day of week in string - "Friday 15 Nov 2019 13:00"
-		return (
-			[
-				dayOfWeek(then.getDay()),
-				then.getDate(),
-				shortMonth(then.getMonth()),
-				then.getFullYear(),
-			].join(' ') + (opts.showTime ? withTime(then) : '')
-		);
+		return [
+			dayOfWeek(then.getDay()),
+			then.getDate(),
+			shortMonth(then.getMonth()),
+			then.getFullYear(),
+		].join(' ');
 	}
 	return (
 		// Simple date - "9 Nov 2019"
 		[then.getDate(), shortMonth(then.getMonth()), then.getFullYear()].join(
 			' ',
-		) + (opts.showTime ? withTime(then) : '')
+		)
 	);
 };
