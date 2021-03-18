@@ -193,9 +193,21 @@ describe('timeAgo', () => {
 		expect(timeAgo(fiveDaysAgo)).toBe('5d ago');
 	});
 
-	it('includes day of week when within the week', () => {
-		const sixDaysAgo = new Date(Date.UTC(2019, 10, 11, 13, 0, 0)).getTime();
-		expect(timeAgo(sixDaysAgo)).toBe('Monday 11 Nov 2019');
+	it('returns absolute dates after 7 days', () => {
+		const sevenDaysAgo = new Date(
+			Date.UTC(2019, 10, 10, 13, 0, 0),
+		).getTime();
+		const eightDaysAgo = new Date(
+			Date.UTC(2019, 10, 9, 13, 0, 0),
+		).getTime();
+		expect(timeAgo(sevenDaysAgo)).toBe('7d ago');
+		expect(timeAgo(eightDaysAgo)).toBe('9 Nov 2019');
+	});
+
+	it('correctly changes format based on the daysUntilAbsolute option', () => {
+		const tenDaysAgo = new Date(Date.UTC(2019, 10, 7, 13, 0, 0)).getTime();
+		expect(timeAgo(tenDaysAgo)).toBe('7 Nov 2019');
+		expect(timeAgo(tenDaysAgo, { daysUntilAbsolute: 14 })).toBe('10d ago');
 	});
 
 	it('defaults to a simple date format for dates over 1 week old', () => {

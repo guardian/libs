@@ -22,6 +22,7 @@ Type:
 ```typescript
 {
 	extended?: `boolean`; // Return a longer, extended string or not
+    daysUntilAbsolute?; `number`  // The cutoff for when dates are returned in absolute format
 }
 ```
 
@@ -32,5 +33,6 @@ Options to control the response
 timeAgo(twoSecondsAgoAsEpoch) // 'now'
 timeAgo(fiveMinutesAgoAgoAsEpoch) // '5m ago'
 timeAgo(twoDaysAgoAsEpoch) // '2d ago'
-timeAgo(twoDaysAgoAsEpoch, { extended: true' }) // '2 days ago'
+timeAgo(sixDaysAgoAsEpoch, { extended: true' }) // '6 days ago'
+timeAgo(sixDaysAgoAsEpoch, { daysUntilAbsolute: 4' }) // '12 Mar 2021'
 ```

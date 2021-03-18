@@ -86,11 +86,13 @@ export const timeAgo = (
 	epoch: number,
 	options?: {
 		extended?: boolean;
+		daysUntilAbsolute?: number;
 	},
 ): false | string => {
 	const then = new Date(epoch);
 	const now = new Date();
 	const extended = options?.extended;
+	const daysUntilAbsolute = options?.daysUntilAbsolute ?? 7;
 
 	if (!isValidDate(then)) {
 		return false;
@@ -102,8 +104,7 @@ export const timeAgo = (
 	const withinTheHour = secondsAgo < 55 * 60;
 	const within24hrs = isWithin24Hours(then);
 	const wasYesterday = isYesterday(then);
-	const withinTheWeek = isWithinPastWeek(then);
-	const within5Days = secondsAgo < 5 * 24 * 60 * 60;
+	const withinAbsoluteCutoff = secondsAgo < daysUntilAbsolute * 24 * 60 * 60;
 
 	if (secondsAgo < 0) {
 		// Dates in the future are not supported
@@ -125,23 +126,16 @@ export const timeAgo = (
 	} else if (wasYesterday && extended) {
 		// Yesterday
 		return `Yesterday${withTime(then)}`;
-	} else if (within5Days) {
+	} else if (withinAbsoluteCutoff) {
 		// Days
 		const days = Math.round(secondsAgo / 3600 / 24);
 		return `${days}${getSuffix('d', days, extended)}`;
-	} else if (withinTheWeek) {
-		// Include day of week in string - "Friday 15 Nov 2019 13:00"
+	} else {
+		// Simple date - "9 Nov 2019"
 		return [
-			dayOfWeek(then.getDay()),
 			then.getDate(),
 			shortMonth(then.getMonth()),
 			then.getFullYear(),
 		].join(' ');
 	}
-	return (
-		// Simple date - "9 Nov 2019"
-		[then.getDate(), shortMonth(then.getMonth()), then.getFullYear()].join(
-			' ',
-		)
-	);
 };
