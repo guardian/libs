@@ -97,6 +97,7 @@ export const timeAgo = (
 	}
 
 	const secondsAgo = Math.floor((now.getTime() - then.getTime()) / 1000);
+	const veryClose = secondsAgo < 15;
 	const within55Seconds = secondsAgo < 55;
 	const withinTheHour = secondsAgo < 55 * 60;
 	const within24hrs = isWithin24Hours(then);
@@ -107,6 +108,9 @@ export const timeAgo = (
 	if (secondsAgo < 0) {
 		// Dates in the future are not supported
 		return false;
+	} else if (veryClose) {
+		// Now
+		return 'now';
 	} else if (within55Seconds) {
 		// Seconds
 		return `${secondsAgo}${getSuffix('s', secondsAgo, extended)}`;

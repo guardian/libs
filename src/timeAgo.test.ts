@@ -15,6 +15,13 @@ describe('timeAgo', () => {
 		expect(timeAgo(older)).toBe('1 Feb 2019');
 	});
 
+	it('returns "now" when within 5 seconds', () => {
+		const twoSecondsAgo = new Date(
+			Date.UTC(2019, 10, 17, 11, 59, 58),
+		).getTime();
+		expect(timeAgo(twoSecondsAgo)).toBe('now');
+	});
+
 	it('returns seconds for very recent dates', () => {
 		const secondsAgo = new Date(
 			Date.UTC(2019, 10, 17, 11, 59, 30),
@@ -67,21 +74,11 @@ describe('timeAgo', () => {
 	});
 
 	it('does not pluralise the unit when the delta is one', () => {
-		const oneSecondAgo = new Date(
-			Date.UTC(2019, 10, 17, 11, 59, 59),
-		).getTime();
 		const oneMinuteAgo = new Date(
 			Date.UTC(2019, 10, 17, 11, 59, 0),
 		).getTime();
 		const oneHourAgo = new Date(Date.UTC(2019, 10, 17, 11, 0, 0)).getTime();
 		const oneDayAgo = new Date(Date.UTC(2019, 10, 16, 12, 0, 0)).getTime();
-
-		expect(timeAgo(oneSecondAgo)).toBe('1s ago');
-		expect(
-			timeAgo(oneSecondAgo, {
-				extended: true,
-			}),
-		).toBe('1 second ago');
 
 		expect(timeAgo(oneHourAgo)).toBe('1h ago');
 		expect(
@@ -107,13 +104,13 @@ describe('timeAgo', () => {
 
 	it('returns extended format for seconds when this option is given', () => {
 		const tenSecondsAgo = new Date(
-			Date.UTC(2019, 10, 17, 11, 59, 50),
+			Date.UTC(2019, 10, 17, 11, 59, 40),
 		).getTime();
 		expect(
 			timeAgo(tenSecondsAgo, {
 				extended: true,
 			}),
-		).toBe('10 seconds ago');
+		).toBe('20 seconds ago');
 	});
 
 	it('returns extended format for minutes when this option is given', () => {

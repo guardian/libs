@@ -29,6 +29,8 @@ Options to control the response
 
 ## Examples
 ```
+timeAgo(twoSecondsAgoAsEpoch) // 'now'
+timeAgo(fiveMinutesAgoAgoAsEpoch) // '5m ago'
 timeAgo(twoDaysAgoAsEpoch) // '2d ago'
 timeAgo(twoDaysAgoAsEpoch, { extended: true' }) // '2 days ago'
 ```
