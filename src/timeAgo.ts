@@ -1,16 +1,5 @@
 type Unit = 's' | 'm' | 'h' | 'd';
 
-const dayOfWeek = (day: number): string =>
-	[
-		'Sunday',
-		'Monday',
-		'Tuesday',
-		'Wednesday',
-		'Thursday',
-		'Friday',
-		'Saturday',
-	][day];
-
 const shortMonth = (month: number): string =>
 	[
 		'Jan',
