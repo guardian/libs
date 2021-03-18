@@ -46,11 +46,6 @@ const isYesterday = (relative: Date): boolean => {
 	return relative.toDateString() === yesterday.toDateString();
 };
 
-const isWithinPastWeek = (date: Date): boolean => {
-	const weekAgo = new Date().valueOf() - 7 * 24 * 60 * 60 * 1000;
-	return date.valueOf() >= weekAgo;
-};
-
 const isValidDate = (date: Date): boolean => {
 	if (Object.prototype.toString.call(date) !== '[object Date]') {
 		return false;
