@@ -20,9 +20,9 @@ The date when an event happened in epoch format
 
 Type:
 ```typescript
-{
-	verbose?: `boolean`; // Return a longer, more descriptive string when true
-    daysUntilAbsolute?; `number`  // The cutoff for when dates are returned in absolute format
+type Opts = {
+    verbose?: boolean, // Return a longer, more descriptive string when true
+    daysUntilAbsolute?: number,  // The cutoff for when dates are returned in absolute format
 }
 ```
 
