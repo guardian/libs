@@ -105,11 +105,11 @@ describe('timeAgo', () => {
 	});
 
 	it('returns verbose format for seconds when this option is given', () => {
-		const tenSecondsAgo = new Date(
+		const twentySecondsAgo = new Date(
 			Date.UTC(2019, 10, 17, 11, 59, 40),
 		).getTime();
 		expect(
-			timeAgo(tenSecondsAgo, {
+			timeAgo(twentySecondsAgo, {
 				verbose: true,
 			}),
 		).toBe('20 seconds ago');
