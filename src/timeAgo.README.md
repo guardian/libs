@@ -29,10 +29,9 @@ Type:
 Options to control the response
 
 ## Examples
-```
+```ts
 timeAgo(twoSecondsAgoAsEpoch) // 'now'
 timeAgo(fiveMinutesAgoAgoAsEpoch) // '5m ago'
 timeAgo(twoDaysAgoAsEpoch) // '2d ago'
-timeAgo(sixDaysAgoAsEpoch, { verbose: true' }) // '6 days ago'
-timeAgo(sixDaysAgoAsEpoch, { daysUntilAbsolute: 4' }) // '12 Mar 2021'
-```
+timeAgo(sixDaysAgoAsEpoch, { verbose: true }) // '6 days ago'
+timeAgo(sixDaysAgoAsEpoch, { daysUntilAbsolute: 4 }) // '12 Mar 2021'
