@@ -53,27 +53,27 @@ const isValidDate = (date: Date): boolean => {
 	return !Number.isNaN(date.getTime());
 };
 
-const getSuffix = (type: Unit, value: number, extended?: boolean): string => {
+const getSuffix = (type: Unit, value: number, verbose?: boolean): string => {
 	const shouldPluralise = value !== 1;
 	switch (type) {
 		case 's': {
-			if (extended && shouldPluralise) return ' seconds ago';
-			if (extended) return ' second ago';
+			if (verbose && shouldPluralise) return ' seconds ago';
+			if (verbose) return ' second ago';
 			return 's ago';
 		}
 		case 'm': {
-			if (extended && shouldPluralise) return ' minutes ago';
-			if (extended) return ' minute ago';
+			if (verbose && shouldPluralise) return ' minutes ago';
+			if (verbose) return ' minute ago';
 			return 'm ago';
 		}
 		case 'h': {
-			if (extended && shouldPluralise) return ' hours ago';
-			if (extended) return ' hour ago';
+			if (verbose && shouldPluralise) return ' hours ago';
+			if (verbose) return ' hour ago';
 			return 'h ago';
 		}
 		case 'd': {
-			if (extended && shouldPluralise) return ' days ago';
-			if (extended) return ' day ago';
+			if (verbose && shouldPluralise) return ' days ago';
+			if (verbose) return ' day ago';
 			return 'd ago';
 		}
 	}
@@ -85,13 +85,13 @@ const withTime = (date: Date): string =>
 export const timeAgo = (
 	epoch: number,
 	options?: {
-		extended?: boolean;
+		verbose?: boolean;
 		daysUntilAbsolute?: number;
 	},
 ): false | string => {
 	const then = new Date(epoch);
 	const now = new Date();
-	const extended = options?.extended;
+	const verbose = options?.verbose;
 	const daysUntilAbsolute = options?.daysUntilAbsolute ?? 7;
 
 	if (!isValidDate(then)) {
@@ -114,27 +114,27 @@ export const timeAgo = (
 		return 'now';
 	} else if (within55Seconds) {
 		// Seconds
-		return `${secondsAgo}${getSuffix('s', secondsAgo, extended)}`;
+		return `${secondsAgo}${getSuffix('s', secondsAgo, verbose)}`;
 	} else if (withinTheHour) {
 		// Minutes
 		const minutes = Math.round(secondsAgo / 60);
-		return `${minutes}${getSuffix('m', minutes, extended)}`;
+		return `${minutes}${getSuffix('m', minutes, verbose)}`;
 	} else if (within24hrs) {
 		// Hours
 		const hours = Math.round(secondsAgo / 3600);
-		return `${hours}${getSuffix('h', hours, extended)}`;
-	} else if (wasYesterday && extended) {
+		return `${hours}${getSuffix('h', hours, verbose)}`;
+	} else if (wasYesterday && verbose) {
 		// Yesterday
 		return `Yesterday${withTime(then)}`;
 	} else if (withinAbsoluteCutoff) {
 		// Days
 		const days = Math.round(secondsAgo / 3600 / 24);
-		return `${days}${getSuffix('d', days, extended)}`;
+		return `${days}${getSuffix('d', days, verbose)}`;
 	} else {
 		// Simple date - "9 Nov 2019"
 		return [
 			then.getDate(),
-			extended ? longMonth(then.getMonth()) : shortMonth(then.getMonth()),
+			verbose ? longMonth(then.getMonth()) : shortMonth(then.getMonth()),
 			then.getFullYear(),
 		].join(' ');
 	}

@@ -21,7 +21,7 @@ The date when an event happened in epoch format
 Type:
 ```typescript
 {
-	extended?: `boolean`; // Return a longer, extended string or not
+	verbose?: `boolean`; // Return a longer, more descriptive string when true
     daysUntilAbsolute?; `number`  // The cutoff for when dates are returned in absolute format
 }
 ```
@@ -33,6 +33,6 @@ Options to control the response
 timeAgo(twoSecondsAgoAsEpoch) // 'now'
 timeAgo(fiveMinutesAgoAgoAsEpoch) // '5m ago'
 timeAgo(twoDaysAgoAsEpoch) // '2d ago'
-timeAgo(sixDaysAgoAsEpoch, { extended: true' }) // '6 days ago'
+timeAgo(sixDaysAgoAsEpoch, { verbose: true' }) // '6 days ago'
 timeAgo(sixDaysAgoAsEpoch, { daysUntilAbsolute: 4' }) // '12 Mar 2021'
 ```

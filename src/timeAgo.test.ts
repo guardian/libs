@@ -56,23 +56,23 @@ describe('timeAgo', () => {
 		expect(timeAgo(eightDaysAgo)).toBe('9 Nov 2019');
 	});
 
-	it('returns a longer absolute date when extended is true', () => {
+	it('returns a longer absolute date when verbose is true', () => {
 		const eightDaysAgo = new Date(
 			Date.UTC(2019, 10, 9, 13, 0, 0),
 		).getTime();
 
 		expect(
 			timeAgo(eightDaysAgo, {
-				extended: true,
+				verbose: true,
 			}),
 		).toBe('9 November 2019');
 	});
 
-	it('returns "yesterday" only when extended option given', () => {
+	it('returns "yesterday" only when verbose option given', () => {
 		const yesterday = new Date(Date.UTC(2019, 10, 16, 3, 0, 0)).getTime();
 
 		expect(timeAgo(yesterday)).toBe('1d ago');
-		expect(timeAgo(yesterday, { extended: true })).toBe('Yesterday 3:00');
+		expect(timeAgo(yesterday, { verbose: true })).toBe('Yesterday 3:00');
 	});
 
 	it('does not pluralise the unit when the delta is one', () => {
@@ -85,63 +85,63 @@ describe('timeAgo', () => {
 		expect(timeAgo(oneHourAgo)).toBe('1h ago');
 		expect(
 			timeAgo(oneHourAgo, {
-				extended: true,
+				verbose: true,
 			}),
 		).toBe('1 hour ago');
 
 		expect(timeAgo(oneMinuteAgo)).toBe('1m ago');
 		expect(
 			timeAgo(oneMinuteAgo, {
-				extended: true,
+				verbose: true,
 			}),
 		).toBe('1 minute ago');
 
 		expect(timeAgo(oneDayAgo)).toBe('1d ago');
 		expect(
 			timeAgo(oneDayAgo, {
-				extended: true,
+				verbose: true,
 			}),
 		).toBe('Yesterday 12:00');
 	});
 
-	it('returns extended format for seconds when this option is given', () => {
+	it('returns verbose format for seconds when this option is given', () => {
 		const tenSecondsAgo = new Date(
 			Date.UTC(2019, 10, 17, 11, 59, 40),
 		).getTime();
 		expect(
 			timeAgo(tenSecondsAgo, {
-				extended: true,
+				verbose: true,
 			}),
 		).toBe('20 seconds ago');
 	});
 
-	it('returns extended format for minutes when this option is given', () => {
+	it('returns verbose format for minutes when this option is given', () => {
 		const fiveMinutesAgo = new Date(
 			Date.UTC(2019, 10, 17, 11, 55, 0),
 		).getTime();
 		expect(
 			timeAgo(fiveMinutesAgo, {
-				extended: true,
+				verbose: true,
 			}),
 		).toBe('5 minutes ago');
 	});
 
-	it('returns extended format for hours when this option is given', () => {
+	it('returns verbose format for hours when this option is given', () => {
 		const twoHoursAgo = new Date(
 			Date.UTC(2019, 10, 17, 10, 0, 0),
 		).getTime();
 		expect(
 			timeAgo(twoHoursAgo, {
-				extended: true,
+				verbose: true,
 			}),
 		).toBe('2 hours ago');
 	});
 
-	it('returns extended format for days when this option is given', () => {
+	it('returns verbose format for days when this option is given', () => {
 		const twoDaysAgo = new Date(Date.UTC(2019, 10, 15, 10, 0, 0)).getTime();
 		expect(
 			timeAgo(twoDaysAgo, {
-				extended: true,
+				verbose: true,
 			}),
 		).toBe('2 days ago');
 	});
@@ -153,13 +153,13 @@ describe('timeAgo', () => {
 		expect(timeAgo(twentyHoursAgo)).toBe('20h ago');
 	});
 
-	it('still returns an extended relative string for dates yesterday if within 24hs', () => {
+	it('still returns an verbose relative string for dates yesterday if within 24hs', () => {
 		const twentyHoursAgo = new Date(
 			Date.UTC(2019, 10, 16, 16, 0, 0),
 		).getTime();
 		expect(
 			timeAgo(twentyHoursAgo, {
-				extended: true,
+				verbose: true,
 			}),
 		).toBe('20 hours ago');
 	});
@@ -170,7 +170,7 @@ describe('timeAgo', () => {
 		).getTime();
 		expect(
 			timeAgo(thirtyHoursAgo, {
-				extended: true,
+				verbose: true,
 			}),
 		).toBe('Yesterday 6:00');
 	});
@@ -178,10 +178,8 @@ describe('timeAgo', () => {
 	it('returns absolute format dates for dates over one week ago, regardless of options', () => {
 		const oneMonthAgo = new Date(Date.UTC(2019, 9, 17, 13, 0, 0)).getTime();
 		expect(timeAgo(oneMonthAgo)).toBe('17 Oct 2019');
-		expect(timeAgo(oneMonthAgo, { extended: false })).toBe('17 Oct 2019');
-		expect(timeAgo(oneMonthAgo, { extended: true })).toBe(
-			'17 October 2019',
-		);
+		expect(timeAgo(oneMonthAgo, { verbose: false })).toBe('17 Oct 2019');
+		expect(timeAgo(oneMonthAgo, { verbose: true })).toBe('17 October 2019');
 	});
 
 	it('returns days when within 5 days', () => {
