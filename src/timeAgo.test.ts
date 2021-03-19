@@ -15,11 +15,11 @@ describe('timeAgo', () => {
 		expect(timeAgo(older)).toBe('1 Feb 2019');
 	});
 
-	it('returns "now" when within 5 seconds', () => {
-		const twoSecondsAgo = new Date(
-			Date.UTC(2019, 10, 17, 11, 59, 58),
+	it('returns "now" when within 15 seconds', () => {
+		const fourteenSecondsAgo = new Date(
+			Date.UTC(2019, 10, 17, 11, 59, 46),
 		).getTime();
-		expect(timeAgo(twoSecondsAgo)).toBe('now');
+		expect(timeAgo(fourteenSecondsAgo)).toBe('now');
 	});
 
 	it('returns seconds for very recent dates', () => {
