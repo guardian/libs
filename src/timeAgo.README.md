@@ -22,7 +22,7 @@ Type:
 ```typescript
 type Opts = {
     verbose?: boolean, // Return a longer, more descriptive string when true
-    daysUntilAbsolute?: number,  // The cutoff for when dates are returned in absolute format
+    daysUntilAbsolute?: number = 7,  // The cutoff for when dates are returned in absolute format
 }
 ```
 
