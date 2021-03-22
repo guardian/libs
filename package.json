@@ -28,7 +28,6 @@
     "compile:umd": "rollup -c",
     "lint": "eslint . --ext .js,.ts",
     "prepush:test": "jest --runInBand --onlyChanged --coverage=false",
-    "pretest": "yarn clean",
     "test": "jest",
     "tsc": "tsc --noEmit",
     "validate": "npm-run-all tsc lint test build"
