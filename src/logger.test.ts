@@ -5,7 +5,9 @@ import { storage } from './storage';
 
 const KEY = _.KEY;
 
-const spy = jest.spyOn(console, 'log');
+const spy = jest
+	.spyOn(console, 'log')
+	.mockImplementation(() => () => undefined);
 const consoleMessage = (): string | undefined => {
 	if (spy.mock.calls[0] && typeof spy.mock.calls[0][5] === 'string')
 		return spy.mock.calls[0][5];
