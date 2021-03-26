@@ -8,4 +8,5 @@ module.exports = {
 	collectCoverage: true,
 	collectCoverageFrom: ['src/**/*'],
 	coveragePathIgnorePatterns: ['types'],
+	testPathIgnorePatterns: ['<rootDir>/dist/', '<rootDir>/node_modules/'],
 };
