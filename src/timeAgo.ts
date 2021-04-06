@@ -46,13 +46,6 @@ const isYesterday = (relative: Date): boolean => {
 	return relative.toDateString() === yesterday.toDateString();
 };
 
-const isValidDate = (date: Date): boolean => {
-	if (Object.prototype.toString.call(date) !== '[object Date]') {
-		return false;
-	}
-	return !Number.isNaN(date.getTime());
-};
-
 const getSuffix = (type: Unit, value: number, verbose?: boolean): string => {
 	const shouldPluralise = value !== 1;
 	switch (type) {
@@ -91,12 +84,9 @@ export const timeAgo = (
 ): false | string => {
 	const then = new Date(epoch);
 	const now = new Date();
+
 	const verbose = options?.verbose;
 	const daysUntilAbsolute = options?.daysUntilAbsolute ?? 7;
-
-	if (!isValidDate(then)) {
-		return false;
-	}
 
 	const secondsAgo = Math.floor((now.getTime() - then.getTime()) / 1000);
 	const veryClose = secondsAgo < 15;
