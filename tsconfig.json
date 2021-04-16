@@ -5,10 +5,12 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
+    "module": "ESNext",
     "moduleResolution": "node",
     "noEmit": true,
     "resolveJsonModule": true,
-    "strict": true
+    "strict": true,
+    "target": "ES2020"
   },
   "include": ["src"],
   "exclude": ["node_modules", "dist", "coverage"]

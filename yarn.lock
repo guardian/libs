@@ -313,10 +313,10 @@
   resolved "https://registry.yarnpkg.com/@guardian/eslint-config/-/eslint-config-0.5.0.tgz#ece14ec90b372932c7bf01992fc6d8ce58f7f26e"
   integrity sha512-THJn0wg7i9YjSVM9ofobsJgS+WH9ybrZH1+0CXLAebp0T53RGtgZUkek82mDg1h3DidsM+f7HSZqoQyrCbPzPw==
 
-"@guardian/pkgu@0.4.1":
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/@guardian/pkgu/-/pkgu-0.4.1.tgz#07bfc99349b5920e6673b10c9b849e2a12331a73"
-  integrity sha512-qiJ+erfsPZCokVsNtZ5s9l2oIQoW4V02JQIbjDiwOgM2kEfjEHoYI9CudYGGTCOzp2BKL30UCOw0obqK3GwFpQ==
+"@guardian/pkgu@0.5.0":
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/@guardian/pkgu/-/pkgu-0.5.0.tgz#3f6f84706c34959b70902063ffce0ff2ed5c93ab"
+  integrity sha512-zV0DSErSDZZ7GT7AzmUY2wq+bvbCWVBXACqxYfa4KVezlMjM6qwD6soTVDW0wW4UZwynEGQSRBXnAFATrjuhiw==
   dependencies:
     chalk "^4.1.0"
     execa "^5.0.0"
@@ -328,6 +328,7 @@
     prettier "^2.2.1"
     read-pkg-up "^7.0.1"
     sade "^1.7.4"
+    sort-keys "^4.2.0"
     sort-package-json "1.48.1"
 
 "@guardian/prettier@0.5.0":
@@ -4067,7 +4068,7 @@ is-path-inside@^1.0.0:
   dependencies:
     path-is-inside "^1.0.1"
 
-is-plain-obj@2.1.0:
+is-plain-obj@2.1.0, is-plain-obj@^2.0.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/is-plain-obj/-/is-plain-obj-2.1.0.tgz#45e42e37fccf1f40da8e5f76ee21515840c09287"
   integrity sha512-YWnfyRwxL/+SsrWYfOpUtz5b3YD+nyfkHvjbcanzk8zgyO4ASD67uVMRt8k5bM4lLMDnXfriRhOpemw+NfT1eA==
@@ -7436,6 +7437,13 @@ socks@~2.3.2:
   dependencies:
     ip "1.1.5"
     smart-buffer "^4.1.0"
+
+sort-keys@^4.2.0:
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/sort-keys/-/sort-keys-4.2.0.tgz#6b7638cee42c506fff8c1cecde7376d21315be18"
+  integrity sha512-aUYIEU/UviqPgc8mHR6IW1EGxkAXpeRETYcrzg8cLAvUPZcpAlleSXHV2mY7G12GphSH6Gzv+4MMVSSkbdteHg==
+  dependencies:
+    is-plain-obj "^2.0.0"
 
 sort-object-keys@^1.1.3:
   version "1.1.3"
