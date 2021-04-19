@@ -19,6 +19,7 @@
   - [`loadScript`](#loadscript)
   - [`log`/`debug`](#logdebug)
   - [`storage`](#storage)
+  - [`cookies`](#cookies)
   - [`timeAgo`](#timeago)
 - [Installation](#installation)
   - [Bundling](#bundling)
@@ -55,6 +56,10 @@ Selectively log team-specific messages to the console.
 ### [`storage`](./src/storage.README.md)
 
 Robust API over `localStorage` and `sessionStorage`.
+
+### [`cookies`](./src/cookies.README.md)
+
+Get the content of a `cookie`.
 
 ### [`timeAgo`](./src/timeAgo.README.md)
 

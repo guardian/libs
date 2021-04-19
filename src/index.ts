@@ -6,4 +6,5 @@ export { isUndefined } from './isUndefined';
 export { loadScript } from './loadScript';
 export { storage } from './storage';
 export { timeAgo } from './timeAgo';
+export { getCookie } from './cookies';
 export { log, debug } from './logger';
