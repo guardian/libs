@@ -59,7 +59,7 @@ Robust API over `localStorage` and `sessionStorage`.
 
 ### [`cookies`](./src/cookies.README.md)
 
-Get the content of a `cookie`.
+API over `document.cookies`.
 
 ### [`timeAgo`](./src/timeAgo.README.md)
 

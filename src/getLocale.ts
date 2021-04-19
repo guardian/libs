@@ -1,16 +1,13 @@
+import { getCookie, setSessionCookie } from './cookies';
 import { isString } from './isString';
-import { storage } from './storage';
 import type { CountryCode } from './types/countries';
 
-const KEY = 'gu.geolocation';
+const KEY = 'GU_geo_country';
 const URL = 'https://api.nextgen.guardianapps.co.uk/geolocation';
 
 // best guess that we have a valid code, without actually shipping the entire list
 const isValidCountryCode = (country: unknown) =>
 	isString(country) && /^[A-Z]{2}$/.test(country as string);
-
-const daysFromNow = (days: number) =>
-	new Date().getTime() + 60 * 60 * 24 * days;
 
 // we'll cache any successful lookups so we only have to do this once
 let locale: CountryCode | undefined;
@@ -25,10 +22,12 @@ export const __resetCachedValue = (): void => (locale = void 0);
 export const getLocale = async (): Promise<CountryCode | null> => {
 	if (locale) return locale;
 
-	const stored = storage.local.get(KEY) as CountryCode;
+	// return locale from cookie if it exists
+	const fromCookie = getCookie('GU_geo_country');
 
-	// if we've got a locale, return it
-	if (isValidCountryCode(stored)) return (locale = stored);
+	if (fromCookie && isValidCountryCode(fromCookie)) {
+		return (locale = fromCookie as CountryCode);
+	}
 
 	// use our API to get one
 	try {
@@ -37,8 +36,7 @@ export const getLocale = async (): Promise<CountryCode | null> => {
 		)) as { country: CountryCode };
 
 		if (isValidCountryCode(country)) {
-			// save it for 10 days
-			storage.local.set(KEY, country, daysFromNow(10));
+			setSessionCookie(KEY, country);
 
 			// return it
 			return (locale = country);
