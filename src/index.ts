@@ -7,3 +7,4 @@ export { loadScript } from './loadScript';
 export { storage } from './storage';
 export { timeAgo } from './timeAgo';
 export { log, debug } from './logger';
+export { isObject } from './isObject';
