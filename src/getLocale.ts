@@ -1,8 +1,10 @@
 import { getCookie, setSessionCookie } from './cookies';
 import { isString } from './isString';
+import { storage } from './storage';
 import type { CountryCode } from './types/countries';
 
 const KEY = 'GU_geo_country';
+const KEY_OVERRIDE = 'gu.geo.override';
 const URL = 'https://api.nextgen.guardianapps.co.uk/geolocation';
 
 // best guess that we have a valid code, without actually shipping the entire list
@@ -22,11 +24,18 @@ export const __resetCachedValue = (): void => (locale = void 0);
 export const getLocale = async (): Promise<CountryCode | null> => {
 	if (locale) return locale;
 
-	// return locale from cookie if it exists
-	const fromCookie = getCookie('GU_geo_country');
+	// return overrode geo from localStorage, used for changing geo only for development purposes
+	const geoOverride = storage.local.get(KEY_OVERRIDE) as CountryCode;
 
-	if (fromCookie && isValidCountryCode(fromCookie)) {
-		return (locale = fromCookie as CountryCode);
+	if (isValidCountryCode(geoOverride)) {
+		return (locale = geoOverride);
+	}
+
+	// return locale from cookie if it exists
+	const stored = getCookie('GU_geo_country');
+
+	if (stored && isValidCountryCode(stored)) {
+		return (locale = stored as CountryCode);
 	}
 
 	// use our API to get one

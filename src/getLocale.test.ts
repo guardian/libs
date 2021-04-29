@@ -1,15 +1,25 @@
 import fetchMock from 'jest-fetch-mock';
 import * as cookies from './cookies';
 import { __resetCachedValue, getLocale } from './getLocale';
+import { storage } from './storage';
 
 const KEY = 'GU_geo_country';
+const KEY_OVERRIDE = 'gu.geo.override';
 
 fetchMock.enableMocks();
 
 describe('getLocale', () => {
 	beforeEach(() => {
+		storage.local.clear();
 		cookies.cleanUp([KEY]);
 		__resetCachedValue();
+	});
+
+	it('returns overrode locale if it exists', async () => {
+		storage.local.set(KEY_OVERRIDE, 'CY');
+		cookies.setSessionCookie(KEY, 'GB');
+		const locale = await getLocale();
+		expect(locale).toBe('CY');
 	});
 
 	it('gets a stored valid locale', async () => {

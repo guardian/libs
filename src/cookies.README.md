@@ -23,7 +23,7 @@ Sets a session cookie (no expiry date) taking a name and value.
 
 #### `name`
 
-Type: `string`<br>
+Type: `string`
 
 Name of the cookie.
 
@@ -73,4 +73,3 @@ Names of the stored cookies to remove.
 ```js
 cleanUp('GU_geo_country');
 ```
-
