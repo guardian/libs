@@ -11,11 +11,11 @@ fetchMock.enableMocks();
 describe('getLocale', () => {
 	beforeEach(() => {
 		storage.local.clear();
-		cookies.cleanUp([KEY]);
+		cookies.removeCookie(KEY);
 		__resetCachedValue();
 	});
 
-	it('returns overrode locale if it exists', async () => {
+	it('returns overridden locale if it exists', async () => {
 		storage.local.set(KEY_OVERRIDE, 'CY');
 		cookies.setSessionCookie(KEY, 'GB');
 		const locale = await getLocale();

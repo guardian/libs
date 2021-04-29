@@ -38,7 +38,40 @@ const getDomainAttribute = ({ isCrossSubdomain = false } = {}) => {
 	return shortDomain === 'localhost' ? '' : ` domain=${shortDomain};`;
 };
 
-const removeCookie = (name: string, currentDomainOnly = false): void => {
+export const setCookie = (
+	name: string,
+	value: string,
+	daysToLive?: number,
+	isCrossSubdomain = false,
+): void => {
+	const expires = new Date();
+
+	if (!isValidCookieValue(name) || !isValidCookieValue(value)) {
+		return;
+	}
+
+	if (daysToLive) {
+		expires.setDate(expires.getDate() + daysToLive);
+	} else {
+		expires.setMonth(expires.getMonth() + 5);
+		expires.setDate(1);
+	}
+
+	document.cookie = `${name}=${value}; path=/; expires=${expires.toUTCString()};${getDomainAttribute(
+		{
+			isCrossSubdomain,
+		},
+	)}`;
+};
+
+export const setSessionCookie = (name: string, value: string): void => {
+	if (!isValidCookieValue(name) || !isValidCookieValue(value)) {
+		return;
+	}
+	document.cookie = `${name}=${value}; path=/;${getDomainAttribute()}`;
+};
+
+export const removeCookie = (name: string, currentDomainOnly = false): void => {
 	const expires = 'expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 	const path = 'path=/;';
 
@@ -50,13 +83,6 @@ const removeCookie = (name: string, currentDomainOnly = false): void => {
 	}
 };
 
-export const setSessionCookie = (name: string, value: string): void => {
-	if (!isValidCookieValue(name) || !isValidCookieValue(value)) {
-		return;
-	}
-	document.cookie = `${name}=${value}; path=/;${getDomainAttribute()}`;
-};
-
 export const getCookie = (name: string): string | null => {
 	const cookieVal = getCookieValues(name);
 
@@ -64,10 +90,4 @@ export const getCookie = (name: string): string | null => {
 		return cookieVal[0];
 	}
 	return null;
-};
-
-export const cleanUp = (names: string[]): void => {
-	names.forEach((name) => {
-		removeCookie(name);
-	});
 };

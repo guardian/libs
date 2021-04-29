@@ -2,18 +2,61 @@
 
 Robust API over `document.cookie`.
 
-### Example
+### Usage
 
 ```js
-import { cookies } from '@guardian/libs';
-
+import {
+    getCookie,
+    removeCookie,
+    setCookie,
+    setSessionCookie
+ } from '@guardian/libs';
 ```
 
 ## Methods
 
+-   [`setCookie(name, value, daysToLive, isCrossSubdomain)`](#setCookie)
 -   [`setSessionCookie(name, value)`](#setSessionCookie)
 -   [`getCookie(name)`](#getCookie)
--   [`cleanUp(names)`](#cleanUp)
+-   [`removeCookie(name)`](#removeCookie)
+
+## `setCookie`
+
+Returns: `void`
+
+Sets a cookie taking a name and value, optional daysToLive and optional isCrossSubdomain flag.
+
+#### `name`
+
+Type: `string`
+
+Name of the cookie.
+
+#### `value`
+
+Type: `string`<br>
+
+Value of the cookie.
+
+#### `daysToLive?`
+
+Type: `number`
+
+Days you would like this cookie to live for.
+
+#### `isCrossSubdomain?`
+
+Type: `boolean`<br>
+
+Set this true if the cookie is cross subdomain.
+
+### Example
+
+```js
+setSessionCookie('GU_country_code', 'GB')
+setSessionCookie('GU_country_code', 'GB', 7)
+setSessionCookie('GU_country_code', 'GB', 7, true)
+```
 
 ## `setSessionCookie`
 
@@ -56,20 +99,20 @@ Name of the cookie to retrieve.
 getCookie('GU_geo_country'); //GB
 ```
 
-## `cleanUp`
+## `removeCookie`
 
 Returns: `void`
 
-Removes a list of cookies.
+Removes a cookie.
 
-#### `[names]`
+#### `names`
 
-Type: `string[]`
+Type: `string`
 
-Names of the stored cookies to remove.
+Name of the stored cookie to remove.
 
 ### Example
 
 ```js
-cleanUp('GU_geo_country');
+removeCookie('GU_geo_country');
 ```
