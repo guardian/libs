@@ -15,12 +15,12 @@ import {
 
 ## Methods
 
--   [`setCookie(name, value, daysToLive, isCrossSubdomain)`](#setCookie)
+-   [`setCookie({name, value, daysToLive, isCrossSubdomain})`](#setCookie)
 -   [`setSessionCookie(name, value)`](#setSessionCookie)
 -   [`getCookie(name, shouldMemoize)`](#getCookie)
 -   [`removeCookie(name)`](#removeCookie)
 
-## `setCookie`
+## `setCookie({name, value, daysToLive?, isCrossSubdomain?})`
 
 Returns: `void`
 
@@ -53,13 +53,12 @@ Set this true if the cookie is cross subdomain.
 ### Example
 
 ```js
-setCookie('GU_country_code', 'GB')
-setCookie('GU_country_code', 'GB', 7)
-setCookie('GU_country_code', 'GB', 7, true)
-setCookie('GU_country_code', 'GB', 7, false, true)
+setCookie({name:'GU_country_code', value:'GB'})
+setCookie({name:'GU_country_code', value:'GB', daysToLive: 7})
+setCookie({name:'GU_country_code', value:'GB', daysToLive: 7, isCrossSubdomain: true})
 ```
 
-## `setSessionCookie`
+## `setSessionCookie(name, value)`
 
 Returns: `void`
 
@@ -84,7 +83,7 @@ setSessionCookie('GU_country_code', 'GB')
 setSessionCookie('GU_country_code', 'GB', true)
 ```
 
-## `getCookie`
+## `getCookie(name, shouldMemoize?)`
 
 Returns: `cookie` value if it exists or `null`
 
@@ -108,7 +107,7 @@ When this is set to true it will keep the cookie in memory to avoid fetching mor
 getCookie('GU_geo_country'); //GB
 ```
 
-## `removeCookie`
+## `removeCookie(name)`
 
 Returns: `void`
 

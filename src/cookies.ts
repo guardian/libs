@@ -1,6 +1,6 @@
 const memoizedCookies: Map<string, string> = new Map<string, string>();
 
-export const getCookieValues = (name: string) => {
+export const getCookieValues = (name: string): string[] => {
 	const nameEq = `${name}=`;
 	const cookies = document.cookie.split(';');
 
@@ -41,18 +41,23 @@ const getDomainAttribute = ({ isCrossSubdomain = false } = {}) => {
 };
 
 /**
- * Set a cookie. If it's been memoized it won't retrieve it again.
+ * Set a cookie. If it's been memoized it will replace it's memoized value
  * @param {string} name - the cookie’s name.
  * @param {string} value - the cookie’s value.
  * @param {number} daysToLive - expiry date will be calculated mased on the daysToLive
  * @param {boolean} isCrossSubdomain - specify if it's a cross subdomain cookie, default false
  */
-export const setCookie = (
-	name: string,
-	value: string,
-	daysToLive?: number,
+export const setCookie = ({
+	name,
+	value,
+	daysToLive,
 	isCrossSubdomain = false,
-): void => {
+}: {
+	name: string;
+	value: string;
+	daysToLive?: number;
+	isCrossSubdomain?: boolean;
+}): void => {
 	const expires = new Date();
 
 	if (!isValidCookieValue(name) || !isValidCookieValue(value)) {
@@ -79,7 +84,7 @@ export const setCookie = (
 };
 
 /**
- * Set a session cookieookie. If it's been memoized it won't retrieve it again.
+ * Set a session cookie. If it's been memoized it will replace memoized value
  * @param {string} name - the cookie’s name.
  * @param {string} value - the cookie’s value.
  */
