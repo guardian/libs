@@ -44,6 +44,16 @@ describe('cookies', () => {
 		expect(getCookie('__qca')).toEqual('P0-938012256-1398171768649');
 	});
 
+	it('should be able to get a memoized cookie', () => {
+		setCookie('GU_geo_country', 'GB', 3, false, true);
+		expect(getCookie('GU_geo_country')).toEqual('GB');
+	});
+
+	it('should be able to get a memoized session cookie', () => {
+		setSessionCookie('GU_geo_country', 'IT', true);
+		expect(getCookie('GU_geo_country')).toEqual('IT');
+	});
+
 	it('should be able to set a cookie', () => {
 		expect(document.cookie).toEqual('');
 		setCookie('cookie-1-name', 'cookie-1-value');

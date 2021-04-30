@@ -1,3 +1,5 @@
+const memoizedCookies: Map<string, string> = new Map<string, string>();
+
 const getCookieValues = (name: string) => {
 	const nameEq = `${name}=`;
 	const cookies = document.cookie.split(';');
@@ -38,11 +40,20 @@ const getDomainAttribute = ({ isCrossSubdomain = false } = {}) => {
 	return shortDomain === 'localhost' ? '' : ` domain=${shortDomain};`;
 };
 
+/**
+ * Set a cookie. If it's been memoized it won't retrieve it again.
+ * @param {string} name - the cookie’s name.
+ * @param {string} value - the cookie’s value.
+ * @param {boolean} shouldMemoize - set to true if you want to memoize it, default false.
+ * @param {number} daysToLive - expiry date will be calculated mased on the daysToLive
+ * @param {boolean} isCrossSubdomain - specify if it's a cross subdomain cookie, default false
+ */
 export const setCookie = (
 	name: string,
 	value: string,
 	daysToLive?: number,
 	isCrossSubdomain = false,
+	shouldMemoize = false,
 ): void => {
 	const expires = new Date();
 
@@ -62,13 +73,31 @@ export const setCookie = (
 			isCrossSubdomain,
 		},
 	)}`;
+
+	if (shouldMemoize) {
+		memoizedCookies.set(name, getCookieValues(name)[0]);
+	}
 };
 
-export const setSessionCookie = (name: string, value: string): void => {
+/**
+ * Set a session cookieookie. If it's been memoized it won't retrieve it again.
+ * @param {string} name - the cookie’s name.
+ * @param {string} value - the cookie’s value.
+ * @param {boolean} shouldMemoize - set to true if you want to memoize it, default false.
+ */
+export const setSessionCookie = (
+	name: string,
+	value: string,
+	shouldMemoize = false,
+): void => {
 	if (!isValidCookieValue(name) || !isValidCookieValue(value)) {
 		return;
 	}
 	document.cookie = `${name}=${value}; path=/;${getDomainAttribute()}`;
+
+	if (shouldMemoize) {
+		memoizedCookies.set(name, getCookieValues(name)[0]);
+	}
 };
 
 export const removeCookie = (name: string, currentDomainOnly = false): void => {
@@ -83,7 +112,14 @@ export const removeCookie = (name: string, currentDomainOnly = false): void => {
 	}
 };
 
+/**
+ * Return a cookie. If it's been memoized it won't retrieve it again.
+ * @param {string} name - the cookie’s name.
+ */
 export const getCookie = (name: string): string | null => {
+	if (memoizedCookies.has(name)) {
+		return memoizedCookies.get(name) ?? null;
+	}
 	const cookieVal = getCookieValues(name);
 
 	if (cookieVal.length > 0) {
