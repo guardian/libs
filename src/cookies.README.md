@@ -15,9 +15,9 @@ import {
 
 ## Methods
 
--   [`setCookie(name, value, daysToLive, isCrossSubdomain, shouldMemoize)`](#setCookie)
+-   [`setCookie(name, value, daysToLive, isCrossSubdomain)`](#setCookie)
 -   [`setSessionCookie(name, value)`](#setSessionCookie)
--   [`getCookie(name)`](#getCookie)
+-   [`getCookie(name, shouldMemoize)`](#getCookie)
 -   [`removeCookie(name)`](#removeCookie)
 
 ## `setCookie`
@@ -50,12 +50,6 @@ Type: `boolean`<br>
 
 Set this true if the cookie is cross subdomain.
 
-#### `shouldMemoize?`
-
-Type: `boolean`<br>
-
-When this is set to true it will keep the cookie in memory to avoid fetching more than once.
-
 ### Example
 
 ```js
@@ -83,12 +77,6 @@ Type: `string`<br>
 
 Value of the cookie.
 
-#### `shouldMemoize?`
-
-Type: `boolean`<br>
-
-When this is set to true it will keep the cookie in memory to avoid fetching more than once.
-
 ### Example
 
 ```js
@@ -105,6 +93,13 @@ Returns: `cookie` value if it exists or `null`
 Type: `string`
 
 Name of the cookie to retrieve.
+
+
+#### `shouldMemoize?`
+
+Type: `boolean`<br>
+
+When this is set to true it will keep the cookie in memory to avoid fetching more than once.
 
 
 ### Example

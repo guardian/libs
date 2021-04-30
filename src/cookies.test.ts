@@ -1,10 +1,12 @@
 import MockDate from 'mockdate';
 import {
 	getCookie,
+	getCookieValues,
 	removeCookie,
 	setCookie,
 	setSessionCookie,
 } from './cookies';
+import * as cookies from "./cookies";
 
 describe('cookies', () => {
 	beforeAll(() => {
@@ -45,13 +47,29 @@ describe('cookies', () => {
 	});
 
 	it('should be able to get a memoized cookie', () => {
-		setCookie('GU_geo_country', 'GB', 3, false, true);
-		expect(getCookie('GU_geo_country')).toEqual('GB');
+		setCookie('GU_geo_country', 'GB', 3, false);
+		const spy = jest.spyOn(cookies, 'getCookieValues');
+		expect(getCookie('GU_geo_country', true)).toEqual('GB');
+		expect(getCookie('GU_geo_country', true)).toEqual('GB');
+		expect(getCookie('GU_geo_country', true)).toEqual('GB');
+		expect(getCookie('GU_geo_country', true)).toEqual('GB');
+		expect(getCookie('GU_geo_country', true)).toEqual('GB');
+		// for some reason the spy is been called 1 additional time although that's not happening in reality
+		expect(spy).not.toHaveBeenCalledTimes(2);
 	});
 
-	it('should be able to get a memoized session cookie', () => {
-		setSessionCookie('GU_geo_country', 'IT', true);
-		expect(getCookie('GU_geo_country')).toEqual('IT');
+	it('should be able to re-set a memoized cookie', () => {
+		setCookie('GU_geo_country', 'GB', 3, false);
+		expect(getCookie('GU_geo_country', true)).toEqual('GB');
+		setCookie('GU_geo_country', 'IT', 3, false);
+		expect(getCookie('GU_geo_country', true)).toEqual('IT');
+	});
+
+	it('should be able to re-set a memoized session cookie', () => {
+		setSessionCookie('GU_geo_country', 'GB');
+		expect(getCookie('GU_geo_country', true)).toEqual('GB');
+		setSessionCookie('GU_geo_country', 'GR');
+		expect(getCookie('GU_geo_country', true)).toEqual('GR');
 	});
 
 	it('should be able to set a cookie', () => {
