@@ -6,10 +6,11 @@ import type { CountryCode } from './types/countries';
 const KEY = 'GU_geo_country';
 const KEY_OVERRIDE = 'gu.geo.override';
 const URL = 'https://api.nextgen.guardianapps.co.uk/geolocation';
+const COUNTRY_REGEX = /^[A-Z]{2}$/;
 
 // best guess that we have a valid code, without actually shipping the entire list
 const isValidCountryCode = (country: unknown) =>
-	isString(country) && /^[A-Z]{2}$/.test(country as string);
+	isString(country) && COUNTRY_REGEX.test(country as string);
 
 // we'll cache any successful lookups so we only have to do this once
 let locale: CountryCode | undefined;
