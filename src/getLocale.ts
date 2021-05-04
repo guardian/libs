@@ -33,7 +33,7 @@ export const getLocale = async (): Promise<CountryCode | null> => {
 	}
 
 	// return locale from cookie if it exists
-	const stored = getCookie('GU_geo_country');
+	const stored = getCookie({ name: 'GU_geo_country' });
 
 	if (stored && isValidCountryCode(stored)) {
 		return (locale = stored as CountryCode);
@@ -46,7 +46,7 @@ export const getLocale = async (): Promise<CountryCode | null> => {
 		)) as { country: CountryCode };
 
 		if (isValidCountryCode(country)) {
-			setSessionCookie(KEY, country);
+			setSessionCookie({ name: KEY, value: country });
 
 			// return it
 			return (locale = country);

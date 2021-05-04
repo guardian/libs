@@ -36,7 +36,7 @@ describe('cookies', () => {
 	it('should be able to get a cookie', () => {
 		document.cookie =
 			'optimizelyEndUserId=oeu1398171767331r0.5280374749563634; __qca=P0-938012256-1398171768649;';
-		expect(cookies.getCookie('__qca')).toEqual(
+		expect(cookies.getCookie({ name: '__qca' })).toEqual(
 			'P0-938012256-1398171768649',
 		);
 	});
@@ -68,7 +68,10 @@ describe('cookies', () => {
 
 	it('should be able to set a session cookie', () => {
 		expect(document.cookie).toEqual('');
-		cookies.setSessionCookie('cookie-1-name', 'cookie-1-value');
+		cookies.setSessionCookie({
+			name: 'cookie-1-name',
+			value: 'cookie-1-value',
+		});
 		expect(document.cookie).toEqual(
 			'cookie-1-name=cookie-1-value; path=/; domain=.theguardian.com',
 		);
@@ -82,11 +85,21 @@ describe('cookies', () => {
 			isCrossSubdomain: true,
 		});
 		const spy = jest.spyOn(cookies, 'getCookieValues');
-		expect(cookies.getCookie('GU_geo_country', true)).toEqual('GB');
-		expect(cookies.getCookie('GU_geo_country', true)).toEqual('GB');
-		expect(cookies.getCookie('GU_geo_country', true)).toEqual('GB');
-		expect(cookies.getCookie('GU_geo_country', true)).toEqual('GB');
-		expect(cookies.getCookie('GU_geo_country', true)).toEqual('GB');
+		expect(
+			cookies.getCookie({ name: 'GU_geo_country', shouldMemoize: true }),
+		).toEqual('GB');
+		expect(
+			cookies.getCookie({ name: 'GU_geo_country', shouldMemoize: true }),
+		).toEqual('GB');
+		expect(
+			cookies.getCookie({ name: 'GU_geo_country', shouldMemoize: true }),
+		).toEqual('GB');
+		expect(
+			cookies.getCookie({ name: 'GU_geo_country', shouldMemoize: true }),
+		).toEqual('GB');
+		expect(
+			cookies.getCookie({ name: 'GU_geo_country', shouldMemoize: true }),
+		).toEqual('GB');
 		// for some reason the spy is been called 1 additional time although that's not happening in reality
 		expect(spy).not.toHaveBeenCalledTimes(2);
 	});
@@ -98,9 +111,15 @@ describe('cookies', () => {
 			daysToLive: 1,
 		});
 		const spy = jest.spyOn(cookies, 'getCookieValues');
-		expect(cookies.getCookie('GU_geo_country', true)).toEqual('IT');
-		expect(cookies.getCookie('GU_geo_country', true)).toEqual('IT');
-		expect(cookies.getCookie('GU_geo_country', true)).toEqual('IT');
+		expect(
+			cookies.getCookie({ name: 'GU_geo_country', shouldMemoize: true }),
+		).toEqual('IT');
+		expect(
+			cookies.getCookie({ name: 'GU_geo_country', shouldMemoize: true }),
+		).toEqual('IT');
+		expect(
+			cookies.getCookie({ name: 'GU_geo_country', shouldMemoize: true }),
+		).toEqual('IT');
 		// for some reason the spy is been called 1 additional time although that's not happening in reality
 		expect(spy).not.toHaveBeenCalledTimes(2);
 	});
@@ -112,21 +131,29 @@ describe('cookies', () => {
 			daysToLive: 3,
 			isCrossSubdomain: false,
 		});
-		expect(cookies.getCookie('GU_geo_country', true)).toEqual('GB');
+		expect(
+			cookies.getCookie({ name: 'GU_geo_country', shouldMemoize: true }),
+		).toEqual('GB');
 		cookies.setCookie({
 			name: 'GU_geo_country',
 			value: 'IT',
 			daysToLive: 3,
 			isCrossSubdomain: false,
 		});
-		expect(cookies.getCookie('GU_geo_country', true)).toEqual('IT');
+		expect(
+			cookies.getCookie({ name: 'GU_geo_country', shouldMemoize: true }),
+		).toEqual('IT');
 	});
 
 	it('should be able to re-set a memoized session cookie', () => {
-		cookies.setSessionCookie('GU_geo_country', 'GB');
-		expect(cookies.getCookie('GU_geo_country', true)).toEqual('GB');
-		cookies.setSessionCookie('GU_geo_country', 'GR');
-		expect(cookies.getCookie('GU_geo_country', true)).toEqual('GR');
+		cookies.setSessionCookie({ name: 'GU_geo_country', value: 'GB' });
+		expect(
+			cookies.getCookie({ name: 'GU_geo_country', shouldMemoize: true }),
+		).toEqual('GB');
+		cookies.setSessionCookie({ name: 'GU_geo_country', value: 'GR' });
+		expect(
+			cookies.getCookie({ name: 'GU_geo_country', shouldMemoize: true }),
+		).toEqual('GR');
 	});
 
 	it('should be able the remove a cookie', () => {

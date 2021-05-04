@@ -17,13 +17,13 @@ describe('getLocale', () => {
 
 	it('returns overridden locale if it exists', async () => {
 		storage.local.set(KEY_OVERRIDE, 'CY');
-		cookies.setSessionCookie(KEY, 'GB');
+		cookies.setSessionCookie({ name: KEY, value: 'GB' });
 		const locale = await getLocale();
 		expect(locale).toBe('CY');
 	});
 
 	it('gets a stored valid locale', async () => {
-		cookies.setSessionCookie(KEY, 'CY');
+		cookies.setSessionCookie({ name: KEY, value: 'CY' });
 		const locale = await getLocale();
 		expect(locale).toBe('CY');
 	});
@@ -32,35 +32,35 @@ describe('getLocale', () => {
 		fetchMock.mockResponseOnce(JSON.stringify({ country: 'CZ' }));
 		const locale = await getLocale();
 		expect(locale).toBe('CZ');
-		expect(cookies.getCookie(KEY)).toBe('CZ');
+		expect(cookies.getCookie({ name: KEY })).toBe('CZ');
 	});
 
 	it('ignores a stored invalid locale', async () => {
 		fetchMock.mockResponseOnce(JSON.stringify({ country: 'CZ' }));
-		cookies.setSessionCookie(KEY, 'outerspace');
+		cookies.setSessionCookie({ name: KEY, value: 'outerspace' });
 		const locale = await getLocale();
 		expect(locale).toBe('CZ');
-		expect(cookies.getCookie(KEY)).toBe('CZ');
+		expect(cookies.getCookie({ name: KEY })).toBe('CZ');
 	});
 
 	it('ignores an invalid remote response', async () => {
 		fetchMock.mockResponseOnce(JSON.stringify({ country: 'outerspace' }));
 		const locale = await getLocale();
 		expect(locale).toBeNull();
-		expect(cookies.getCookie(KEY)).toBeNull();
+		expect(cookies.getCookie({ name: KEY })).toBeNull();
 	});
 
 	it('ignores an error in the remote response', async () => {
 		fetchMock.mockResponseOnce('regregergreg');
 		const locale = await getLocale();
 		expect(locale).toBeNull();
-		expect(cookies.getCookie(KEY)).toBeNull();
+		expect(cookies.getCookie({ name: KEY })).toBeNull();
 	});
 
 	it('uses the cached value if available', async () => {
 		const spy = jest.spyOn(cookies, 'getCookie');
 
-		cookies.setSessionCookie(KEY, 'CY');
+		cookies.setSessionCookie({ name: KEY, value: 'CY' });
 		const locale = await getLocale();
 		const locale2 = await getLocale();
 

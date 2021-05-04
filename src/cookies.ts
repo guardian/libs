@@ -42,10 +42,11 @@ const getDomainAttribute = ({ isCrossSubdomain = false } = {}) => {
 
 /**
  * Set a cookie. If it's been memoized it will replace it's memoized value
- * @param {string} name - the cookie’s name.
- * @param {string} value - the cookie’s value.
- * @param {number} daysToLive - expiry date will be calculated mased on the daysToLive
- * @param {boolean} isCrossSubdomain - specify if it's a cross subdomain cookie, default false
+ * @param details Details about the cookie.
+ * @param details.name - the cookie’s name.
+ * @param details.value - the cookie’s value.
+ * @param details.daysToLive - optional expiry date will be calculated based on the daysToLive
+ * @param details.isCrossSubdomain - specify if it's a cross subdomain cookie, default false
  */
 export const setCookie = ({
 	name,
@@ -85,10 +86,17 @@ export const setCookie = ({
 
 /**
  * Set a session cookie. If it's been memoized it will replace memoized value
- * @param {string} name - the cookie’s name.
- * @param {string} value - the cookie’s value.
+ * @param details Details about the cookie.
+ * @param details.name - the cookie’s name.
+ * @param details.value - the cookie’s value.
  */
-export const setSessionCookie = (name: string, value: string): void => {
+export const setSessionCookie = ({
+	name,
+	value,
+}: {
+	name: string;
+	value: string;
+}): void => {
 	if (!isValidCookieValue(name) || !isValidCookieValue(value)) {
 		return;
 	}
@@ -114,13 +122,17 @@ export const removeCookie = (name: string, currentDomainOnly = false): void => {
 
 /**
  * Return a cookie. If it's been memoized it won't retrieve it again.
- * @param {string} name - the cookie’s name.
- * @param {boolean} shouldMemoize - set to true if you want to memoize it, default false.
+ * @param details Details about the cookie.
+ * @param details.name - the cookie’s name.
+ * @param details.shouldMemoize - set to true if you want to memoize it, default false.
  */
-export const getCookie = (
-	name: string,
+export const getCookie = ({
+	name,
 	shouldMemoize = false,
-): string | null => {
+}: {
+	name: string;
+	shouldMemoize?: boolean;
+}): string | null => {
 	if (memoizedCookies.has(name)) {
 		return memoizedCookies.get(name) ?? null;
 	}

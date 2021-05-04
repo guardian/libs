@@ -16,15 +16,15 @@ import {
 ## Methods
 
 -   [`setCookie({name, value, daysToLive, isCrossSubdomain})`](#setCookie)
--   [`setSessionCookie(name, value)`](#setSessionCookie)
--   [`getCookie(name, shouldMemoize)`](#getCookie)
+-   [`setSessionCookie({name, value})`](#setSessionCookie)
+-   [`getCookie({name, shouldMemoize})`](#getCookie)
 -   [`removeCookie(name)`](#removeCookie)
 
 ## `setCookie({name, value, daysToLive?, isCrossSubdomain?})`
 
 Returns: `void`
 
-Sets a cookie taking a name and value, optional daysToLive and optional isCrossSubdomain flag.
+Sets a cookie taking a config object with name and value, optional daysToLive and optional isCrossSubdomain flag.
 
 #### `name`
 
@@ -58,11 +58,11 @@ setCookie({name:'GU_country_code', value:'GB', daysToLive: 7})
 setCookie({name:'GU_country_code', value:'GB', daysToLive: 7, isCrossSubdomain: true})
 ```
 
-## `setSessionCookie(name, value)`
+## `setSessionCookie({name, value})`
 
 Returns: `void`
 
-Sets a session cookie (no expiry date) taking a name and value.
+Sets a session cookie (no expiry date) taking a config object with name and value.
 
 #### `name`
 
@@ -79,13 +79,12 @@ Value of the cookie.
 ### Example
 
 ```js
-setSessionCookie('GU_country_code', 'GB')
-setSessionCookie('GU_country_code', 'GB', true)
+setSessionCookie({name:'GU_country_code', value: 'GB'})
 ```
 
-## `getCookie(name, shouldMemoize?)`
+## `getCookie({name, shouldMemoize?})`
 
-Returns: `cookie` value if it exists or `null`
+Returns: `cookie` value if it exists or `null`. Takes a config object with name and shouldMemoize params
 
 #### `name`
 
@@ -104,7 +103,8 @@ When this is set to true it will keep the cookie in memory to avoid fetching mor
 ### Example
 
 ```js
-getCookie('GU_geo_country'); //GB
+getCookie({name:'GU_geo_country'}); //GB
+getCookie({name:'GU_geo_country', shouldMemoize: true}); //GB
 ```
 
 ## `removeCookie(name)`
