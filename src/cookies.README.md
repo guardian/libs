@@ -15,9 +15,9 @@ import {
 
 ## Methods
 
--   [`setCookie({name, value, daysToLive, isCrossSubdomain})`](#setCookie)
+-   [`setCookie({name, value, daysToLive?, isCrossSubdomain?})`](#setCookie)
 -   [`setSessionCookie({name, value})`](#setSessionCookie)
--   [`getCookie({name, shouldMemoize})`](#getCookie)
+-   [`getCookie({name, shouldMemoize?})`](#getCookie)
 -   [`removeCookie(name)`](#removeCookie)
 
 ## `setCookie({name, value, daysToLive?, isCrossSubdomain?})`
