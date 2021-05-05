@@ -91,17 +91,7 @@ describe('cookies', () => {
 		expect(
 			cookies.getCookie({ name: 'GU_geo_country', shouldMemoize: true }),
 		).toEqual('GB');
-		expect(
-			cookies.getCookie({ name: 'GU_geo_country', shouldMemoize: true }),
-		).toEqual('GB');
-		expect(
-			cookies.getCookie({ name: 'GU_geo_country', shouldMemoize: true }),
-		).toEqual('GB');
-		expect(
-			cookies.getCookie({ name: 'GU_geo_country', shouldMemoize: true }),
-		).toEqual('GB');
-		// for some reason the spy is been called 1 additional time although that's not happening in reality
-		expect(spy).not.toHaveBeenCalledTimes(2);
+		expect(spy).toHaveBeenCalledTimes(1);
 	});
 
 	it('should be able to get a memoized cookie with days to live', () => {
