@@ -75,6 +75,7 @@ const unsubscribeFrom: TeamSubscription = (team) => {
 	storage.local.set(KEY, teamSubscriptions.join(','));
 };
 
+/* istanbul ignore next */
 if (typeof window !== 'undefined') {
 	window.guardian ||= {};
 	window.guardian.logger ||= {
