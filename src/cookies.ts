@@ -1,5 +1,5 @@
 const memoizedCookies: Map<string, string> = new Map<string, string>();
-const VALID_COOKIE_REGEX = /[()<>@,;"\\/[\]?={} \t]/g;
+const COOKIE_REGEX = /[()<>@,;"\\/[\]?={} \t]/g;
 
 export const getCookieValues = (name: string): string[] => {
 	const nameEq = `${name}=`;
@@ -18,7 +18,7 @@ export const getCookieValues = (name: string): string[] => {
 };
 
 // subset of https://github.com/guzzle/guzzle/pull/1131
-const isValidCookieValue = (name: string) => !VALID_COOKIE_REGEX.test(name);
+const isValidCookieValue = (name: string) => !COOKIE_REGEX.test(name);
 
 const getShortDomain = ({ isCrossSubdomain = false } = {}) => {
 	const domain = document.domain || '';
