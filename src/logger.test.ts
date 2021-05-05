@@ -1,4 +1,4 @@
-import fetch from 'node-fetch';
+import { hex } from 'wcag-contrast';
 import type { TeamName } from './logger';
 import { _, debug, log } from './logger';
 import { storage } from './storage';
@@ -119,30 +119,13 @@ describe('Team-based logging', () => {
 });
 
 describe('Ensure labels are accessible', () => {
-	type WebAIMContrastApiResponse = {
-		ratio: string;
-		AA: string;
-		AALarge: string;
-		AAA: string;
-		AAALarge: string;
-	};
 	it.each(Object.entries(_.teamColours))(
 		'should have a minimum contrast ratio of 4.5 (AA) for %s',
-		(key, colour) => {
+		(_, colour) => {
 			const { font, background } = colour;
-			const fcolor = font.replace('#', '');
-			const bcolor = background.replace('#', '');
-			const url = `https://webaim.org/resources/contrastchecker/?fcolor=${fcolor}&bcolor=${bcolor}&api`;
+			const ratio = hex(font, background);
 
-			return fetch(url)
-				.then((response) => response.json())
-				.then((data: WebAIMContrastApiResponse) => {
-					const ratio = Number.parseFloat(data.ratio);
-					expect(ratio).toBeGreaterThanOrEqual(4.5);
-				})
-				.catch((e) => {
-					throw e;
-				});
+			expect(ratio).toBeGreaterThanOrEqual(4.5);
 		},
 	);
 });
