@@ -71,6 +71,17 @@ describe('Add and remove teams', () => {
 		expect(registered).toBe('commercial,dotcom,cmp');
 	});
 
+	it(`should not add teams more than once`, () => {
+		if (window.guardian?.logger) {
+			window.guardian.logger.subscribeTo('cmp');
+			window.guardian.logger.subscribeTo('dotcom');
+			window.guardian.logger.subscribeTo('dotcom');
+			window.guardian.logger.subscribeTo('commercial');
+		}
+		const registered: string = storage.local.get(KEY) as string;
+		expect(registered).toBe('commercial,dotcom,cmp');
+	});
+
 	it(`should be able to remove a third team`, () => {
 		if (window.guardian?.logger)
 			window.guardian.logger.unsubscribeFrom('cmp');

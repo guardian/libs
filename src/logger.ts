@@ -58,7 +58,7 @@ const subscribeTo: TeamSubscription = (team) => {
 	const teamSubscriptions: string[] = storage.local.get(KEY)
 		? (storage.local.get(KEY) as string).split(',')
 		: [];
-	teamSubscriptions.push(team);
+	if (!teamSubscriptions.includes(team)) teamSubscriptions.push(team);
 	storage.local.set(KEY, teamSubscriptions.join(','));
 	log(team, '🔔 Subscribed, hello!');
 };
