@@ -107,7 +107,7 @@ getCookie({name:'GU_geo_country'}); //GB
 getCookie({name:'GU_geo_country', shouldMemoize: true}); //GB
 ```
 
-## `removeCookie(name)`
+## `removeCookie({name, currentDomainOnly?})`
 
 Returns: `void`
 
@@ -119,8 +119,14 @@ Type: `string`
 
 Name of the stored cookie to remove.
 
+#### `currentDomainOnly`
+
+Type: `boolean`
+
+Set to true if it's a cookie for current domain only, defaults to false
 ### Example
 
 ```js
-removeCookie('GU_geo_country');
+removeCookie({name:'GU_geo_country'});
+removeCookie({name:'GU_geo_country', currentDomainOnly: true});
 ```

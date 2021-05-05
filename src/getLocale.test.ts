@@ -11,7 +11,7 @@ fetchMock.enableMocks();
 describe('getLocale', () => {
 	beforeEach(() => {
 		storage.local.clear();
-		cookies.removeCookie(KEY);
+		cookies.removeCookie({ name: KEY });
 		__resetCachedValue();
 	});
 

@@ -159,7 +159,7 @@ describe('cookies', () => {
 	it('should be able the remove a cookie', () => {
 		document.cookie = 'cookie-1-name=cookie-1-value';
 
-		cookies.removeCookie('cookie-1-name');
+		cookies.removeCookie({ name: 'cookie-1-name' });
 
 		const { cookie } = document;
 
