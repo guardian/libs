@@ -1,4 +1,4 @@
-import fetch from 'node-fetch';
+import { hex } from 'wcag-contrast';
 import type { TeamName } from './logger';
 import { _, debug, log } from './logger';
 import { storage } from './storage';
@@ -71,6 +71,17 @@ describe('Add and remove teams', () => {
 		expect(registered).toBe('commercial,dotcom,cmp');
 	});
 
+	it(`should not add teams more than once`, () => {
+		if (window.guardian?.logger) {
+			window.guardian.logger.subscribeTo('cmp');
+			window.guardian.logger.subscribeTo('dotcom');
+			window.guardian.logger.subscribeTo('dotcom');
+			window.guardian.logger.subscribeTo('commercial');
+		}
+		const registered: string = storage.local.get(KEY) as string;
+		expect(registered).toBe('commercial,dotcom,cmp');
+	});
+
 	it(`should be able to remove a third team`, () => {
 		if (window.guardian?.logger)
 			window.guardian.logger.unsubscribeFrom('cmp');
@@ -108,30 +119,13 @@ describe('Team-based logging', () => {
 });
 
 describe('Ensure labels are accessible', () => {
-	type WebAIMContrastApiResponse = {
-		ratio: string;
-		AA: string;
-		AALarge: string;
-		AAA: string;
-		AAALarge: string;
-	};
 	it.each(Object.entries(_.teamColours))(
 		'should have a minimum contrast ratio of 4.5 (AA) for %s',
-		(key, colour) => {
+		(_, colour) => {
 			const { font, background } = colour;
-			const fcolor = font.replace('#', '');
-			const bcolor = background.replace('#', '');
-			const url = `https://webaim.org/resources/contrastchecker/?fcolor=${fcolor}&bcolor=${bcolor}&api`;
+			const ratio = hex(font, background);
 
-			return fetch(url)
-				.then((response) => response.json())
-				.then((data: WebAIMContrastApiResponse) => {
-					const ratio = Number.parseFloat(data.ratio);
-					expect(ratio).toBeGreaterThanOrEqual(4.5);
-				})
-				.catch((e) => {
-					throw e;
-				});
+			expect(ratio).toBeGreaterThanOrEqual(4.5);
 		},
 	);
 });
