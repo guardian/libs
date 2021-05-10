@@ -9,7 +9,7 @@ import fetchMock from 'jest-fetch-mock';
 fetchMock.enableMocks();
 
 describe('getLocale', () => {
-	it("shouldn't fail", () => true);
+	it("shouldn't fail", () => undefined);
 	// beforeEach(() => {
 	// 	storage.local.clear();
 	// 	cookies.removeCookie({ name: KEY });
