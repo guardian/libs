@@ -28,13 +28,13 @@ jobs:
       - name: Install dependencies
         uses: bahmutov/npm-install@v1
 
-      - name: Run unit tests
-        run: 'yarn test --coverage --ci'
-
       - name: Report coverage
         uses: coverallsapp/github-action@master
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Run unit tests
+        run: 'yarn test --coverage --ci'
   lint:
     name: Linting
     needs: [docs]
