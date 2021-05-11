@@ -30,7 +30,7 @@
     "validate": "npm-run-all tsc lint test build"
   },
   "dependencies": {
-    "@guardian/types": "~6.1.0"
+    "@guardian/types": "^6.1.0"
   },
   "devDependencies": {
     "@guardian/eslint-config": "0.5.0",
