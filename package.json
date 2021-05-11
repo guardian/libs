@@ -4,7 +4,9 @@
   "private": false,
   "description": "A collection of JavaScript libraries for Guardian projects",
   "homepage": "https://github.com/guardian/libs#readme",
-  "bugs": { "url": "https://github.com/guardian/libs/issues" },
+  "bugs": {
+    "url": "https://github.com/guardian/libs/issues"
+  },
   "repository": "https://github.com/guardian/libs.git",
   "license": "Apache-2.0",
   "author": "Guardian developers",
@@ -12,7 +14,10 @@
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/types/index.d.ts",
-  "files": ["dist", "src"],
+  "files": [
+    "dist",
+    "src"
+  ],
   "scripts": {
     "prebuild": "yarn clean",
     "build": "pkgu build",
@@ -23,6 +28,9 @@
     "test": "jest",
     "tsc": "tsc --noEmit",
     "validate": "npm-run-all tsc lint test build"
+  },
+  "dependencies": {
+    "@guardian/types": "~6.1.0"
   },
   "devDependencies": {
     "@guardian/eslint-config": "0.5.0",
@@ -57,5 +65,7 @@
     "typescript": "4.2.3",
     "wcag-contrast": "^3.0.0"
   },
-  "publishConfig": { "access": "public" }
+  "publishConfig": {
+    "access": "public"
+  }
 }

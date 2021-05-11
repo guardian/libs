@@ -1,7 +1,7 @@
+import type { CountryCode } from '@guardian/types';
 import { getCookie, setSessionCookie } from './cookies';
 import { isString } from './isString';
 import { storage } from './storage';
-import type { CountryCode } from './types/countries';
 
 const KEY = 'GU_geo_country';
 const KEY_OVERRIDE = 'gu.geo.override';
