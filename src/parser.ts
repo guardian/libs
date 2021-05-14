@@ -153,6 +153,10 @@ const parseField = <A>(field: string, pa: Parser<A>): Parser<A> =>
 			);
 		}
 
+		if (!(field in a)) {
+			return err(`Field ${field} doesn't exist in ${String(a)}`);
+		}
+
 		return pa.run(a[field]);
 	});
 
