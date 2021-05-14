@@ -313,10 +313,10 @@
   resolved "https://registry.yarnpkg.com/@guardian/eslint-config/-/eslint-config-0.5.0.tgz#ece14ec90b372932c7bf01992fc6d8ce58f7f26e"
   integrity sha512-THJn0wg7i9YjSVM9ofobsJgS+WH9ybrZH1+0CXLAebp0T53RGtgZUkek82mDg1h3DidsM+f7HSZqoQyrCbPzPw==
 
-"@guardian/pkgu@0.5.0":
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/@guardian/pkgu/-/pkgu-0.5.0.tgz#3f6f84706c34959b70902063ffce0ff2ed5c93ab"
-  integrity sha512-zV0DSErSDZZ7GT7AzmUY2wq+bvbCWVBXACqxYfa4KVezlMjM6qwD6soTVDW0wW4UZwynEGQSRBXnAFATrjuhiw==
+"@guardian/pkgu@0.6.0":
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/@guardian/pkgu/-/pkgu-0.6.0.tgz#abb5b136df6b1d72f9b653d87342ac4e16d90a6b"
+  integrity sha512-ZQAOr9AT5h13QB7vjjAKiuLqzFCwuEg6/LZBsKr+O05rITzTrsQhguY3IwV8jMCf76Y6Rzq8A39zE3C8eFBioA==
   dependencies:
     chalk "^4.1.0"
     execa "^5.0.0"

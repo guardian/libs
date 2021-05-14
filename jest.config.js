@@ -2,11 +2,12 @@
 // https://jestjs.io/docs/en/configuration.html
 
 module.exports = {
-	preset: 'ts-jest',
+	preset: 'ts-jest/presets/js-with-ts',
 	testEnvironment: 'jest-environment-jsdom-sixteen',
 	clearMocks: true,
 	collectCoverage: true,
 	collectCoverageFrom: ['src/**/*'],
 	coveragePathIgnorePatterns: ['types'],
+	transformIgnorePatterns: ['node_modules/(?!@guardian)'],
 	testPathIgnorePatterns: ['<rootDir>/dist/', '<rootDir>/node_modules/'],
 };
