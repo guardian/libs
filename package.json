@@ -26,7 +26,7 @@
     "prepare": "husky install",
     "prepush:test": "jest --runInBand --onlyChanged --coverage=false",
     "test": "jest",
-		"test:watch": "yarn test --watch",
+    "test:watch": "yarn test --watch",
     "tsc": "tsc --noEmit",
     "validate": "npm-run-all tsc lint test build"
   },
