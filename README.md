@@ -4,7 +4,6 @@
 [![ES version](https://badgen.net/badge/ES/2020/cyan)](https://tc39.es/ecma262/2020/)
 [![npm type definitions](https://img.shields.io/npm/types/@guardian/libs)](https://www.typescriptlang.org/)
 [![Coverage Status](https://coveralls.io/repos/github/guardian/libs/badge.svg)](https://coveralls.io/github/guardian/libs)
-[![gzip size](https://img.badgesize.io/https://unpkg.com/@guardian/libs/dist/umd/index.min.js?compression=gzip)](https://unpkg.com/@guardian/libs/dist/umd/index.min.js)
 
 > A collection of JavaScript libraries for Guardian projects
 
@@ -19,6 +18,7 @@
   - [`loadScript`](#loadscript)
   - [`log`/`debug`](#logdebug)
   - [`storage`](#storage)
+  - [`cookies`](#cookies)
   - [`timeAgo`](#timeago)
 - [Installation](#installation)
   - [Bundling](#bundling)
@@ -55,6 +55,10 @@ Selectively log team-specific messages to the console.
 ### [`storage`](./src/storage.README.md)
 
 Robust API over `localStorage` and `sessionStorage`.
+
+### [`cookies`](./src/cookies.README.md)
+
+API over `document.cookies`.
 
 ### [`timeAgo`](./src/timeAgo.README.md)
 

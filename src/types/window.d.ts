@@ -8,6 +8,11 @@ declare global {
 				unsubscribeFrom: TeamSubscription;
 				teams: () => string[];
 			};
+			config?: {
+				page?: {
+					isPreview: boolean;
+				};
+			};
 		};
 	}
 }
