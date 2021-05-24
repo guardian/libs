@@ -40,7 +40,7 @@
     "@semantic-release/github": "7.2.3",
     "@types/jest": "26.0.23",
     "@types/wcag-contrast": "3.0.0",
-    "@typescript-eslint/eslint-plugin": "4.23.0",
+    "@typescript-eslint/eslint-plugin": "4.24.0",
     "@typescript-eslint/parser": "4.23.0",
     "conventional-changelog-conventionalcommits": "4.6.0",
     "eslint": "7.26.0",
