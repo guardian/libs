@@ -9,22 +9,23 @@
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
 ## Table of contents
 
-- [Libs](#libs)
-  - [`getLocale`](#getlocale)
-  - [`isString`](#isstring)
-  - [`isUndefined`](#isundefined)
-  - [`loadScript`](#loadscript)
-  - [`log`/`debug`](#logdebug)
-  - [`storage`](#storage)
-  - [`cookies`](#cookies)
-  - [`timeAgo`](#timeago)
-- [Installation](#installation)
-  - [Bundling](#bundling)
-- [Development](#development)
-  - [Requirements](#requirements)
-  - [Releasing](#releasing)
+-   [Libs](#libs)
+    -   [`getLocale`](#getlocale)
+    -   [`isString`](#isstring)
+    -   [`isUndefined`](#isundefined)
+    -   [`loadScript`](#loadscript)
+    -   [`log`/`debug`](#logdebug)
+    -   [`storage`](#storage)
+    -   [`cookies`](#cookies)
+    -   [`timeAgo`](#timeago)
+-   [Installation](#installation)
+    -   [Bundling](#bundling)
+-   [Development](#development)
+    -   [Requirements](#requirements)
+    -   [Releasing](#releasing)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -63,6 +64,14 @@ API over `document.cookies`.
 ### [`timeAgo`](./src/timeAgo.README.md)
 
 Turns absolute dates into time ago strings.
+
+### [`option`](./src/option.README.md)
+
+Represents a value that may or may not exist.
+
+### [`result`](./src/result.README.md)
+
+Represents either a value or an error.
 
 ## Installation
 
