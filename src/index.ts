@@ -4,15 +4,18 @@ export { getLocale } from './getLocale';
 export { isString } from './isString';
 export { isUndefined } from './isUndefined';
 export { loadScript } from './loadScript';
-export { OptionKind,
+export {
+	OptionKind,
 	some,
 	none,
 	fromNullable,
 	withDefault,
 	map,
 	map2,
-	andThen, } from './option';
-export { 	ResultKind,
+	andThen,
+} from './option';
+export {
+	ResultKind,
 	ok,
 	err,
 	fromUnsafe,
@@ -21,7 +24,8 @@ export { 	ResultKind,
 	mapError,
 	toOption,
 	map as resultMap,
-	andThen as resultAndThen, } from './result';
+	andThen as resultAndThen,
+} from './result';
 export { storage } from './storage';
 export { timeAgo } from './timeAgo';
 export {
