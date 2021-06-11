@@ -29,7 +29,7 @@
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-## Libs
+## Modules
 
 The following modules are available:
 
