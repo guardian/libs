@@ -9,8 +9,8 @@ const LOCAL: StorageName = 'local';
 const SESSION: StorageName = 'session';
 
 describe.each([
-	[LOCAL, storage[LOCAL], global.localStorage],
-	[SESSION, storage[SESSION], global.sessionStorage],
+	[LOCAL, storage[LOCAL], globalThis.localStorage],
+	[SESSION, storage[SESSION], globalThis.sessionStorage],
 ])('storage.%s', (name, implementation, native) => {
 	let getSpy: jest.SpyInstance;
 	let setSpy: jest.SpyInstance;
