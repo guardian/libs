@@ -9,22 +9,23 @@
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
 ## Table of contents
 
-- [Libs](#libs)
-  - [`getLocale`](#getlocale)
-  - [`isString`](#isstring)
-  - [`isUndefined`](#isundefined)
-  - [`loadScript`](#loadscript)
-  - [`log`/`debug`](#logdebug)
-  - [`storage`](#storage)
-  - [`cookies`](#cookies)
-  - [`timeAgo`](#timeago)
-- [Installation](#installation)
-  - [Bundling](#bundling)
-- [Development](#development)
-  - [Requirements](#requirements)
-  - [Releasing](#releasing)
+-   [Libs](#libs)
+    -   [`getLocale`](#getlocale)
+    -   [`isString`](#isstring)
+    -   [`isUndefined`](#isundefined)
+    -   [`loadScript`](#loadscript)
+    -   [`log`/`debug`](#logdebug)
+    -   [`storage`](#storage)
+    -   [`cookies`](#cookies)
+    -   [`timeAgo`](#timeago)
+-   [Installation](#installation)
+    -   [Bundling](#bundling)
+-   [Development](#development)
+    -   [Requirements](#requirements)
+    -   [Releasing](#releasing)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -32,9 +33,25 @@
 
 The following modules are available:
 
+### [`cookies`](./src/cookies.README.md)
+
+API over `document.cookies`.
+
 ### [`getLocale`](./src/getLocale.README.md)
 
 Get the user’s current location.
+
+### [`getSwitches`](./src/getSwitches.README.md)
+
+Get the active switches on theguardian.com.
+
+### [`isBoolean`](./src/isBoolean.README.md)
+
+Check whether a value is a boolean.
+
+### [`isObject`](./src/isObject.README.md)
+
+Check whether a value is an object (`{}`).
 
 ### [`isString`](./src/isString.README.md)
 
@@ -55,10 +72,6 @@ Selectively log team-specific messages to the console.
 ### [`storage`](./src/storage.README.md)
 
 Robust API over `localStorage` and `sessionStorage`.
-
-### [`cookies`](./src/cookies.README.md)
-
-API over `document.cookies`.
 
 ### [`timeAgo`](./src/timeAgo.README.md)
 
