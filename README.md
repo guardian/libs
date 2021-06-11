@@ -54,7 +54,7 @@ Check whether a value is a boolean.
 
 ### [`isObject`](./src/isObject.README.md)
 
-Checks whether `value` is a plain object (i.e. `{}`-like).
+Checks whether a value is a plain object (i.e. `{}`-like).
 
 ### [`isString`](./src/isString.README.md)
 
