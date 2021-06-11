@@ -2,7 +2,7 @@
 
 Returns: `boolean`
 
-Checks whether `value` is a string.
+Checks whether `value` is a boolean.
 
 ## Example
 
