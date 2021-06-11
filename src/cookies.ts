@@ -66,10 +66,10 @@ export const setCookie = ({
 	}
 
 	if (daysToLive) {
-		expires.setDate(expires.getDate() + daysToLive);
+		expires.setUTCDate(expires.getDate() + daysToLive);
 	} else {
-		expires.setMonth(expires.getMonth() + 5);
-		expires.setDate(1);
+		expires.setUTCMonth(expires.getMonth() + 5);
+		expires.setUTCDate(1);
 	}
 
 	document.cookie = `${name}=${value}; path=/; expires=${expires.toUTCString()};${getDomainAttribute(
