@@ -1,6 +1,6 @@
 # `getSwitches()`
 
-Returns: `Promise<Switches>`
+Returns: `Promise<Record<string, boolean>>`
 
 Supplies the current list of [active switches on theguardian.com](https://frontend.gutools.co.uk/dev/switchboard).
 
