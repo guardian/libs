@@ -3,6 +3,9 @@ on:
   push:
     branches-ignore:
       - 'gh-pages'
+  pull_request:
+    branches-ignore:
+      - 'gh-pages'
 
 jobs:
   docs:
@@ -10,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: TOC Generator
-        uses: technote-space/toc-generator@v2.6.1
+        uses: technote-space/toc-generator@v4
         with:
           TOC_TITLE: '## Table of contents'
           MAX_HEADER_LEVEL: 3
@@ -22,15 +25,8 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v2
 
-      # based on https://github.com/actions/setup-node/issues/32#issuecomment-539794249
-      - name: Read .nvmrc
-        run: echo ::set-output name=NVMRC::$(cat .nvmrc)
-        id: nvm
-
       - name: Setup node
-        uses: actions/setup-node@v2.1.2
-        with:
-          node-version: '${{ steps.nvm.outputs.NVMRC }}'
+        uses: guardian/actions-setup-node@main
 
       - name: Install dependencies
         uses: bahmutov/npm-install@v1
@@ -50,15 +46,8 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v2
 
-      # based on https://github.com/actions/setup-node/issues/32#issuecomment-539794249
-      - name: Read .nvmrc
-        run: echo ::set-output name=NVMRC::$(cat .nvmrc)
-        id: nvm
-
       - name: Setup node
-        uses: actions/setup-node@v2.1.2
-        with:
-          node-version: '${{ steps.nvm.outputs.NVMRC }}'
+        uses: guardian/actions-setup-node@main
 
       - name: Install dependencies
         uses: bahmutov/npm-install@v1
@@ -73,15 +62,8 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v2
 
-      # based on https://github.com/actions/setup-node/issues/32#issuecomment-539794249
-      - name: Read .nvmrc
-        run: echo ::set-output name=NVMRC::$(cat .nvmrc)
-        id: nvm
-
       - name: Setup node
-        uses: actions/setup-node@v2.1.2
-        with:
-          node-version: '${{ steps.nvm.outputs.NVMRC }}'
+        uses: guardian/actions-setup-node@main
 
       - name: Install dependencies
         uses: bahmutov/npm-install@v1
@@ -96,15 +78,8 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v2
 
-      # based on https://github.com/actions/setup-node/issues/32#issuecomment-539794249
-      - name: Read .nvmrc
-        run: echo ::set-output name=NVMRC::$(cat .nvmrc)
-        id: nvm
-
       - name: Setup node
-        uses: actions/setup-node@v2.1.2
-        with:
-          node-version: '${{ steps.nvm.outputs.NVMRC }}'
+        uses: guardian/actions-setup-node@main
 
       - name: Install dependencies
         uses: bahmutov/npm-install@v1
@@ -130,15 +105,8 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
 
-      # based on https://github.com/actions/setup-node/issues/32#issuecomment-539794249
-      - name: Read .nvmrc
-        run: echo ::set-output name=NVMRC::$(cat .nvmrc)
-        id: nvm
-
       - name: Setup node
-        uses: actions/setup-node@v2.1.2
-        with:
-          node-version: '${{ steps.nvm.outputs.NVMRC }}'
+        uses: guardian/actions-setup-node@main
 
       - name: Install dependencies
         uses: bahmutov/npm-install@v1

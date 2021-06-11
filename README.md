@@ -1,10 +1,9 @@
-# Libs
+# `@guardian/libs`
 
 [![npm (scoped)](https://img.shields.io/npm/v/@guardian/libs)](https://www.npmjs.com/package/@guardian/libs)
 [![ES version](https://badgen.net/badge/ES/2020/cyan)](https://tc39.es/ecma262/2020/)
 [![npm type definitions](https://img.shields.io/npm/types/@guardian/libs)](https://www.typescriptlang.org/)
 [![Coverage Status](https://coveralls.io/repos/github/guardian/libs/badge.svg)](https://coveralls.io/github/guardian/libs)
-[![gzip size](https://img.badgesize.io/https://unpkg.com/@guardian/libs/dist/umd/index.min.js?compression=gzip)](https://unpkg.com/@guardian/libs/dist/umd/index.min.js)
 
 > A collection of JavaScript libraries for Guardian projects
 
@@ -12,6 +11,15 @@
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 ## Table of contents
 
+- [Libs](#libs)
+  - [`getLocale`](#getlocale)
+  - [`isString`](#isstring)
+  - [`isUndefined`](#isundefined)
+  - [`loadScript`](#loadscript)
+  - [`log`/`debug`](#logdebug)
+  - [`storage`](#storage)
+  - [`cookies`](#cookies)
+  - [`timeAgo`](#timeago)
 - [Installation](#installation)
   - [Bundling](#bundling)
 - [Development](#development)
@@ -19,6 +27,42 @@
   - [Releasing](#releasing)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+## Libs
+
+The following modules are available:
+
+### [`getLocale`](./src/getLocale.README.md)
+
+Get the user’s current location.
+
+### [`isString`](./src/isString.README.md)
+
+Check whether a value is a string.
+
+### [`isUndefined`](./src/isUndefined.README.md)
+
+Check whether a value is `undefined`.
+
+### [`loadScript`](./src/loadScript.README.md)
+
+Inject an external JavaScript file.
+
+### [`log`/`debug`](./src/logger.README.md)
+
+Selectively log team-specific messages to the console.
+
+### [`storage`](./src/storage.README.md)
+
+Robust API over `localStorage` and `sessionStorage`.
+
+### [`cookies`](./src/cookies.README.md)
+
+API over `document.cookies`.
+
+### [`timeAgo`](./src/timeAgo.README.md)
+
+Turns absolute dates into time ago strings.
 
 ## Installation
 
@@ -34,12 +78,18 @@ or
 npm install @guardian/libs
 ```
 
+then
+
+```js
+import { loadScript, storage, ...etc } from '@guardian/libs';
+```
+
 or
 
 ```html
 <script src="https://unpkg.com/@guardian/libs"></script>
 <script>
-    // window.gu.libs = { loadScript, storage, etc }
+    // window.gu.libs = { loadScript, storage, ...etc }
 </script>
 ```
 
@@ -62,7 +112,7 @@ Changes are automatically released to NPM.
 
 The `main` branch on GitHub is analysed by [semantic-release](https://semantic-release.gitbook.io/) after every push.
 
-If a commit message follows the [conventional commit format](https://www.conventionalcommits.org/en/v1.0.0), semantic-release can determine what types of changes are included in that commit.
+If a commit message follows the [conventional commit format](https://www.conventionalcommits.org/en/v1.0.0), semantic-release can determine what Types of changes are included in that commit.
 
 If necessary, it will then automatically release a new, [semver](https://semver.org/)-compliant version of the package to NPM.
 

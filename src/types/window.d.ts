@@ -1,11 +1,17 @@
-import type { Switches } from './switches';
+import type { TeamSubscription } from '../logger';
 
 declare global {
 	interface Window {
 		guardian?: {
+			logger?: {
+				subscribeTo: TeamSubscription;
+				unsubscribeFrom: TeamSubscription;
+				teams: () => string[];
+			};
 			config?: {
-				switches?: Switches;
-				[key: string]: unknown;
+				page?: {
+					isPreview: boolean;
+				};
 			};
 		};
 	}
