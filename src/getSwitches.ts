@@ -7,7 +7,7 @@ const URL = 'https://www.theguardian.com/switches.json';
 const validate = (switches: unknown) =>
 	isObject(switches) && Object.values(switches).every(isBoolean);
 
-const fetchRemote = () =>
+const fetchSwitches = () =>
 	fetch(URL)
 		.then((response) => response.json())
 		.then((switches) =>
@@ -26,6 +26,6 @@ let switches: Switches | undefined;
  */
 
 export const getSwitches = async (): Promise<Switches> =>
-	(switches ||= window.guardian?.config?.switches ?? (await fetchRemote()));
+	(switches ||= window.guardian?.config?.switches ?? (await fetchSwitches()));
 
 export const __resetCachedValue = (): void => (switches = void 0);
