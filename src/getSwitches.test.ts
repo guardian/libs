@@ -39,9 +39,7 @@ describe('getSwitches', () => {
 				switches: { badSwitch: 'this is not a boolean' },
 			}),
 		);
-		await expect(getSwitches()).rejects.toThrow(
-			'remote switch config is malformed',
-		);
+		await expect(getSwitches()).rejects.toThrow();
 	});
 
 	it('rejects if the fetch response is malformed', async () => {

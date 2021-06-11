@@ -14,7 +14,9 @@ const fetchSwitches = () =>
 			validate(switches)
 				? (switches as Switches)
 				: Promise.reject(
-						new Error('remote switch config is malformed'),
+						new Error(
+							'Error getting remote switches – config is malformed',
+						),
 				  ),
 		);
 
