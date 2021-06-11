@@ -11,7 +11,7 @@
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 ## Table of contents
 
-- [Libs](#libs)
+- [Modules](#modules)
   - [`cookies`](#cookies)
   - [`getLocale`](#getlocale)
   - [`getSwitches`](#getswitches)
