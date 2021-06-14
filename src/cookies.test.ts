@@ -2,35 +2,40 @@ import MockDate from 'mockdate';
 import * as cookies from './cookies';
 
 describe('cookies', () => {
+	let cookieValue = '';
+
 	beforeAll(() => {
 		MockDate.set('Sun Nov 17 2019 12:00:00 GMT+0000 (Greenwich Mean Time)');
+		Object.defineProperty(document, 'cookie', {
+			get() {
+				return cookieValue
+					.replace('|', ';')
+					.replace(/^[;|]|[;|]$/g, '');
+			},
+
+			set(value: string) {
+				const name = value.split('=')[0];
+				const newVal = cookieValue
+					.split('|')
+					.filter((cookie) => cookie.split('=')[0] !== name);
+
+				newVal.push(value);
+				cookieValue = newVal.join('|');
+			},
+		});
 	});
 
 	afterAll(() => {
 		MockDate.reset();
 	});
 
-	let cookieValue = '';
-
-	Object.defineProperty(document, 'domain', { value: 'www.theguardian.com' });
-	Object.defineProperty(document, 'cookie', {
-		get() {
-			return cookieValue.replace('|', ';').replace(/^[;|]|[;|]$/g, '');
-		},
-
-		set(value: string) {
-			const name = value.split('=')[0];
-			const newVal = cookieValue
-				.split('|')
-				.filter((cookie) => cookie.split('=')[0] !== name);
-
-			newVal.push(value);
-			cookieValue = newVal.join('|');
-		},
-	});
-
 	beforeEach(() => {
 		cookieValue = '';
+		Object.defineProperty(document, 'domain', {
+			value: 'www.theguardian.com',
+			writable: true,
+			configurable: true,
+		});
 	});
 
 	it('should be able to get a cookie', () => {
@@ -66,6 +71,24 @@ describe('cookies', () => {
 		);
 	});
 
+	it('should not set a cookie when the cookie name is invalid', () => {
+		expect(document.cookie).toEqual('');
+		cookies.setCookie({
+			name: 'cookie-1-name-@',
+			value: 'cookie-1-value',
+		});
+		expect(document.cookie).toEqual('');
+	});
+
+	it('should not set a cookie when the cookie value is invalid', () => {
+		expect(document.cookie).toEqual('');
+		cookies.setCookie({
+			name: 'cookie-1-name',
+			value: 'cookie-1-value-<',
+		});
+		expect(document.cookie).toEqual('');
+	});
+
 	it('should be able to set a session cookie', () => {
 		expect(document.cookie).toEqual('');
 		cookies.setSessionCookie({
@@ -75,6 +98,36 @@ describe('cookies', () => {
 		expect(document.cookie).toEqual(
 			'cookie-1-name=cookie-1-value; path=/; domain=.theguardian.com',
 		);
+	});
+
+	it('should be able to set a session cookie for localhost', () => {
+		Object.defineProperty(document, 'domain', {
+			value: 'localhost',
+		});
+		expect(document.cookie).toEqual('');
+		cookies.setSessionCookie({
+			name: 'cookie-1-name',
+			value: 'cookie-1-value',
+		});
+		expect(document.cookie).toEqual('cookie-1-name=cookie-1-value; path=/');
+	});
+
+	it('should not set a session cookie when the cookie name is invalid', () => {
+		expect(document.cookie).toEqual('');
+		cookies.setSessionCookie({
+			name: 'cookie-1-name-@',
+			value: 'cookie-1-value',
+		});
+		expect(document.cookie).toEqual('');
+	});
+
+	it('should not set a session cookie when the cookie value is invalid', () => {
+		expect(document.cookie).toEqual('');
+		cookies.setSessionCookie({
+			name: 'cookie-1-name',
+			value: 'cookie-1-value-<',
+		});
+		expect(document.cookie).toEqual('');
 	});
 
 	it('should be able to get a memoized cookie with days to live and cross subdomain', () => {
@@ -146,7 +199,7 @@ describe('cookies', () => {
 		).toEqual('GR');
 	});
 
-	it('should be able the remove a cookie', () => {
+	it('should be able the remove a cookie and shorten the domain', () => {
 		document.cookie = 'cookie-1-name=cookie-1-value';
 
 		cookies.removeCookie({ name: 'cookie-1-name' });
@@ -156,6 +209,42 @@ describe('cookies', () => {
 		expect(cookie).toMatch(
 			new RegExp(
 				'cookie-1-name=;path=/;expires=Thu, 01 Jan 1970 00:00:01 GMT; domain=.theguardian.com',
+			),
+		);
+	});
+
+	it('should not set a short domain when removing a cookie from localhost', () => {
+		Object.defineProperty(document, 'domain', {
+			value: 'localhost',
+		});
+
+		document.cookie = 'cookie-1-name=cookie-1-value';
+
+		cookies.removeCookie({ name: 'cookie-1-name' });
+
+		const { cookie } = document;
+
+		expect(cookie).toMatch(
+			new RegExp(
+				'cookie-1-name=;path=/;expires=Thu, 01 Jan 1970 00:00:01 GMT; domain=localhost',
+			),
+		);
+	});
+
+	it('should not set a short domain when removing a cookie from preview', () => {
+		window.guardian = {
+			config: { page: { isPreview: true } },
+		};
+
+		document.cookie = 'cookie-1-name=cookie-1-value';
+
+		cookies.removeCookie({ name: 'cookie-1-name' });
+
+		const { cookie } = document;
+
+		expect(cookie).toMatch(
+			new RegExp(
+				'cookie-1-name=;path=/;expires=Thu, 01 Jan 1970 00:00:01 GMT; domain=www.theguardian.com',
 			),
 		);
 	});
