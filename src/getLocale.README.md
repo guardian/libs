@@ -13,3 +13,7 @@ getLocale().then((locale) => {
     console.log(locale); // UK, AU etc
 });
 ```
+
+### Overrides
+
+If you want to override the actual locale (e.g. in CI or development), set a `localStorage` item of `gu.geo.override` to the country code you need.
