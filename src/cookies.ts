@@ -66,9 +66,9 @@ export const setCookie = ({
 	}
 
 	if (daysToLive) {
-		expires.setUTCDate(expires.getDate() + daysToLive);
+		expires.setUTCDate(expires.getUTCDate() + daysToLive);
 	} else {
-		expires.setUTCMonth(expires.getMonth() + 5);
+		expires.setUTCMonth(expires.getUTCMonth() + 5);
 		expires.setUTCDate(1);
 	}
 
