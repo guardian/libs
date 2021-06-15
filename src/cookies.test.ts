@@ -46,7 +46,6 @@ describe('cookies', () => {
 	});
 
 	it('set a cookie with an expiry date in six months that preserves UTC time', () => {
-		expect(document.cookie).toEqual('');
 		MockDate.set('Sun Nov 17 2019 12:00:00 GMT+0000 (Greenwich Mean Time)');
 		cookies.setCookie({
 			name: 'cookie-1-name',
@@ -60,7 +59,6 @@ describe('cookies', () => {
 	});
 
 	it('set a cookie to expire in a specific number of days', () => {
-		expect(document.cookie).toEqual('');
 		MockDate.set('Sun Nov 17 2019 12:00:00 GMT+0000 (Greenwich Mean Time)');
 		cookies.setCookie({
 			name: 'cookie-1-name',
@@ -73,7 +71,6 @@ describe('cookies', () => {
 	});
 
 	it('set a cookie for a specific number of days with an expiry that preserves UTC time', () => {
-		expect(document.cookie).toEqual('');
 		// BST started Sun 28th Mar 2021
 		MockDate.set('Sat Mar 27 2021 12:00:00 GMT+0000 (Greenwich Mean Time)');
 		cookies.setCookie({
@@ -87,7 +84,6 @@ describe('cookies', () => {
 	});
 
 	it('does not set a cookie when the cookie name is invalid', () => {
-		expect(document.cookie).toEqual('');
 		cookies.setCookie({
 			name: 'cookie-1-name-@',
 			value: 'cookie-1-value',
@@ -96,7 +92,6 @@ describe('cookies', () => {
 	});
 
 	it('does not set a cookie when the cookie value is invalid', () => {
-		expect(document.cookie).toEqual('');
 		cookies.setCookie({
 			name: 'cookie-1-name',
 			value: 'cookie-1-value-<',
@@ -105,7 +100,6 @@ describe('cookies', () => {
 	});
 
 	it('set a session cookie', () => {
-		expect(document.cookie).toEqual('');
 		cookies.setSessionCookie({
 			name: 'cookie-1-name',
 			value: 'cookie-1-value',
@@ -128,7 +122,6 @@ describe('cookies', () => {
 	});
 
 	it('does not set a session cookie when the cookie name is invalid', () => {
-		expect(document.cookie).toEqual('');
 		cookies.setSessionCookie({
 			name: 'cookie-1-name-@',
 			value: 'cookie-1-value',
@@ -137,7 +130,6 @@ describe('cookies', () => {
 	});
 
 	it('does not set a session cookie when the cookie value is invalid', () => {
-		expect(document.cookie).toEqual('');
 		cookies.setSessionCookie({
 			name: 'cookie-1-name',
 			value: 'cookie-1-value-<',
