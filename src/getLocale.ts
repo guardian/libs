@@ -10,7 +10,7 @@ const COUNTRY_REGEX = /^[A-Z]{2}$/;
 
 // best guess that we have a valid code, without actually shipping the entire list
 const isValidCountryCode = (country: unknown) =>
-	isString(country) && COUNTRY_REGEX.test(country as string);
+	isString(country) && COUNTRY_REGEX.test(country);
 
 // we'll cache any successful lookups so we only have to do this once
 let locale: CountryCode | undefined;
