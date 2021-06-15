@@ -37,7 +37,7 @@ describe('cookies', () => {
 		MockDate.reset();
 	});
 
-	it('should be able to get a cookie', () => {
+	it('get a cookie', () => {
 		document.cookie =
 			'optimizelyEndUserId=oeu1398171767331r0.5280374749563634; __qca=P0-938012256-1398171768649;';
 		expect(cookies.getCookie({ name: '__qca' })).toEqual(
@@ -45,7 +45,7 @@ describe('cookies', () => {
 		);
 	});
 
-	it('should be able to set a cookie with an expiry date in six months that preserves UTC time', () => {
+	it('set a cookie with an expiry date in six months that preserves UTC time', () => {
 		expect(document.cookie).toEqual('');
 		MockDate.set('Sun Nov 17 2019 12:00:00 GMT+0000 (Greenwich Mean Time)');
 		cookies.setCookie({
@@ -59,7 +59,7 @@ describe('cookies', () => {
 		);
 	});
 
-	it('should be able to set a cookie to expire in a specific number of days', () => {
+	it('set a cookie to expire in a specific number of days', () => {
 		expect(document.cookie).toEqual('');
 		MockDate.set('Sun Nov 17 2019 12:00:00 GMT+0000 (Greenwich Mean Time)');
 		cookies.setCookie({
@@ -72,7 +72,7 @@ describe('cookies', () => {
 		);
 	});
 
-	it('should be able to set a cookie for a specific number of days with an expiry that preserves UTC time', () => {
+	it('set a cookie for a specific number of days with an expiry that preserves UTC time', () => {
 		expect(document.cookie).toEqual('');
 		// BST started Sun 28th Mar 2021
 		MockDate.set('Sat Mar 27 2021 12:00:00 GMT+0000 (Greenwich Mean Time)');
@@ -86,7 +86,7 @@ describe('cookies', () => {
 		);
 	});
 
-	it('should not set a cookie when the cookie name is invalid', () => {
+	it('does not set a cookie when the cookie name is invalid', () => {
 		expect(document.cookie).toEqual('');
 		cookies.setCookie({
 			name: 'cookie-1-name-@',
@@ -95,7 +95,7 @@ describe('cookies', () => {
 		expect(document.cookie).toEqual('');
 	});
 
-	it('should not set a cookie when the cookie value is invalid', () => {
+	it('does not set a cookie when the cookie value is invalid', () => {
 		expect(document.cookie).toEqual('');
 		cookies.setCookie({
 			name: 'cookie-1-name',
@@ -104,7 +104,7 @@ describe('cookies', () => {
 		expect(document.cookie).toEqual('');
 	});
 
-	it('should be able to set a session cookie', () => {
+	it('set a session cookie', () => {
 		expect(document.cookie).toEqual('');
 		cookies.setSessionCookie({
 			name: 'cookie-1-name',
@@ -115,7 +115,7 @@ describe('cookies', () => {
 		);
 	});
 
-	it('should be able to set a session cookie for localhost', () => {
+	it('set a session cookie for localhost', () => {
 		Object.defineProperty(document, 'domain', {
 			value: 'localhost',
 		});
@@ -127,7 +127,7 @@ describe('cookies', () => {
 		expect(document.cookie).toEqual('cookie-1-name=cookie-1-value; path=/');
 	});
 
-	it('should not set a session cookie when the cookie name is invalid', () => {
+	it('does not set a session cookie when the cookie name is invalid', () => {
 		expect(document.cookie).toEqual('');
 		cookies.setSessionCookie({
 			name: 'cookie-1-name-@',
@@ -136,7 +136,7 @@ describe('cookies', () => {
 		expect(document.cookie).toEqual('');
 	});
 
-	it('should not set a session cookie when the cookie value is invalid', () => {
+	it('does not set a session cookie when the cookie value is invalid', () => {
 		expect(document.cookie).toEqual('');
 		cookies.setSessionCookie({
 			name: 'cookie-1-name',
@@ -145,7 +145,7 @@ describe('cookies', () => {
 		expect(document.cookie).toEqual('');
 	});
 
-	it('should be able to get a memoized cookie with days to live and cross subdomain', () => {
+	it('get a memoized cookie with days to live and cross subdomain', () => {
 		cookies.setCookie({
 			name: 'GU_geo_country',
 			value: 'GB',
@@ -162,7 +162,7 @@ describe('cookies', () => {
 		expect(spy).toHaveBeenCalledTimes(1);
 	});
 
-	it('should be able to get a memoized cookie with days to live', () => {
+	it('get a memoized cookie with days to live', () => {
 		cookies.setCookie({
 			name: 'GU_geo_country',
 			value: 'IT',
@@ -182,7 +182,7 @@ describe('cookies', () => {
 		expect(spy).not.toHaveBeenCalledTimes(2);
 	});
 
-	it('should be able to re-set a memoized cookie', () => {
+	it('re-set a memoized cookie', () => {
 		cookies.setCookie({
 			name: 'GU_geo_country',
 			value: 'GB',
@@ -203,7 +203,7 @@ describe('cookies', () => {
 		).toEqual('IT');
 	});
 
-	it('should be able to re-set a memoized session cookie', () => {
+	it('re-set a memoized session cookie', () => {
 		cookies.setSessionCookie({ name: 'GU_geo_country', value: 'GB' });
 		expect(
 			cookies.getCookie({ name: 'GU_geo_country', shouldMemoize: true }),
@@ -214,7 +214,7 @@ describe('cookies', () => {
 		).toEqual('GR');
 	});
 
-	it('should be able the remove a cookie and shorten the domain', () => {
+	it('remove a cookie and shorten the domain', () => {
 		document.cookie = 'cookie-1-name=cookie-1-value';
 
 		cookies.removeCookie({ name: 'cookie-1-name' });
@@ -228,7 +228,7 @@ describe('cookies', () => {
 		);
 	});
 
-	it('should not set a short domain when removing a cookie from localhost', () => {
+	it('does not set a short domain when removing a cookie from localhost', () => {
 		Object.defineProperty(document, 'domain', {
 			value: 'localhost',
 		});
@@ -246,7 +246,7 @@ describe('cookies', () => {
 		);
 	});
 
-	it('should not set a short domain when removing a cookie from preview', () => {
+	it('does not set a short domain when removing a cookie from preview', () => {
 		window.guardian = {
 			config: { page: { isPreview: true } },
 		};
