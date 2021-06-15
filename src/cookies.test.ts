@@ -5,7 +5,6 @@ describe('cookies', () => {
 	let cookieValue = '';
 
 	beforeAll(() => {
-		MockDate.set('Sun Nov 17 2019 12:00:00 GMT+0000 (Greenwich Mean Time)');
 		Object.defineProperty(document, 'cookie', {
 			get() {
 				return cookieValue
@@ -25,10 +24,6 @@ describe('cookies', () => {
 		});
 	});
 
-	afterAll(() => {
-		MockDate.reset();
-	});
-
 	beforeEach(() => {
 		cookieValue = '';
 		Object.defineProperty(document, 'domain', {
@@ -36,6 +31,10 @@ describe('cookies', () => {
 			writable: true,
 			configurable: true,
 		});
+	});
+
+	afterEach(() => {
+		MockDate.reset();
 	});
 
 	it('should be able to get a cookie', () => {
@@ -46,8 +45,9 @@ describe('cookies', () => {
 		);
 	});
 
-	it('should be able to set a cookie', () => {
+	it('should be able to set a cookie with an expiry date in six months that preserves UTC time', () => {
 		expect(document.cookie).toEqual('');
+		MockDate.set('Sun Nov 17 2019 12:00:00 GMT+0000 (Greenwich Mean Time)');
 		cookies.setCookie({
 			name: 'cookie-1-name',
 			value: 'cookie-1-value',
@@ -59,8 +59,9 @@ describe('cookies', () => {
 		);
 	});
 
-	it('should be able to set a cookie for a specific number of days', () => {
+	it('should be able to set a cookie to expire in a specific number of days', () => {
 		expect(document.cookie).toEqual('');
+		MockDate.set('Sun Nov 17 2019 12:00:00 GMT+0000 (Greenwich Mean Time)');
 		cookies.setCookie({
 			name: 'cookie-1-name',
 			value: 'cookie-1-value',
@@ -68,6 +69,20 @@ describe('cookies', () => {
 		});
 		expect(document.cookie).toEqual(
 			'cookie-1-name=cookie-1-value; path=/; expires=Sun, 24 Nov 2019 12:00:00 GMT; domain=.theguardian.com',
+		);
+	});
+
+	it('should be able to set a cookie for a specific number of days with an expiry that preserves UTC time', () => {
+		expect(document.cookie).toEqual('');
+		// BST started Sun 28th Mar 2021
+		MockDate.set('Sat Mar 27 2021 12:00:00 GMT+0000 (Greenwich Mean Time)');
+		cookies.setCookie({
+			name: 'cookie-1-name',
+			value: 'cookie-1-value',
+			daysToLive: 7,
+		});
+		expect(document.cookie).toEqual(
+			'cookie-1-name=cookie-1-value; path=/; expires=Sat, 03 Apr 2021 12:00:00 GMT; domain=.theguardian.com',
 		);
 	});
 
