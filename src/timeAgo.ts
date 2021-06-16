@@ -50,8 +50,7 @@ const getSuffix = (type: Unit, value: number, verbose?: boolean): string => {
 	const shouldPluralise = value !== 1;
 	switch (type) {
 		case 's': {
-			if (verbose && shouldPluralise) return ' seconds ago';
-			if (verbose) return ' second ago';
+			if (verbose) return ' seconds ago';
 			return 's ago';
 		}
 		case 'm': {
