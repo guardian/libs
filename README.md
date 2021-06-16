@@ -39,6 +39,10 @@ The following modules are available:
 
 API over `document.cookies`.
 
+### [`countries`](./src/countries.README.md)
+
+A list of country codes.
+
 ### [`getLocale`](./src/getLocale.README.md)
 
 Get the user’s current location.

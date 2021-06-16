@@ -6,6 +6,7 @@ export {
 	setCookie,
 	setSessionCookie,
 } from './cookies';
+export type { Country, CountryCode } from './countries';
 export { getLocale } from './getLocale';
 export { getSwitches } from './getSwitches';
 export { isBoolean } from './isBoolean';
