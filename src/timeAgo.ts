@@ -64,8 +64,7 @@ const getSuffix = (type: Unit, value: number, verbose?: boolean): string => {
 			return 'h ago';
 		}
 		case 'd': {
-			if (verbose && shouldPluralise) return ' days ago';
-			if (verbose) return ' day ago';
+			if (verbose) return ' days ago';
 			return 'd ago';
 		}
 	}
