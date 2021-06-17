@@ -220,4 +220,9 @@ describe('timeAgo', () => {
 		expect(timeAgo(eightDaysAgo)).toBe('9 Nov 2019');
 		expect(timeAgo(aWhileBack)).toBe('2 Apr 2017');
 	});
+
+	it('returns false on future dates', () => {
+		const tomorrow = new Date(Date.UTC(2019, 10, 18, 10, 0, 0)).getTime();
+		expect(timeAgo(tomorrow)).toBe(false);
+	});
 });

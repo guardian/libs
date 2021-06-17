@@ -50,8 +50,8 @@ const getSuffix = (type: Unit, value: number, verbose?: boolean): string => {
 	const shouldPluralise = value !== 1;
 	switch (type) {
 		case 's': {
-			if (verbose && shouldPluralise) return ' seconds ago';
-			if (verbose) return ' second ago';
+			// Always pluralised, as less than 15 seconds returns “now”
+			if (verbose) return ' seconds ago';
 			return 's ago';
 		}
 		case 'm': {
@@ -65,8 +65,8 @@ const getSuffix = (type: Unit, value: number, verbose?: boolean): string => {
 			return 'h ago';
 		}
 		case 'd': {
-			if (verbose && shouldPluralise) return ' days ago';
-			if (verbose) return ' day ago';
+			// Always pluralised, as less than 2 days returns “Yesterday HH:MM”
+			if (verbose) return ' days ago';
 			return 'd ago';
 		}
 	}
