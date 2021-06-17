@@ -1,6 +1,6 @@
 // https://en.wikipedia.org/wiki/ISO_3166-1
 
-export enum Country {
+export enum CountriesByCountryCode {
 	AF = 'Afghanistan',
 	AX = 'Åland Islands',
 	AL = 'Albania',
@@ -252,4 +252,4 @@ export enum Country {
 	ZW = 'Zimbabwe',
 }
 
-export type CountryCode = keyof typeof Country;
+export type CountryCode = keyof typeof CountriesByCountryCode;

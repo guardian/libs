@@ -1,11 +1,11 @@
-import { Country } from './countries';
+import { CountriesByCountryCode } from './countries';
 
 it('Country enum contains GB, US & AU', () => {
-	expect(Country.GB).toBe(
+	expect(CountriesByCountryCode.GB).toBe(
 		'United Kingdom of Great Britain and Northern Ireland',
 	);
 
-	expect(Country.US).toBe('United States of America');
+	expect(CountriesByCountryCode.US).toBe('United States of America');
 
-	expect(Country.AU).toBe('Australia');
+	expect(CountriesByCountryCode.AU).toBe('Australia');
 });

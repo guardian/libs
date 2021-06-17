@@ -5,5 +5,5 @@ A list of country codes.
 ### Usage
 
 ```js
-import type { Country, CountryCode } from '@guardian/libs';
+import type { CountriesByCountryCode, CountryCode } from '@guardian/libs';
 ```
