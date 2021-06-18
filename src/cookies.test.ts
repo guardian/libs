@@ -84,18 +84,26 @@ describe('cookies', () => {
 	});
 
 	it('does not set a cookie when the cookie name is invalid', () => {
-		cookies.setCookie({
-			name: 'cookie-1-name-@',
-			value: 'cookie-1-value',
-		});
+		expect(() =>
+			cookies.setCookie({
+				name: 'cookie-1-name-@',
+				value: 'cookie-1-value',
+			}),
+		).toThrowError(
+			`Cookie must not contain invalid characters (space, tab and the following characters: '()<>@,;"/[]?={}') .cookie-1-name-@=cookie-1-value`,
+		);
 		expect(document.cookie).toEqual('');
 	});
 
 	it('does not set a cookie when the cookie value is invalid', () => {
-		cookies.setCookie({
-			name: 'cookie-1-name',
-			value: 'cookie-1-value-<',
-		});
+		expect(() =>
+			cookies.setCookie({
+				name: 'cookie-1-name',
+				value: 'cookie-1-value-<',
+			}),
+		).toThrowError(
+			`Cookie must not contain invalid characters (space, tab and the following characters: '()<>@,;"/[]?={}') .cookie-1-name=cookie-1-value-<`,
+		);
 		expect(document.cookie).toEqual('');
 	});
 
@@ -122,18 +130,26 @@ describe('cookies', () => {
 	});
 
 	it('does not set a session cookie when the cookie name is invalid', () => {
-		cookies.setSessionCookie({
-			name: 'cookie-1-name-@',
-			value: 'cookie-1-value',
-		});
+		expect(() =>
+			cookies.setSessionCookie({
+				name: 'cookie-1-name-@',
+				value: 'cookie-1-value',
+			}),
+		).toThrowError(
+			`Cookie must not contain invalid characters (space, tab and the following characters: '()<>@,;"/[]?={}') .cookie-1-name-@=cookie-1-value`,
+		);
 		expect(document.cookie).toEqual('');
 	});
 
-	it('does not set a session cookie when the cookie value is invalid', () => {
-		cookies.setSessionCookie({
-			name: 'cookie-1-name',
-			value: 'cookie-1-value-<',
-		});
+	it('does not set a cookie when the cookie value is invalid', () => {
+		expect(() =>
+			cookies.setSessionCookie({
+				name: 'cookie-1-name',
+				value: 'cookie-1-value-<',
+			}),
+		).toThrowError(
+			`Cookie must not contain invalid characters (space, tab and the following characters: '()<>@,;"/[]?={}') .cookie-1-name=cookie-1-value-<`,
+		);
 		expect(document.cookie).toEqual('');
 	});
 

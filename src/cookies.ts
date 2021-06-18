@@ -1,5 +1,6 @@
 const memoizedCookies: Map<string, string> = new Map<string, string>();
 const COOKIE_REGEX = /[()<>@,;"\\/[\]?={} \t]/g;
+const ERR_INVALID_COOKIE = `Cookie must not contain invalid characters (space, tab and the following characters: '()<>@,;"/[]?={}')`;
 
 export const getCookieValues = (name: string): string[] => {
 	const nameEq = `${name}=`;
@@ -19,6 +20,9 @@ export const getCookieValues = (name: string): string[] => {
 
 // subset of https://github.com/guzzle/guzzle/pull/1131
 const isValidCookieValue = (name: string) => !COOKIE_REGEX.test(name);
+
+const isValidCookie = (name: string, value: string): boolean =>
+	isValidCookieValue(name) && isValidCookieValue(value);
 
 const getShortDomain = ({ isCrossSubdomain = false } = {}) => {
 	const domain = document.domain || '';
@@ -61,8 +65,8 @@ export const setCookie = ({
 }): void => {
 	const expires = new Date();
 
-	if (!isValidCookieValue(name) || !isValidCookieValue(value)) {
-		return;
+	if (!isValidCookie(name, value)) {
+		throw new Error(`${ERR_INVALID_COOKIE} .${name}=${value}`);
 	}
 
 	if (daysToLive) {
@@ -97,9 +101,10 @@ export const setSessionCookie = ({
 	name: string;
 	value: string;
 }): void => {
-	if (!isValidCookieValue(name) || !isValidCookieValue(value)) {
-		return;
+	if (!isValidCookie(name, value)) {
+		throw new Error(`${ERR_INVALID_COOKIE} .${name}=${value}`);
 	}
+
 	document.cookie = `${name}=${value}; path=/;${getDomainAttribute()}`;
 
 	// If the cookie is already memoized we want to replace its value
