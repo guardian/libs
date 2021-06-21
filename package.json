@@ -41,7 +41,7 @@
     "@types/jest": "26.0.23",
     "@types/wcag-contrast": "3.0.0",
     "conventional-changelog-conventionalcommits": "4.6.0",
-    "eslint": "7.28.0",
+    "eslint": "7.29.0",
     "husky": "6.0.0",
     "jest": "27.0.4",
     "jest-fetch-mock": "3.0.3",
