@@ -66,7 +66,7 @@ export const setCookie = ({
 	const expires = new Date();
 
 	if (!isValidCookie(name, value)) {
-		throw new Error(`${ERR_INVALID_COOKIE} .${name}=${value}`);
+		throw new Error(`${ERR_INVALID_COOKIE} ${name}=${value}`);
 	}
 
 	if (daysToLive) {
@@ -102,7 +102,7 @@ export const setSessionCookie = ({
 	value: string;
 }): void => {
 	if (!isValidCookie(name, value)) {
-		throw new Error(`${ERR_INVALID_COOKIE} .${name}=${value}`);
+		throw new Error(`${ERR_INVALID_COOKIE} ${name}=${value}`);
 	}
 
 	document.cookie = `${name}=${value}; path=/;${getDomainAttribute()}`;
