@@ -71,6 +71,10 @@ Inject an external JavaScript file.
 
 Selectively log team-specific messages to the console.
 
+### [`role`](./src/role.README.md)
+
+<!-- Insert summary here -->
+
 ### [`storage`](./src/storage.README.md)
 
 Robust API over `localStorage` and `sessionStorage`.
