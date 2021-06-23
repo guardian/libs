@@ -2,38 +2,42 @@ import MockDate from 'mockdate';
 import * as cookies from './cookies';
 
 describe('cookies', () => {
-	beforeAll(() => {
-		MockDate.set('Sun Nov 17 2019 12:00:00 GMT+0000 (Greenwich Mean Time)');
-	});
-
-	afterAll(() => {
-		MockDate.reset();
-	});
-
 	let cookieValue = '';
 
-	Object.defineProperty(document, 'domain', { value: 'www.theguardian.com' });
-	Object.defineProperty(document, 'cookie', {
-		get() {
-			return cookieValue.replace('|', ';').replace(/^[;|]|[;|]$/g, '');
-		},
+	beforeAll(() => {
+		Object.defineProperty(document, 'cookie', {
+			get() {
+				return cookieValue
+					.replace('|', ';')
+					.replace(/^[;|]|[;|]$/g, '');
+			},
 
-		set(value: string) {
-			const name = value.split('=')[0];
-			const newVal = cookieValue
-				.split('|')
-				.filter((cookie) => cookie.split('=')[0] !== name);
+			set(value: string) {
+				const name = value.split('=')[0];
+				const newVal = cookieValue
+					.split('|')
+					.filter((cookie) => cookie.split('=')[0] !== name);
 
-			newVal.push(value);
-			cookieValue = newVal.join('|');
-		},
+				newVal.push(value);
+				cookieValue = newVal.join('|');
+			},
+		});
 	});
 
 	beforeEach(() => {
 		cookieValue = '';
+		Object.defineProperty(document, 'domain', {
+			value: 'www.theguardian.com',
+			writable: true,
+			configurable: true,
+		});
 	});
 
-	it('should be able to get a cookie', () => {
+	afterEach(() => {
+		MockDate.reset();
+	});
+
+	it('gets a cookie', () => {
 		document.cookie =
 			'optimizelyEndUserId=oeu1398171767331r0.5280374749563634; __qca=P0-938012256-1398171768649;';
 		expect(cookies.getCookie({ name: '__qca' })).toEqual(
@@ -41,8 +45,8 @@ describe('cookies', () => {
 		);
 	});
 
-	it('should be able to set a cookie', () => {
-		expect(document.cookie).toEqual('');
+	it('sets a cookie with an expiry date in six months that preserves UTC time', () => {
+		MockDate.set('Sun Nov 17 2019 12:00:00 GMT+0000 (Greenwich Mean Time)');
 		cookies.setCookie({
 			name: 'cookie-1-name',
 			value: 'cookie-1-value',
@@ -54,8 +58,8 @@ describe('cookies', () => {
 		);
 	});
 
-	it('should be able to set a cookie for a specific number of days', () => {
-		expect(document.cookie).toEqual('');
+	it('sets a cookie to expire in a specific number of days', () => {
+		MockDate.set('Sun Nov 17 2019 12:00:00 GMT+0000 (Greenwich Mean Time)');
 		cookies.setCookie({
 			name: 'cookie-1-name',
 			value: 'cookie-1-value',
@@ -66,8 +70,44 @@ describe('cookies', () => {
 		);
 	});
 
-	it('should be able to set a session cookie', () => {
+	it('sets a cookie to expire in a specific number of days that preserves UTC time', () => {
+		// BST started Sun 28th Mar 2021
+		MockDate.set('Sat Mar 27 2021 12:00:00 GMT+0000 (Greenwich Mean Time)');
+		cookies.setCookie({
+			name: 'cookie-1-name',
+			value: 'cookie-1-value',
+			daysToLive: 7,
+		});
+		expect(document.cookie).toEqual(
+			'cookie-1-name=cookie-1-value; path=/; expires=Sat, 03 Apr 2021 12:00:00 GMT; domain=.theguardian.com',
+		);
+	});
+
+	it('does not set a cookie when the cookie name is invalid', () => {
+		expect(() =>
+			cookies.setCookie({
+				name: 'cookie-1-name-@',
+				value: 'cookie-1-value',
+			}),
+		).toThrowError(
+			`Cookie must not contain invalid characters (space, tab and the following characters: '()<>@,;"/[]?={}') cookie-1-name-@=cookie-1-value`,
+		);
 		expect(document.cookie).toEqual('');
+	});
+
+	it('does not set a cookie when the cookie value is invalid', () => {
+		expect(() =>
+			cookies.setCookie({
+				name: 'cookie-1-name',
+				value: 'cookie-1-value-<',
+			}),
+		).toThrowError(
+			`Cookie must not contain invalid characters (space, tab and the following characters: '()<>@,;"/[]?={}') cookie-1-name=cookie-1-value-<`,
+		);
+		expect(document.cookie).toEqual('');
+	});
+
+	it('sets a session cookie', () => {
 		cookies.setSessionCookie({
 			name: 'cookie-1-name',
 			value: 'cookie-1-value',
@@ -77,7 +117,43 @@ describe('cookies', () => {
 		);
 	});
 
-	it('should be able to get a memoized cookie with days to live and cross subdomain', () => {
+	it('sets a session cookie for localhost', () => {
+		Object.defineProperty(document, 'domain', {
+			value: 'localhost',
+		});
+		expect(document.cookie).toEqual('');
+		cookies.setSessionCookie({
+			name: 'cookie-1-name',
+			value: 'cookie-1-value',
+		});
+		expect(document.cookie).toEqual('cookie-1-name=cookie-1-value; path=/');
+	});
+
+	it('does not set a session cookie when the cookie name is invalid', () => {
+		expect(() =>
+			cookies.setSessionCookie({
+				name: 'cookie-1-name-@',
+				value: 'cookie-1-value',
+			}),
+		).toThrowError(
+			`Cookie must not contain invalid characters (space, tab and the following characters: '()<>@,;"/[]?={}') cookie-1-name-@=cookie-1-value`,
+		);
+		expect(document.cookie).toEqual('');
+	});
+
+	it('does not set a cookie when the cookie value is invalid', () => {
+		expect(() =>
+			cookies.setSessionCookie({
+				name: 'cookie-1-name',
+				value: 'cookie-1-value-<',
+			}),
+		).toThrowError(
+			`Cookie must not contain invalid characters (space, tab and the following characters: '()<>@,;"/[]?={}') cookie-1-name=cookie-1-value-<`,
+		);
+		expect(document.cookie).toEqual('');
+	});
+
+	it('gets a memoized cookie with days to live and cross subdomain', () => {
 		cookies.setCookie({
 			name: 'GU_geo_country',
 			value: 'GB',
@@ -94,7 +170,7 @@ describe('cookies', () => {
 		expect(spy).toHaveBeenCalledTimes(1);
 	});
 
-	it('should be able to get a memoized cookie with days to live', () => {
+	it('gets a memoized cookie with days to live', () => {
 		cookies.setCookie({
 			name: 'GU_geo_country',
 			value: 'IT',
@@ -114,7 +190,7 @@ describe('cookies', () => {
 		expect(spy).not.toHaveBeenCalledTimes(2);
 	});
 
-	it('should be able to re-set a memoized cookie', () => {
+	it('re-sets a memoized cookie', () => {
 		cookies.setCookie({
 			name: 'GU_geo_country',
 			value: 'GB',
@@ -135,7 +211,7 @@ describe('cookies', () => {
 		).toEqual('IT');
 	});
 
-	it('should be able to re-set a memoized session cookie', () => {
+	it('re-sets a memoized session cookie', () => {
 		cookies.setSessionCookie({ name: 'GU_geo_country', value: 'GB' });
 		expect(
 			cookies.getCookie({ name: 'GU_geo_country', shouldMemoize: true }),
@@ -146,7 +222,7 @@ describe('cookies', () => {
 		).toEqual('GR');
 	});
 
-	it('should be able the remove a cookie', () => {
+	it('removes a cookie and sets a short domain', () => {
 		document.cookie = 'cookie-1-name=cookie-1-value';
 
 		cookies.removeCookie({ name: 'cookie-1-name' });
@@ -156,6 +232,42 @@ describe('cookies', () => {
 		expect(cookie).toMatch(
 			new RegExp(
 				'cookie-1-name=;path=/;expires=Thu, 01 Jan 1970 00:00:01 GMT; domain=.theguardian.com',
+			),
+		);
+	});
+
+	it('removes a cookie and does not set a short domain for localhost', () => {
+		Object.defineProperty(document, 'domain', {
+			value: 'localhost',
+		});
+
+		document.cookie = 'cookie-1-name=cookie-1-value';
+
+		cookies.removeCookie({ name: 'cookie-1-name' });
+
+		const { cookie } = document;
+
+		expect(cookie).toMatch(
+			new RegExp(
+				'cookie-1-name=;path=/;expires=Thu, 01 Jan 1970 00:00:01 GMT; domain=localhost',
+			),
+		);
+	});
+
+	it('removes a cookie and does not set a short domain for preview', () => {
+		window.guardian = {
+			config: { page: { isPreview: true } },
+		};
+
+		document.cookie = 'cookie-1-name=cookie-1-value';
+
+		cookies.removeCookie({ name: 'cookie-1-name' });
+
+		const { cookie } = document;
+
+		expect(cookie).toMatch(
+			new RegExp(
+				'cookie-1-name=;path=/;expires=Thu, 01 Jan 1970 00:00:01 GMT; domain=www.theguardian.com',
 			),
 		);
 	});

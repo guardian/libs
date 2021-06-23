@@ -1,4 +1,5 @@
 import type { TeamSubscription } from '../logger';
+import type { Switches } from './switches';
 
 declare global {
 	interface Window {
@@ -12,6 +13,7 @@ declare global {
 				page?: {
 					isPreview: boolean;
 				};
+				switches?: Switches;
 			};
 		};
 	}
