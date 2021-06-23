@@ -71,6 +71,10 @@ Inject an external JavaScript file.
 
 Selectively log team-specific messages to the console.
 
+### [`ophan`](./src/ophan.README.md)
+
+Types related to Ophan.
+
 ### [`storage`](./src/storage.README.md)
 
 Robust API over `localStorage` and `sessionStorage`.

@@ -14,6 +14,16 @@ export { isString } from './isString';
 export { isUndefined } from './isUndefined';
 export { loadScript } from './loadScript';
 export { debug, log } from './logger';
+export type {
+	OphanABEvent,
+	OphanABPayload,
+	OphanAction,
+	OphanComponent,
+	OphanComponentEvent,
+	OphanComponentType,
+	OphanProduct,
+	TestMeta,
+} from './ophan';
 export { storage } from './storage';
 export { timeAgo } from './timeAgo';
 export type { Switches } from './types/switches';
