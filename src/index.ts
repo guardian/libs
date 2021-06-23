@@ -14,6 +14,8 @@ export { isString } from './isString';
 export { isUndefined } from './isUndefined';
 export { loadScript } from './loadScript';
 export { debug, log } from './logger';
+export { storage } from './storage';
+export { timeAgo } from './timeAgo';
 export type {
 	OphanABEvent,
 	OphanABPayload,
@@ -23,7 +25,5 @@ export type {
 	OphanComponentType,
 	OphanProduct,
 	TestMeta,
-} from './ophan';
-export { storage } from './storage';
-export { timeAgo } from './timeAgo';
+} from './types/ophan';
 export type { Switches } from './types/switches';

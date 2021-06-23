@@ -72,7 +72,7 @@ Inject an external JavaScript file.
 
 Selectively log team-specific messages to the console.
 
-### [`ophan`](./src/ophan.README.md)
+### [`ophan`](./src/types/ophan.README.md)
 
 Types related to Ophan.
 
