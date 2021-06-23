@@ -39,6 +39,10 @@ The following modules are available:
 
 API over `document.cookies`.
 
+### [`format`](./src/format.README.md)
+
+Types and enums related to editorial formats.
+
 ### [`getLocale`](./src/getLocale.README.md)
 
 Get the user’s current location.

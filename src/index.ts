@@ -6,6 +6,8 @@ export {
 	setCookie,
 	setSessionCookie,
 } from './cookies';
+export type { Theme, Format } from './format';
+export { Pillar, Special, Design, Display } from './format';
 export { getLocale } from './getLocale';
 export { getSwitches } from './getSwitches';
 export { isBoolean } from './isBoolean';
