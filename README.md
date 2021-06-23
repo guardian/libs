@@ -21,6 +21,7 @@
   - [`isUndefined`](#isundefined)
   - [`loadScript`](#loadscript)
   - [`log`/`debug`](#logdebug)
+  - [`ophan`](#ophan)
   - [`storage`](#storage)
   - [`timeAgo`](#timeago)
 - [Installation](#installation)
