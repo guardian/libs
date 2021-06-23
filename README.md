@@ -13,6 +13,7 @@
 
 - [Modules](#modules)
   - [`cookies`](#cookies)
+  - [`format`](#format)
   - [`getLocale`](#getlocale)
   - [`getSwitches`](#getswitches)
   - [`isBoolean`](#isboolean)
