@@ -2,7 +2,7 @@
 
 Types and enums related to editorial formats.
 
-### Usage
+## Usage
 
 ```js
 import type { Theme, Format } from '@guardian/libs';
