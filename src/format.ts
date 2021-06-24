@@ -33,6 +33,7 @@ enum Design {
 	Interactive,
 	PhotoEssay,
 	PrintShop,
+	Obituary,
 }
 
 enum Display {
