@@ -9,28 +9,27 @@
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-
 ## Table of contents
 
--   [Modules](#modules)
-    -   [`cookies`](#cookies)
-    -   [Countries](#countries)
-    -   [`format`](#format)
-    -   [`getLocale`](#getlocale)
-    -   [`getSwitches`](#getswitches)
-    -   [`isBoolean`](#isboolean)
-    -   [`isObject`](#isobject)
-    -   [`isString`](#isstring)
-    -   [`isUndefined`](#isundefined)
-    -   [`loadScript`](#loadscript)
-    -   [`log`/`debug`](#logdebug)
-    -   [`storage`](#storage)
-    -   [`timeAgo`](#timeago)
--   [Installation](#installation)
-    -   [Bundling](#bundling)
--   [Development](#development)
-    -   [Requirements](#requirements)
-    -   [Releasing](#releasing)
+- [Modules](#modules)
+  - [`cookies`](#cookies)
+  - [Countries](#countries)
+  - [`format`](#format)
+  - [`getLocale`](#getlocale)
+  - [`getSwitches`](#getswitches)
+  - [`isBoolean`](#isboolean)
+  - [`isObject`](#isobject)
+  - [`isString`](#isstring)
+  - [`isUndefined`](#isundefined)
+  - [`loadScript`](#loadscript)
+  - [`log`/`debug`](#logdebug)
+  - [`storage`](#storage)
+  - [`timeAgo`](#timeago)
+- [Installation](#installation)
+  - [Bundling](#bundling)
+- [Development](#development)
+  - [Requirements](#requirements)
+  - [Releasing](#releasing)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
