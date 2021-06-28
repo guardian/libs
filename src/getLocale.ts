@@ -1,4 +1,4 @@
-import type { CountryCode } from '@guardian/types';
+import type { CountryCode } from './@types/countries';
 import { getCookie, setSessionCookie } from './cookies';
 import { isString } from './isString';
 import { storage } from './storage';

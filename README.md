@@ -13,6 +13,7 @@
 
 - [Modules](#modules)
   - [`cookies`](#cookies)
+  - [Countries](#countries)
   - [`getLocale`](#getlocale)
   - [`getSwitches`](#getswitches)
   - [`isBoolean`](#isboolean)
@@ -38,6 +39,10 @@ The following modules are available:
 ### [`cookies`](./src/cookies.README.md)
 
 API over `document.cookies`.
+
+### [Countries](./src/countries.README.md)
+
+Country data and methods to access it.
 
 ### [`getLocale`](./src/getLocale.README.md)
 
