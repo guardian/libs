@@ -1,11 +1,22 @@
-import { CountriesByCountryCode } from './countries';
+import { countries, getCountryByCountryCode } from './countries';
 
-it('Country enum contains GB, US & AU', () => {
-	expect(CountriesByCountryCode.GB).toBe(
-		'United Kingdom of Great Britain and Northern Ireland',
-	);
+describe('The getCountryByCountryCode', () => {
+	it('returns a country object', () => {
+		expect(getCountryByCountryCode('GB')).toEqual({
+			name: 'United Kingdom of Great Britain and Northern Ireland',
+			countryCode: 'GB',
+		});
+	});
+});
 
-	expect(CountriesByCountryCode.US).toBe('United States of America');
+describe('The countries object', () => {
+	it('only contains unique country codes', () => {
+		const codes = Object.values(countries).map((c) => c.countryCode);
+		expect(codes.length).toBe(new Set(codes).size);
+	});
 
-	expect(CountriesByCountryCode.AU).toBe('Australia');
+	it('only contains unique country names', () => {
+		const names = Object.values(countries).map((c) => c.name);
+		expect(names.length).toBe(new Set(names).size);
+	});
 });

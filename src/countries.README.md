@@ -2,15 +2,17 @@
 
 A list of country codes.
 
-### Usage
+## Usage
 
 ```js
-import { CountriesByCountryCode } from '@guardian/libs';
-import type { CountryCode } from '@guardian/libs';
+import { countries, getCountryByCountryCode } from '@guardian/libs';
+import type { Country, CountryCode, CountryKey } from '@guardian/libs';
 
 const logLocation = (country: CountryCode) => {
-    console.log('I am in ' + CountriesByCountryCode[country]);
+    console.log('I am in ' + getCountryByCountryCode[country]);
 };
 
 logLocation('AU');
+
+console.log(countries.united_kingdom.name); // United Kingdom of Great Britain and Northern Ireland
 ```

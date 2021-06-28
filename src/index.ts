@@ -6,8 +6,9 @@ export {
 	setCookie,
 	setSessionCookie,
 } from './cookies';
-export { CountriesByCountryCode } from './countries';
-export type { CountryCode } from './countries';
+export type { Country } from './countries';
+export { countries, getCountryByCountryCode } from './countries';
+export type { CountryCode, CountryKey } from './@types/countries';
 export { getLocale } from './getLocale';
 export { getSwitches } from './getSwitches';
 export { isBoolean } from './isBoolean';
