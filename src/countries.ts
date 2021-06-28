@@ -1008,5 +1008,3 @@ export const getCountryByCountryCode = (countryCode: CountryCode): Country =>
 	(getCountryByCountryCodeCache[countryCode] ||= Object.values(
 		countries,
 	).find((country) => country.countryCode === countryCode)) as Country;
-
-getCountryByCountryCode('AX');
