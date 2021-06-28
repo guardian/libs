@@ -40,9 +40,9 @@ The following modules are available:
 
 API over `document.cookies`.
 
-### [`countries`](./src/countries.README.md)
+### [Countries](./src/countries.README.md)
 
-A list of country codes.
+Country data and methods to access it.
 
 ### [`getLocale`](./src/getLocale.README.md)
 
