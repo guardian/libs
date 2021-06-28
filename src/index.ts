@@ -18,4 +18,4 @@ export { loadScript } from './loadScript';
 export { debug, log } from './logger';
 export { storage } from './storage';
 export { timeAgo } from './timeAgo';
-export type { Switches } from './types/switches';
+export type { Switches } from './@types/switches';
