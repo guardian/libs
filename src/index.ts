@@ -6,6 +6,9 @@ export {
 	setCookie,
 	setSessionCookie,
 } from './cookies';
+export type { Country } from './countries';
+export { countries, getCountryByCountryCode } from './countries';
+export type { CountryCode } from './@types/countries';
 export type { Theme, Format } from './format';
 export { Pillar, Special, Design, Display } from './format';
 export { getLocale } from './getLocale';
