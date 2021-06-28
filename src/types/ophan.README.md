@@ -1,8 +1,8 @@
-# `ophan`
+# Ophan
 
 Types related to Ophan.
 
-### Usage
+## Example
 
 ```js
 import type {
@@ -16,3 +16,11 @@ import type {
     TestMeta,
 } from '@guardian/libs';
 ```
+
+## `OphanABEvent`
+
+An individual A/B test, structured for Ophan.
+
+## `OphanABPayload`
+
+The payload we send to Ophan: an object of `OphanABEvents` with test IDs as keys.
