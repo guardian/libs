@@ -110,10 +110,6 @@ export const countries: Record<CountryKey, Country> = {
 		countryCode: 'BT',
 		name: 'Bhutan',
 	},
-	bolivarian_republic_of_venezuela: {
-		countryCode: 'VE',
-		name: 'Bolivarian Republic of Venezuela',
-	},
 	bolivia: {
 		countryCode: 'BO',
 		name: 'Bolivia (Plurinational State of)',
@@ -582,6 +578,10 @@ export const countries: Record<CountryKey, Country> = {
 		countryCode: 'MX',
 		name: 'Mexico',
 	},
+	moldova: {
+		countryCode: 'MD',
+		name: 'Republic of Moldova',
+	},
 	monaco: {
 		countryCode: 'MC',
 		name: 'Monaco',
@@ -722,15 +722,11 @@ export const countries: Record<CountryKey, Country> = {
 		countryCode: 'QA',
 		name: 'Qatar',
 	},
-	republic_of_moldova: {
-		countryCode: 'MD',
-		name: 'Republic of Moldova',
-	},
 	romania: {
 		countryCode: 'RO',
 		name: 'Romania',
 	},
-	russian_federation: {
+	russia: {
 		countryCode: 'RU',
 		name: 'Russian Federation',
 	},
@@ -874,7 +870,7 @@ export const countries: Record<CountryKey, Country> = {
 		countryCode: 'CH',
 		name: 'Switzerland',
 	},
-	syrian_arab_republic: {
+	syria: {
 		countryCode: 'SY',
 		name: 'Syrian Arab Republic',
 	},
@@ -885,6 +881,10 @@ export const countries: Record<CountryKey, Country> = {
 	tajikistan: {
 		countryCode: 'TJ',
 		name: 'Tajikistan',
+	},
+	tanzania: {
+		countryCode: 'TZ',
+		name: 'United Republic of Tanzania',
 	},
 	thailand: {
 		countryCode: 'TH',
@@ -946,10 +946,6 @@ export const countries: Record<CountryKey, Country> = {
 		countryCode: 'GB',
 		name: 'United Kingdom of Great Britain and Northern Ireland',
 	},
-	united_republic_of_tanzania: {
-		countryCode: 'TZ',
-		name: 'United Republic of Tanzania',
-	},
 	united_states_minor_outlying_islands: {
 		countryCode: 'UM',
 		name: 'United States Minor Outlying Islands',
@@ -970,7 +966,11 @@ export const countries: Record<CountryKey, Country> = {
 		countryCode: 'VU',
 		name: 'Vanuatu',
 	},
-	viet_nam: {
+	venezuela: {
+		countryCode: 'VE',
+		name: 'Bolivarian Republic of Venezuela',
+	},
+	vietnam: {
 		countryCode: 'VN',
 		name: 'Viet Nam',
 	},
@@ -1008,5 +1008,3 @@ export const getCountryByCountryCode = (countryCode: CountryCode): Country =>
 	(getCountryByCountryCodeCache[countryCode] ||= Object.values(
 		countries,
 	).find((country) => country.countryCode === countryCode)) as Country;
-
-getCountryByCountryCode('AX');
