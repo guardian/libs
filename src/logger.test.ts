@@ -1,6 +1,7 @@
 import { hex } from 'wcag-contrast';
 import type { TeamName } from './logger';
 import { _, debug, log } from './logger';
+import { generateSvg } from './logger.teams';
 import { storage } from './storage';
 
 const KEY = _.KEY;
@@ -128,4 +129,11 @@ describe('Ensure labels are accessible', () => {
 			expect(ratio).toBeGreaterThanOrEqual(4.5);
 		},
 	);
+});
+
+describe('Generates a svg image example', () => {
+	it('should return a svg string', () => {
+		const svg = generateSvg();
+		expect(svg).toMatch(/^<svg.+<\/svg>$/s);
+	});
 });

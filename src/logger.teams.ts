@@ -65,7 +65,6 @@ export const generateSvg = (): string => {
 			${lines.join('')}
 		</div>
 	</foreignObject>
-</svg>
-`;
+</svg>`;
 	return svg;
 };
