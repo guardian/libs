@@ -30,3 +30,42 @@ export const teams = {
 		font: '#FFFFFF',
 	},
 };
+
+export const generateSvg = (): string => {
+	const [width, height] = [300, 150];
+	const lines = Object.entries(teams)
+		.filter((team) => {
+			const [name] = team;
+			return name !== 'common';
+		})
+		.map((team) => {
+			const [name, colours] = team;
+			return `<div class="line">
+			<span class="label common">@guardian</span>
+			<span class="label ${name}" style="background-color: ${colours.background}; color: ${colours.font}">${name}</span>
+			</div>`;
+		});
+	const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" width="${width}" height="${height}">
+	<style>
+		.wrapper {
+			font-family: monospace;
+			padding: 10px;
+		}
+
+		.label { padding: 2px 3px; border-radius:3px }
+		.line { height: 25px; }
+
+		.common {
+			background-color: ${teams.common.background};
+			color: ${teams.common.font};
+		}
+	</style>
+	<foreignObject x="0" y="0" width="100%" height="100%">
+		<div class="wrapper" xmlns="http://www.w3.org/1999/xhtml">
+			${lines.join('')}
+		</div>
+	</foreignObject>
+</svg>
+`;
+	return svg;
+};

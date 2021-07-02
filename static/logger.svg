@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 150" width="300" height="150">
+	<style>
+		.wrapper {
+			font-family: monospace;
+			padding: 10px;
+		}
+
+		.label { padding: 2px 3px; border-radius:3px }
+		.line { height: 25px; }
+
+		.common {
+			background-color: #052962;
+			color: #ffffff;
+		}
+	</style>
+	<foreignObject x="0" y="0" width="100%" height="100%">
+		<div class="wrapper" xmlns="http://www.w3.org/1999/xhtml">
+			<div class="line">
+			<span class="label common">@guardian</span>
+			<span class="label commercial" style="background-color: #77EEAA; color: #004400">commercial</span>
+			</div><div class="line">
+			<span class="label common">@guardian</span>
+			<span class="label cmp" style="background-color: #FF6BB5; color: #2F0404">cmp</span>
+			</div><div class="line">
+			<span class="label common">@guardian</span>
+			<span class="label dotcom" style="background-color: #000000; color: #ff7300">dotcom</span>
+			</div><div class="line">
+			<span class="label common">@guardian</span>
+			<span class="label design" style="background-color: #185E36; color: #FFF4F2">design</span>
+			</div><div class="line">
+			<span class="label common">@guardian</span>
+			<span class="label tx" style="background-color: #2F4F4F; color: #FFFFFF">tx</span>
+			</div>
+		</div>
+	</foreignObject>
+</svg>

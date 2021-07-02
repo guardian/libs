@@ -23,7 +23,7 @@ export type TeamSubscription = (arg: TeamName) => void;
 
 const style = (team: Styles): string => {
 	const { background, font } = teamColours[team];
-	return `background: ${background}; color: ${font}; padding: 2px; border-radius:3px`;
+	return `background: ${background}; color: ${font}; padding: 2px 3px; border-radius:3px`;
 };
 
 /**
