@@ -13,7 +13,7 @@ import type {
     OphanComponentEvent,
     OphanComponentType,
     OphanProduct,
-    TestMeta,
+    OphanABTestMeta,
 } from '@guardian/libs';
 ```
 

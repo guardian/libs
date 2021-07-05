@@ -79,7 +79,7 @@ type OphanComponentEvent = {
 	};
 };
 
-type TestMeta = {
+type OphanABTestMeta = {
 	abTestName: string;
 	abTestVariant: string;
 	campaignCode: string;
@@ -96,5 +96,5 @@ export type {
 	OphanComponentEvent,
 	OphanComponentType,
 	OphanProduct,
-	TestMeta,
+	OphanABTestMeta,
 };

@@ -24,6 +24,6 @@ export type {
 	OphanComponentEvent,
 	OphanComponentType,
 	OphanProduct,
-	TestMeta,
+	OphanABTestMeta,
 } from './types/ophan';
 export type { Switches } from './types/switches';
