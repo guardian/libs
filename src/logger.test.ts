@@ -1,3 +1,4 @@
+import fs from 'fs';
 import { hex } from 'wcag-contrast';
 import type { TeamName } from './logger';
 import { _, debug, log } from './logger';
@@ -135,5 +136,12 @@ describe('Generates a svg image example', () => {
 	it('should return a svg string', () => {
 		const svg = generateSvg();
 		expect(svg).toMatch(/^<svg.+<\/svg>$/s);
+	});
+
+	it('should have the latest svg', () => {
+		const fileContent = fs.readFileSync('./static/logger.svg', {
+			encoding: 'utf-8',
+		});
+		expect(fileContent).toMatch(generateSvg());
 	});
 });
