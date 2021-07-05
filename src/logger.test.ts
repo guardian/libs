@@ -1,8 +1,8 @@
 import fs from 'fs';
 import { hex } from 'wcag-contrast';
+import { generateSvg } from '../scripts/generateSvg';
 import type { TeamName } from './logger';
 import { _, debug, log } from './logger';
-import { generateSvg } from './logger.teams';
 import { storage } from './storage';
 
 const KEY = _.KEY;
