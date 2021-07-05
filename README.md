@@ -74,7 +74,7 @@ Selectively log team-specific messages to the console.
 
 ### [`role`](./src/role.README.md)
 
-<!-- Insert summary here -->
+Types that define the role of an element in an article.
 
 ### [`storage`](./src/storage.README.md)
 
