@@ -28,8 +28,7 @@
     "test": "jest",
     "test:watch": "yarn test --watch",
     "tsc": "tsc --noEmit",
-    "validate": "npm-run-all tsc lint test build",
-		"image-previews": "mkdir -p static && ts-node --compiler-options '{\"module\":\"commonjs\"}' scripts/generateSvg.ts"
+    "validate": "npm-run-all tsc lint test build"
   },
   "devDependencies": {
     "@guardian/eslint-config": "0.6.0",

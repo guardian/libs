@@ -1,4 +1,8 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-yarn image-previews
+mkdir -p static
+
+# generate the logger SVG
+ts-node --compiler-options '{"module":"commonjs"}' scripts/generateSvg.ts
+git add static/logger.svg
