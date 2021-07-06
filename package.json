@@ -22,12 +22,13 @@
     "prebuild": "yarn clean",
     "build": "pkgu build",
     "clean": "rm -rf dist",
-    "lint": "eslint src --ext .js,.ts",
+    "lint": "eslint . --ext .js,.ts",
+    "precommit:logger-preview": "ts-node --compiler-options '{\"module\":\"commonjs\"}' scripts/generateSvg.ts",
     "prepare": "husky install",
     "prepush:test": "jest --runInBand --onlyChanged --coverage=false",
     "test": "jest",
     "test:watch": "yarn test --watch",
-    "tsc": "tsc --noEmit",
+    "tsc": "tsc --noEmit --project tsconfig.dev.json",
     "validate": "npm-run-all tsc lint test build"
   },
   "devDependencies": {

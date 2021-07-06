@@ -13,7 +13,10 @@
   "overrides": [
     {
       "files": ["**/*.ts"],
-      "extends": ["@guardian/eslint-config-typescript"]
+      "extends": ["@guardian/eslint-config-typescript"],
+      "parserOptions": {
+        "project": "./tsconfig.dev.json"
+      }
     }
   ]
 }
