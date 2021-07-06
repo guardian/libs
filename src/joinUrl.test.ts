@@ -1,23 +1,21 @@
 import { joinUrl } from './joinUrl';
 
-const expectedOutput = 'http://example.com/abc/xyz';
-
 describe('joinUrl', () => {
 	it('prevents double slashes correctly', () => {
 		expect(joinUrl('http://example.com/', '/abc/', '/xyz/')).toBe(
-			expectedOutput,
+			'http://example.com/abc/xyz',
 		);
 	});
 
 	it('adds slashes if none are present', () => {
 		expect(joinUrl('http://example.com', 'abc', 'xyz')).toBe(
-			expectedOutput,
+			'http://example.com/abc/xyz',
 		);
 	});
 
 	it('deals with combinations of slash present and not', () => {
 		expect(joinUrl('http://example.com/', 'abc/', '/xyz')).toBe(
-			expectedOutput,
+			'http://example.com/abc/xyz',
 		);
 	});
 
