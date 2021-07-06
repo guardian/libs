@@ -1,13 +1,9 @@
 import fs from 'fs';
 import { teams } from '../src/logger.teams';
 
-export function writeSvg(): void {
-	fs.writeFileSync(__dirname + '/../static/logger.svg', generateSvg());
-}
+fs.writeFileSync(__dirname + '/../static/logger.svg', generateSvg());
 
-writeSvg();
-
-export function generateSvg(): string {
+function generateSvg(): string {
 	const filteredTeams = Object.entries(teams).filter((team) => {
 		const [name] = team;
 		return name !== 'common';

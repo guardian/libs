@@ -1,6 +1,4 @@
-import fs from 'fs';
 import { hex } from 'wcag-contrast';
-import { generateSvg } from '../scripts/generateSvg';
 import type { TeamName } from './logger';
 import { _, debug, log } from './logger';
 import { storage } from './storage';
@@ -130,18 +128,4 @@ describe('Ensure labels are accessible', () => {
 			expect(ratio).toBeGreaterThanOrEqual(4.5);
 		},
 	);
-});
-
-describe('Generates a svg image example', () => {
-	it('should return a svg string', () => {
-		const svg = generateSvg();
-		expect(svg).toMatch(/^<svg.+<\/svg>$/s);
-	});
-
-	it('should have the latest svg', () => {
-		const fileContent = fs.readFileSync('./static/logger.svg', {
-			encoding: 'utf-8',
-		});
-		expect(fileContent).toMatch(generateSvg());
-	});
 });
