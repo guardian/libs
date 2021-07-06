@@ -19,4 +19,5 @@ export { loadScript } from './loadScript';
 export { debug, log } from './logger';
 export { storage } from './storage';
 export { timeAgo } from './timeAgo';
+export { joinUrl } from './joinUrl';
 export type { Switches } from './@types/switches';
