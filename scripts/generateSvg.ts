@@ -5,7 +5,11 @@ import fs from 'fs';
 import { teams } from '../src/logger.teams';
 
 // A bit weird, we’re writing this before the test runs!
-fs.writeFileSync(__dirname + '/../static/logger.svg', generateSvg());
+export function writeSvg(): void {
+	fs.writeFileSync(__dirname + '/../static/logger.svg', generateSvg());
+}
+
+// writeSvg();
 
 // Deno.writeTextFile('./static/logger.svg', generateSvg());
 
@@ -46,15 +50,19 @@ export function generateSvg(): string {
 		#console {
 			width: 100%;
 			height: 100%;
-			border: 1px solid #999;
-			padding: 5px;
+			border: 2px solid #999;
 			border-radius: 5px
 		}
 		.line {
 			display: flex;
 			height: ${lineHeight}px;
 			border-bottom: 1px solid #ccc;
-			padding: 2px 5px;
+			padding: 2px 10px;
+		}
+		.line.top {
+			font-family: sans-serif;
+			border-color: #999;
+			border-width: 2px;
 		}
 		.label {
 			display: inline-block;
@@ -81,7 +89,7 @@ export function generateSvg(): string {
 	<foreignObject x="0" y="0" width="${width}" height="${height}">
 		<div class="wrapper" xmlns="http://www.w3.org/1999/xhtml">
 			<div id="console">
-				<div class="line">> Console</div>
+				<div class="line top">Console</div>
 				${lines.join('')}
 			</div>
 		</div>
