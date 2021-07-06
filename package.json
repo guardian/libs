@@ -22,7 +22,7 @@
     "prebuild": "yarn clean",
     "build": "pkgu build",
     "clean": "rm -rf dist",
-    "lint": "eslint . --ext .js,.ts",
+    "lint": "eslint src --ext .js,.ts",
     "prepare": "husky install",
     "prepush:test": "jest --runInBand --onlyChanged --coverage=false",
     "test": "jest",
