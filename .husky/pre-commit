@@ -3,6 +3,7 @@
 
 mkdir -p static
 
+yarn npm-run-all precommit:*
+
 # generate the logger SVG
-ts-node --compiler-options '{"module":"commonjs"}' scripts/generateSvg.ts
 git add static/logger.svg
