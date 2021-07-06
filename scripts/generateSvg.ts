@@ -1,17 +1,11 @@
-// TODO: fix this
-// node --trace-warnings --loader ts-node/esm --experimental-specifier-resolution=node scripts/generateSvg.ts
-
 import fs from 'fs';
 import { teams } from '../src/logger.teams';
 
-// A bit weird, we’re writing this before the test runs!
 export function writeSvg(): void {
 	fs.writeFileSync(__dirname + '/../static/logger.svg', generateSvg());
 }
 
-// writeSvg();
-
-// Deno.writeTextFile('./static/logger.svg', generateSvg());
+writeSvg();
 
 export function generateSvg(): string {
 	const filteredTeams = Object.entries(teams).filter((team) => {
