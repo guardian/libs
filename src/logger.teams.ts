@@ -14,8 +14,8 @@ export const teams = {
 		font: '#004400',
 	},
 	cmp: {
-		background: '#FF3399',
-		font: '#332020',
+		background: '#FF6BB5',
+		font: '#2F0404',
 	},
 	dotcom: {
 		background: '#000000',
