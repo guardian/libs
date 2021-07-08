@@ -24,6 +24,7 @@
   - [`log`/`debug`](#logdebug)
   - [`storage`](#storage)
   - [`timeAgo`](#timeago)
+  - [`joinUrl`](#joinurl)
 - [Installation](#installation)
   - [Bundling](#bundling)
 - [Development](#development)
@@ -83,6 +84,10 @@ Robust API over `localStorage` and `sessionStorage`.
 ### [`timeAgo`](./src/timeAgo.README.md)
 
 Turns absolute dates into time ago strings.
+
+### [`joinUrl`](./src/joinUrl.README.md)
+
+Combines separate url parts into one valid url string.
 
 ## Installation
 
