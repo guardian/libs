@@ -23,7 +23,7 @@
     "build": "pkgu build",
     "clean": "rm -rf dist",
     "lint": "eslint . --ext .js,.ts",
-    "precommit:logger-preview": "ts-node --compiler-options '{\"module\":\"commonjs\"}' scripts/generateSvg.ts",
+    "precommit:logger-preview": "ts-node --compiler-options '{\"module\":\"commonjs\"}' scripts/generateSvg.logger.teams.ts",
     "prepare": "husky install",
     "prepush:test": "jest --runInBand --onlyChanged --coverage=false",
     "test": "jest",
