@@ -1,9 +1,14 @@
 import { joinUrl } from './joinUrl';
 
 describe('joinUrl', () => {
-	it('prevents double slashes correctly', () => {
-		expect(joinUrl('http://example.com/', '/abc/', '/xyz/')).toBe(
+	it('prevents double slashes', () => {
+		expect(joinUrl('http://example.com/', '/abc/', '/xyz')).toBe(
 			'http://example.com/abc/xyz',
+		);
+	});
+	it('preserves trailing slashes', () => {
+		expect(joinUrl('http://example.com/', '/xyz/')).toBe(
+			'http://example.com/xyz/',
 		);
 	});
 
@@ -19,9 +24,9 @@ describe('joinUrl', () => {
 		);
 	});
 
-	it('works with normal strings', () => {
-		expect(joinUrl('/notadomain/', 'abc/', '/xyz')).toBe(
-			'notadomain/abc/xyz',
+	it('works with implicit protocol urls', () => {
+		expect(joinUrl('//example.com/', '/index.html')).toBe(
+			'//example.com/index.html',
 		);
 	});
 
@@ -30,7 +35,7 @@ describe('joinUrl', () => {
 	});
 
 	it('works with a filename', () => {
-		expect(joinUrl('/AudioAtomWrapper.js')).toBe('AudioAtomWrapper.js');
+		expect(joinUrl('/AudioAtomWrapper.js')).toBe('/AudioAtomWrapper.js');
 	});
 
 	it('works when the filename has special characters in it', () => {
@@ -38,6 +43,6 @@ describe('joinUrl', () => {
 			joinUrl(
 				'/vendors~AudioAtomWrapper~elements-YoutubeBlockComponent.js',
 			),
-		).toBe('vendors~AudioAtomWrapper~elements-YoutubeBlockComponent.js');
+		).toBe('/vendors~AudioAtomWrapper~elements-YoutubeBlockComponent.js');
 	});
 });

@@ -1,18 +1,5 @@
-export const joinUrl = (...args: string[]): string => {
-	// Remove any leading or trailing slashes from all parts and then join cleanly on
-	// a single slash, preventing malformed urls
-	const trimmed = args
-		.map((part) => {
-			// Trim left
-			if (part.substr(0, 1) === '/') return part.slice(1);
-			return part;
-		})
-		.map((part) => {
-			// Trim right
-			if (part.substr(part.length - 1, 1) === '/')
-				return part.slice(0, -1);
-			return part;
-		});
+// detect two or more `/` chars after a word boundary
+const multipleSlashesInRoute = /\b\/{2,}/g;
 
-	return trimmed.join('/');
-};
+export const joinUrl = (...args: string[]): string =>
+	args.join('/').replace(multipleSlashesInRoute, '/');
