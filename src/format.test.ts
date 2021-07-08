@@ -1,17 +1,22 @@
-import { Design, Display, Pillar, Special } from './format';
+import {
+	ArticleDesign,
+	ArticleDisplay,
+	ArticlePillar,
+	ArticleSpecial,
+} from './format';
 
 it('Design enum contains Article', () => {
-	expect(Design.Article).toBeDefined();
+	expect(ArticleDesign.Article).toBeDefined();
 });
 
 it('Display enum contains Standard', () => {
-	expect(Display.Standard).toBeDefined();
+	expect(ArticleDisplay.Standard).toBeDefined();
 });
 
 it('Pillar enum contains News', () => {
-	expect(Pillar.News).toBe(0);
+	expect(ArticlePillar.News).toBe(0);
 });
 
 it('Special enum contains SpecialReport', () => {
-	expect(Special.SpecialReport).toBe(5);
+	expect(ArticleSpecial.SpecialReport).toBe(5);
 });

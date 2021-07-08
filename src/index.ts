@@ -9,8 +9,13 @@ export {
 export type { Country } from './countries';
 export { countries, getCountryByCountryCode } from './countries';
 export type { CountryCode } from './@types/countries';
-export type { Theme, Format } from './format';
-export { Pillar, Special, Design, Display } from './format';
+export type { ArticleTheme, ArticleFormat } from './format';
+export {
+	ArticlePillar,
+	ArticleSpecial,
+	ArticleDesign,
+	ArticleDisplay,
+} from './format';
 export { getLocale } from './getLocale';
 export { getSwitches } from './getSwitches';
 export { isBoolean } from './isBoolean';

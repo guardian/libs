@@ -1,6 +1,6 @@
 // ----- Types ----- //
 
-enum Pillar {
+enum ArticlePillar {
 	News = 0,
 	Opinion = 1,
 	Sport = 2,
@@ -8,14 +8,14 @@ enum Pillar {
 	Lifestyle = 4,
 }
 
-enum Special {
+enum ArticleSpecial {
 	SpecialReport = 5,
 	Labs = 6,
 }
 
-type Theme = Pillar | Special;
+type ArticleTheme = ArticlePillar | ArticleSpecial;
 
-enum Design {
+enum ArticleDesign {
 	Article,
 	Media,
 	Review,
@@ -36,20 +36,20 @@ enum Design {
 	Obituary,
 }
 
-enum Display {
+enum ArticleDisplay {
 	Standard,
 	Immersive,
 	Showcase,
 	NumberedList,
 }
 
-interface Format {
-	theme: Theme;
-	design: Design;
-	display: Display;
+interface ArticleFormat {
+	theme: ArticleTheme;
+	design: ArticleDesign;
+	display: ArticleDisplay;
 }
 
 // ----- Exports ----- //
 
-export type { Theme, Format };
-export { Pillar, Special, Design, Display };
+export type { ArticleTheme, ArticleFormat };
+export { ArticlePillar, ArticleSpecial, ArticleDesign, ArticleDisplay };

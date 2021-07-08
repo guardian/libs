@@ -5,6 +5,11 @@ Types and enums related to editorial formats.
 ## Usage
 
 ```js
-import type { Theme, Format } from '@guardian/libs';
-import { Pillar, Special, Design, Display } from '@guardian/libs';
+import type { ArticleTheme, ArticleFormat } from '@guardian/libs';
+import {
+    ArticlePillar,
+    ArticleSpecial,
+    ArticleDesign,
+    ArticleDisplay,
+} from '@guardian/libs';
 ```
