@@ -1,5 +1,5 @@
-import { Role } from './role';
+import { ArticleElementRole } from './role';
 
-it('Role enum contains Standard', () => {
-	expect(Role.Standard).toBeDefined();
+it('ArticleElementRole enum contains Standard', () => {
+	expect(ArticleElementRole.Standard).toBeDefined();
 });

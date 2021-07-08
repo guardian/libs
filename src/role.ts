@@ -1,6 +1,6 @@
 // ----- Types ----- //
 
-enum Role {
+enum ArticleElementRole {
 	Standard,
 	Immersive,
 	Supporting,
@@ -12,4 +12,4 @@ enum Role {
 
 // ----- Exports ----- //
 
-export { Role };
+export { ArticleElementRole };
