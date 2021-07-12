@@ -1,0 +1,9 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+mkdir -p static
+
+yarn npm-run-all precommit:*
+
+# generate the logger SVG
+git add static/logger.svg

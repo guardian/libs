@@ -22,6 +22,10 @@ window.guardian.logger.subscribeTo('commercial');
 window.guardian.logger.unsubscribeFrom('cmp');
 ```
 
+and see
+
+![example branded console output](/static/logger.svg)
+
 ## Table of contents
 
 -   [Methods](#methods)
