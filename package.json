@@ -38,7 +38,7 @@
     "@guardian/prettier": "0.6.0",
     "@rollup/plugin-typescript": "8.2.1",
     "@semantic-release/github": "7.2.3",
-    "@types/jest": "26.0.23",
+    "@types/jest": "26.0.24",
     "@types/wcag-contrast": "3.0.0",
     "conventional-changelog-conventionalcommits": "4.6.0",
     "eslint": "7.30.0",
