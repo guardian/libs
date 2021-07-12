@@ -13,6 +13,7 @@
 
 - [Modules](#modules)
   - [`cookies`](#cookies)
+  - [Countries](#countries)
   - [`getLocale`](#getlocale)
   - [`getSwitches`](#getswitches)
   - [`isBoolean`](#isboolean)
@@ -24,6 +25,7 @@
   - [`ophan`](#ophan)
   - [`storage`](#storage)
   - [`timeAgo`](#timeago)
+  - [`joinUrl`](#joinurl)
 - [Installation](#installation)
   - [Bundling](#bundling)
 - [Development](#development)
@@ -39,6 +41,10 @@ The following modules are available:
 ### [`cookies`](./src/cookies.README.md)
 
 API over `document.cookies`.
+
+### [Countries](./src/countries.README.md)
+
+Country data and methods to access it.
 
 ### [`getLocale`](./src/getLocale.README.md)
 
@@ -83,6 +89,10 @@ Robust API over `localStorage` and `sessionStorage`.
 ### [`timeAgo`](./src/timeAgo.README.md)
 
 Turns absolute dates into time ago strings.
+
+### [`joinUrl`](./src/joinUrl.README.md)
+
+Combines separate url parts into one valid url string.
 
 ## Installation
 

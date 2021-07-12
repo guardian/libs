@@ -6,6 +6,9 @@ export {
 	setCookie,
 	setSessionCookie,
 } from './cookies';
+export type { Country } from './countries';
+export { countries, getCountryByCountryCode } from './countries';
+export type { CountryCode } from './@types/countries';
 export { getLocale } from './getLocale';
 export { getSwitches } from './getSwitches';
 export { isBoolean } from './isBoolean';
@@ -25,5 +28,6 @@ export type {
 	OphanComponentType,
 	OphanProduct,
 	OphanABTestMeta,
-} from './types/ophan';
-export type { Switches } from './types/switches';
+} from './@types/ophan';
+export type { Switches } from './@types/switches';
+export { joinUrl } from './joinUrl';
