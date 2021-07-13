@@ -6,7 +6,7 @@ import {
 } from './format';
 
 it('Design enum contains Article', () => {
-	expect(ArticleDesign.Article).toBeDefined();
+	expect(ArticleDesign.Standard).toBeDefined();
 });
 
 it('Display enum contains Standard', () => {
