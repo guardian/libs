@@ -23,6 +23,7 @@
   - [`isUndefined`](#isundefined)
   - [`loadScript`](#loadscript)
   - [`log`/`debug`](#logdebug)
+  - [`role`](#role)
   - [`storage`](#storage)
   - [`timeAgo`](#timeago)
   - [`joinUrl`](#joinurl)
@@ -81,6 +82,10 @@ Inject an external JavaScript file.
 ### [`log`/`debug`](./src/logger.README.md)
 
 Selectively log team-specific messages to the console.
+
+### [`role`](./src/role.README.md)
+
+Types that define the role of an element in an article.
 
 ### [`storage`](./src/storage.README.md)
 
