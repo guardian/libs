@@ -16,7 +16,7 @@ enum ArticleSpecial {
 type ArticleTheme = ArticlePillar | ArticleSpecial;
 
 enum ArticleDesign {
-	Article,
+	Standard,
 	Media,
 	Review,
 	Analysis,
