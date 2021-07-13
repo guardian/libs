@@ -14,6 +14,7 @@
 - [Modules](#modules)
   - [`cookies`](#cookies)
   - [Countries](#countries)
+  - [`format`](#format)
   - [`getLocale`](#getlocale)
   - [`getSwitches`](#getswitches)
   - [`isBoolean`](#isboolean)
@@ -22,6 +23,8 @@
   - [`isUndefined`](#isundefined)
   - [`loadScript`](#loadscript)
   - [`log`/`debug`](#logdebug)
+  - [Ophan](#ophan)
+  - [`role`](#role)
   - [`storage`](#storage)
   - [`timeAgo`](#timeago)
   - [`joinUrl`](#joinurl)
@@ -44,6 +47,10 @@ API over `document.cookies`.
 ### [Countries](./src/countries.README.md)
 
 Country data and methods to access it.
+
+### [`format`](./src/format.README.md)
+
+Types and enums related to editorial formats.
 
 ### [`getLocale`](./src/getLocale.README.md)
 
@@ -76,6 +83,14 @@ Inject an external JavaScript file.
 ### [`log`/`debug`](./src/logger.README.md)
 
 Selectively log team-specific messages to the console.
+
+### [Ophan](./src/@types/ophan.README.md)
+
+Types related to Ophan.
+
+### [`role`](./src/role.README.md)
+
+Types that define the role of an element in an article.
 
 ### [`storage`](./src/storage.README.md)
 
