@@ -9,28 +9,31 @@
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
 ## Table of contents
 
-- [Modules](#modules)
-  - [`cookies`](#cookies)
-  - [Countries](#countries)
-  - [`getLocale`](#getlocale)
-  - [`getSwitches`](#getswitches)
-  - [`isBoolean`](#isboolean)
-  - [`isObject`](#isobject)
-  - [`isString`](#isstring)
-  - [`isUndefined`](#isundefined)
-  - [`loadScript`](#loadscript)
-  - [`log`/`debug`](#logdebug)
-  - [`ophan`](#ophan)
-  - [`storage`](#storage)
-  - [`timeAgo`](#timeago)
-  - [`joinUrl`](#joinurl)
-- [Installation](#installation)
-  - [Bundling](#bundling)
-- [Development](#development)
-  - [Requirements](#requirements)
-  - [Releasing](#releasing)
+-   [Modules](#modules)
+    -   [`cookies`](#cookies)
+    -   [Countries](#countries)
+    -   [`format`](#format)
+    -   [`getLocale`](#getlocale)
+    -   [`getSwitches`](#getswitches)
+    -   [`isBoolean`](#isboolean)
+    -   [`isObject`](#isobject)
+    -   [`isString`](#isstring)
+    -   [`isUndefined`](#isundefined)
+    -   [`loadScript`](#loadscript)
+    -   [`log`/`debug`](#logdebug)
+    -   [`ophan`](#ophan)
+    -   [`role`](#role)
+    -   [`storage`](#storage)
+    -   [`timeAgo`](#timeago)
+    -   [`joinUrl`](#joinurl)
+-   [Installation](#installation)
+    -   [Bundling](#bundling)
+-   [Development](#development)
+    -   [Requirements](#requirements)
+    -   [Releasing](#releasing)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -45,6 +48,10 @@ API over `document.cookies`.
 ### [Countries](./src/countries.README.md)
 
 Country data and methods to access it.
+
+### [`format`](./src/format.README.md)
+
+Types and enums related to editorial formats.
 
 ### [`getLocale`](./src/getLocale.README.md)
 
@@ -78,9 +85,13 @@ Inject an external JavaScript file.
 
 Selectively log team-specific messages to the console.
 
-### [`ophan`](./src/types/ophan.README.md)
+### [`ophan`](./src/@types/ophan.README.md)
 
 Types related to Ophan.
+
+### [`role`](./src/role.README.md)
+
+Types that define the role of an element in an article.
 
 ### [`storage`](./src/storage.README.md)
 
