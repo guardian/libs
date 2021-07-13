@@ -14,6 +14,7 @@
 - [Modules](#modules)
   - [`cookies`](#cookies)
   - [Countries](#countries)
+  - [`format`](#format)
   - [`getLocale`](#getlocale)
   - [`getSwitches`](#getswitches)
   - [`isBoolean`](#isboolean)
@@ -45,6 +46,10 @@ API over `document.cookies`.
 ### [Countries](./src/countries.README.md)
 
 Country data and methods to access it.
+
+### [`format`](./src/format.README.md)
+
+Types and enums related to editorial formats.
 
 ### [`getLocale`](./src/getLocale.README.md)
 
