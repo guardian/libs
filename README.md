@@ -23,6 +23,7 @@
   - [`isUndefined`](#isundefined)
   - [`loadScript`](#loadscript)
   - [`log`/`debug`](#logdebug)
+  - [Ophan](#ophan)
   - [`role`](#role)
   - [`storage`](#storage)
   - [`timeAgo`](#timeago)
@@ -82,6 +83,10 @@ Inject an external JavaScript file.
 ### [`log`/`debug`](./src/logger.README.md)
 
 Selectively log team-specific messages to the console.
+
+### [Ophan](./src/@types/ophan.README.md)
+
+Types related to Ophan.
 
 ### [`role`](./src/role.README.md)
 

@@ -27,5 +27,15 @@ export { debug, log } from './logger';
 export { ArticleElementRole } from './role';
 export { storage } from './storage';
 export { timeAgo } from './timeAgo';
-export { joinUrl } from './joinUrl';
+export type {
+	OphanABEvent,
+	OphanABPayload,
+	OphanAction,
+	OphanComponent,
+	OphanComponentEvent,
+	OphanComponentType,
+	OphanProduct,
+	OphanABTestMeta,
+} from './@types/ophan';
 export type { Switches } from './@types/switches';
+export { joinUrl } from './joinUrl';
