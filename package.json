@@ -36,7 +36,7 @@
     "@guardian/eslint-config-typescript": "0.6.0",
     "@guardian/pkgu": "0.6.0",
     "@guardian/prettier": "0.6.0",
-    "@rollup/plugin-typescript": "8.2.1",
+    "@rollup/plugin-typescript": "8.2.3",
     "@semantic-release/github": "7.2.3",
     "@types/jest": "26.0.24",
     "@types/wcag-contrast": "3.0.0",
