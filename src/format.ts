@@ -34,7 +34,7 @@ enum ArticleDesign {
 	PhotoEssay,
 	PrintShop,
 	Obituary,
-	FullWidthInteractive,
+	FullPageInteractive,
 }
 
 enum ArticleDisplay {
