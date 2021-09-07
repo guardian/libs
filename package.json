@@ -33,7 +33,7 @@
   },
   "devDependencies": {
     "@guardian/eslint-config": "0.6.0",
-    "@guardian/eslint-config-typescript": "0.6.0",
+    "@guardian/eslint-config-typescript": "0.6.1",
     "@guardian/pkgu": "0.6.0",
     "@guardian/prettier": "0.6.0",
     "@rollup/plugin-typescript": "8.2.5",
