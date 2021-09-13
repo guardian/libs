@@ -47,10 +47,29 @@ jest.mock('web-vitals', () => ({
 	},
 }));
 
-navigator.sendBeacon = jest.fn();
+type Callback = (...args: unknown[]) => unknown;
+
+navigator.sendBeacon = jest.fn().mockReturnValue(true);
 
 describe('coreWebVitals', () => {
-	it.todo('registers callbacks');
+	const events: Record<string, Callback> = {};
+	it('registers callbacks', () => {
+		const mockCallback = jest.fn();
+		const eventListener = jest.spyOn(global, 'addEventListener');
+		// const emitter = new EventEmitter();
+
+		document.addEventListener = jest.fn((event, callback: Callback) => {
+			events[event] = callback;
+		});
+
+		coreWebVitals({ browserId: 'abc', pageViewId: '123' }, mockCallback);
+
+		expect(eventListener.mock.calls[0][0]).toBe('visibilitychange');
+		expect(eventListener.mock.calls[1][0]).toBe('pagehide');
+		expect(eventListener.mock.calls[2]).toBe(undefined);
+	});
+
+	it.todo('trigger simluated events – maybe EventEmitter?');
 });
 
 describe('roundWithDecimals', () => {
