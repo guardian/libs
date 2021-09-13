@@ -75,6 +75,18 @@ describe('coreWebVitals', () => {
 		expect(mockCallback).toBeCalledWith(false);
 	});
 
+	it('only registers pagehide if document is visible', () => {
+		const mockCallback = jest.fn();
+		coreWebVitals({ browserId: 'abc', pageViewId: '123' }, mockCallback);
+
+		setVisibilityState('visible');
+		global.dispatchEvent(new Event('visibilitychange'));
+		global.dispatchEvent(new Event('pagehide'));
+
+		expect(mockCallback).toBeCalledTimes(1);
+		expect(mockCallback).toBeCalledWith(false);
+	});
+
 	it.todo('trigger simluated events – maybe EventEmitter?');
 });
 
