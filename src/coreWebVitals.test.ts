@@ -1,8 +1,8 @@
 import type { Metric, ReportHandler } from 'web-vitals';
 import type { CoreWebVitalsPayload } from './coreWebVitals';
-import { _, coreWebVitals } from './coreWebVitals';
+import { _, coreWebVitals, forceSendMetrics } from './coreWebVitals';
 
-const { roundWithDecimals, sendData } = _;
+const { roundWithDecimals, sendData, resetShouldForceMetrics } = _;
 
 const coreWebVitalsPayload: CoreWebVitalsPayload = {
 	page_view_id: '123456',
@@ -86,23 +86,56 @@ describe('sendData', () => {
 
 	beforeEach(() => {
 		jest.resetModules();
+		window.location.hash = '';
+		resetShouldForceMetrics();
+	});
+
+	const browserId = String(coreWebVitalsPayload.browser_id);
+	const pageViewId = String(coreWebVitalsPayload.page_view_id);
+
+	it('should send data if in sample', () => {
+		(global.Math.random as jest.Mock).mockReturnValue(0.09 / 100);
+		coreWebVitals({ browserId, pageViewId });
+
+		expect(sendData()).toBe(true);
 	});
 
 	it('should not send data if not in sample', () => {
 		(global.Math.random as jest.Mock).mockReturnValue(2 / 10);
-		coreWebVitals({
-			browserId: String(coreWebVitalsPayload.browser_id),
-			pageViewId: String(coreWebVitalsPayload.page_view_id),
-		});
+		coreWebVitals({ browserId, pageViewId });
+
 		expect(sendData()).toBe(false);
 	});
-	it('should send data if in sample', () => {
-		(global.Math.random as jest.Mock).mockReturnValue(0.09 / 100);
+
+	it('should send data if not in sample but forced via init', () => {
+		(global.Math.random as jest.Mock).mockReturnValue(2 / 100);
+
 		coreWebVitals({
-			browserId: String(coreWebVitalsPayload.browser_id),
-			pageViewId: String(coreWebVitalsPayload.page_view_id),
+			browserId,
+			pageViewId,
+			forceSendMetrics: true,
 		});
-		(navigator.sendBeacon as jest.Mock).mockReturnValue(true);
+
+		expect(sendData()).toBe(true);
+	});
+
+	it('should send data if not in sample but forced via hash', () => {
+		(global.Math.random as jest.Mock).mockReturnValue(2 / 100);
+
+		window.location.hash = '#forceSendMetrics';
+		coreWebVitals({ browserId, pageViewId });
+
+		expect(sendData()).toBe(true);
+	});
+
+	it('should send data if forced asynchronously', () => {
+		(global.Math.random as jest.Mock).mockReturnValue(2 / 100);
+
+		coreWebVitals({ browserId, pageViewId });
+
+		expect(sendData()).toBe(false);
+
+		forceSendMetrics();
 		expect(sendData()).toBe(true);
 	});
 });

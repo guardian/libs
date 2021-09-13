@@ -21,7 +21,7 @@ const coreWebVitalsPayload: CoreWebVitalsPayload = {
 	ttfb: null,
 };
 
-let shouldSendMetrics = window.location.hash === '#forceSendMetrics';
+let shouldSendMetrics = false;
 export const forceSendMetrics = (): void => {
 	shouldSendMetrics = true;
 };
@@ -89,6 +89,8 @@ export const coreWebVitals = (
 	// Unless we are forcing sending metrics for this page view
 	// via initialisation or calling forceSendMetrics()
 	if (forceSendMetrics || pageViewInSample) shouldSendMetrics = true;
+	// Or using a specific hash
+	if (window.location.hash === '#forceSendMetrics') shouldSendMetrics = true;
 
 	getCLS(onReport, false);
 	getFID(onReport);
@@ -113,4 +115,7 @@ export const coreWebVitals = (
 export const _ = {
 	roundWithDecimals,
 	sendData,
+	resetShouldForceMetrics: (): void => {
+		shouldSendMetrics = false;
+	},
 };
