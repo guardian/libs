@@ -47,7 +47,8 @@ jest.mock('web-vitals', () => ({
 	},
 }));
 
-navigator.sendBeacon = jest.fn().mockReturnValue(true);
+const mockBeacon = jest.fn().mockReturnValue(true);
+navigator.sendBeacon = mockBeacon;
 
 const setVisibilityState = (value: VisibilityState = 'visible') => {
 	Object.defineProperty(document, 'visibilityState', {
@@ -114,6 +115,13 @@ describe('sendData', () => {
 		resetShouldForceMetrics();
 	});
 
+	const setLocation = (hostname: string) => {
+		Object.defineProperty(window, 'location', {
+			writable: true,
+			value: { hostname },
+		});
+	};
+
 	const browserId = String(defaultCoreWebVitalsPayload.browser_id);
 	const pageViewId = String(defaultCoreWebVitalsPayload.page_view_id);
 
@@ -161,5 +169,29 @@ describe('sendData', () => {
 
 		forceSendMetrics();
 		expect(sendData()).toBe(true);
+	});
+
+	it('should use PROD URL by default', () => {
+		coreWebVitals({ browserId, pageViewId });
+		forceSendMetrics();
+
+		setLocation('www.theguardian.com');
+		sendData();
+		expect(mockBeacon).toHaveBeenCalledWith(
+			'https://performance-events.guardianapis.com/core-web-vitals',
+			expect.any(String),
+		);
+	});
+
+	it('should use CODE URL on localhost', () => {
+		coreWebVitals({ browserId, pageViewId });
+		forceSendMetrics();
+
+		setLocation('localhost');
+		sendData();
+		expect(mockBeacon).toHaveBeenCalledWith(
+			'https://performance-events.code.dev-guardianapis.com/core-web-vitals',
+			expect.any(String),
+		);
 	});
 });
