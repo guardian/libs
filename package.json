@@ -31,6 +31,9 @@
     "tsc": "tsc --noEmit --project tsconfig.dev.json",
     "validate": "npm-run-all tsc lint test build"
   },
+  "dependencies": {
+    "web-vitals": "^2"
+  },
   "devDependencies": {
     "@guardian/eslint-config": "0.6.0",
     "@guardian/eslint-config-typescript": "0.6.0",
@@ -60,8 +63,5 @@
   },
   "publishConfig": {
     "access": "public"
-  },
-  "dependencies": {
-    "web-vitals": "^2"
   }
 }
