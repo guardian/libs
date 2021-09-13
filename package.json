@@ -32,7 +32,7 @@
     "validate": "npm-run-all tsc lint test build"
   },
   "devDependencies": {
-    "@guardian/eslint-config": "0.6.0",
+    "@guardian/eslint-config": "0.7.0",
     "@guardian/eslint-config-typescript": "0.6.0",
     "@guardian/pkgu": "0.6.0",
     "@guardian/prettier": "0.7.0",
