@@ -49,30 +49,28 @@ jest.mock('web-vitals', () => ({
 
 navigator.sendBeacon = jest.fn().mockReturnValue(true);
 
+const setVisibilityState = (value: VisibilityState = 'visible') => {
+	Object.defineProperty(document, 'visibilityState', {
+		writable: true,
+		configurable: true,
+		value,
+	});
+};
+
 describe('coreWebVitals', () => {
+	afterAll(() => {
+		setVisibilityState();
+	});
+
 	it('registers callbacks', () => {
 		const mockCallback = jest.fn();
-		const eventListener = jest
-			.spyOn(global, 'addEventListener')
-			.mockImplementation(
-				(type, callback: EventListenerOrEventListenerObject) => {
-					const event: Partial<Event> = {
-						type,
-					};
-					if (callback instanceof Function) callback(event as Event);
-				},
-			);
-
 		coreWebVitals({ browserId: 'abc', pageViewId: '123' }, mockCallback);
 
-		expect(eventListener).toBeCalledWith(
-			'visibilitychange',
-			expect.any(Function),
-		);
-		expect(eventListener).toBeCalledWith('pagehide', expect.any(Function));
+		setVisibilityState('hidden');
+		global.dispatchEvent(new Event('visibilitychange'));
+		global.dispatchEvent(new Event('pagehide'));
 
-		// document.visibilityState cannot be set
-		expect(mockCallback).toBeCalledTimes(1);
+		expect(mockCallback).toBeCalledTimes(2);
 		expect(mockCallback).toBeCalledWith(false);
 	});
 
