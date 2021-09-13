@@ -20,4 +20,10 @@ describe('roundWithDecimals', () => {
 	])('With precision %s, %f becomes %f', (precision, before, after) => {
 		expect(roundWithDecimals(before, precision)).toBe(after);
 	});
+
+	it('should handle default precision = 6', () => {
+		const [before, after] = [12345.000_001_2, 12345.000_001];
+		expect(roundWithDecimals(before)).toBe(after);
+		expect(roundWithDecimals(before, 6)).toBe(after);
+	});
 });
