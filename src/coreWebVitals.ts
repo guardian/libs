@@ -1,7 +1,7 @@
 import type { ReportHandler } from 'web-vitals';
 import { getCLS, getFCP, getFID, getLCP, getTTFB } from 'web-vitals';
 
-type CoreWebVitalsPayload = {
+export type CoreWebVitalsPayload = {
 	page_view_id: string | null;
 	browser_id: string | null;
 	fid: null | number;
@@ -21,12 +21,7 @@ const coreWebVitalsPayload: CoreWebVitalsPayload = {
 	ttfb: null,
 };
 
-// By default, sample 1% of page views
-const userInSample = Math.random() < 1 / 100;
-
 let shouldSendMetrics = window.location.hash === '#forceSendMetrics';
-// unless we are forcing sending metrics for this page view
-// via initialisation or calling forceSendMetrics()
 export const forceSendMetrics = (): void => {
 	shouldSendMetrics = true;
 };
@@ -37,11 +32,7 @@ const roundWithDecimals = (value: number, precision = 6): number => {
 };
 
 const sendData = (): boolean => {
-	if (
-		!(userInSample || shouldSendMetrics) ||
-		coreWebVitalsPayload.fcp === null
-	)
-		return false;
+	if (!shouldSendMetrics || coreWebVitalsPayload.fcp === null) return false;
 
 	const endpoint =
 		window.location.hostname === 'm.code.dev-theguardian.com' ||
@@ -86,14 +77,18 @@ export const coreWebVitals = (
 	}: {
 		browserId: string;
 		pageViewId: string;
-		forceSendMetrics: boolean;
+		forceSendMetrics?: boolean;
 	},
 	metricsSentCallback: (queued?: boolean) => void = () => void 0,
 ): void => {
 	coreWebVitalsPayload.browser_id = browserId;
 	coreWebVitalsPayload.page_view_id = pageViewId;
 
-	if (forceSendMetrics) shouldSendMetrics = true;
+	// By default, sample 1% of page views
+	const pageViewInSample = Math.random() < 1 / 100;
+	// Unless we are forcing sending metrics for this page view
+	// via initialisation or calling forceSendMetrics()
+	if (forceSendMetrics || pageViewInSample) shouldSendMetrics = true;
 
 	getCLS(onReport, false);
 	getFID(onReport);
