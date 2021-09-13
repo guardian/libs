@@ -4,7 +4,7 @@ import { _, coreWebVitals, forceSendMetrics } from './coreWebVitals';
 
 const { roundWithDecimals, sendData, resetShouldForceMetrics } = _;
 
-const coreWebVitalsPayload: CoreWebVitalsPayload = {
+const defaultCoreWebVitalsPayload: CoreWebVitalsPayload = {
 	page_view_id: '123456',
 	browser_id: 'abcdef',
 	fid: 50.5,
@@ -17,31 +17,31 @@ const coreWebVitalsPayload: CoreWebVitalsPayload = {
 jest.mock('web-vitals', () => ({
 	getTTFB: (onReport: ReportHandler) => {
 		onReport({
-			value: coreWebVitalsPayload.ttfb,
+			value: defaultCoreWebVitalsPayload.ttfb,
 			name: 'TTFB',
 		} as Metric);
 	},
 	getFCP: (onReport: ReportHandler) => {
 		onReport({
-			value: coreWebVitalsPayload.fcp,
+			value: defaultCoreWebVitalsPayload.fcp,
 			name: 'FCP',
 		} as Metric);
 	},
 	getCLS: (onReport: ReportHandler) => {
 		onReport({
-			value: coreWebVitalsPayload.cls,
+			value: defaultCoreWebVitalsPayload.cls,
 			name: 'CLS',
 		} as Metric);
 	},
 	getFID: (onReport: ReportHandler) => {
 		onReport({
-			value: coreWebVitalsPayload.fid,
+			value: defaultCoreWebVitalsPayload.fid,
 			name: 'FID',
 		} as Metric);
 	},
 	getLCP: (onReport: ReportHandler) => {
 		onReport({
-			value: coreWebVitalsPayload.lcp,
+			value: defaultCoreWebVitalsPayload.lcp,
 			name: 'LCP',
 		} as Metric);
 	},
@@ -116,8 +116,8 @@ describe('sendData', () => {
 		resetShouldForceMetrics();
 	});
 
-	const browserId = String(coreWebVitalsPayload.browser_id);
-	const pageViewId = String(coreWebVitalsPayload.page_view_id);
+	const browserId = String(defaultCoreWebVitalsPayload.browser_id);
+	const pageViewId = String(defaultCoreWebVitalsPayload.page_view_id);
 
 	it('should send data if in sample', () => {
 		(global.Math.random as jest.Mock).mockReturnValue(0.09 / 100);
