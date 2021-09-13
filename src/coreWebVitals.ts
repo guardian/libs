@@ -1,6 +1,5 @@
 import type { ReportHandler } from 'web-vitals';
 import { getCLS, getFCP, getFID, getLCP, getTTFB } from 'web-vitals';
-import { log } from './index';
 
 type CoreWebVitalsPayload = {
 	page_view_id: string | null;
@@ -32,25 +31,17 @@ export const forceSendMetrics = (): void => {
 	shouldSendMetrics = true;
 };
 
-const roundWithDecimals = (value: number, precision = 6) => {
+const roundWithDecimals = (value: number, precision = 6): number => {
 	const power = Math.pow(10, precision);
 	return Math.round(value * power) / power;
 };
 
-const sendData = () => {
+const sendData = (): boolean => {
 	if (
 		!(userInSample || shouldSendMetrics) ||
 		coreWebVitalsPayload.fcp === null
-	) {
-		log('dotcom', 'Won’t send Core Web Vitals', {
-			userInSample,
-			shouldSendMetrics,
-			fcp: coreWebVitalsPayload.fcp,
-		});
+	)
 		return false;
-	}
-
-	log('dotcom', 'About to send Core Web Vitals', coreWebVitalsPayload);
 
 	const endpoint =
 		window.location.hostname === 'm.code.dev-theguardian.com' ||
@@ -122,4 +113,9 @@ export const coreWebVitals = (
 		const queued = sendData();
 		metricsSentCallback(queued);
 	});
+};
+
+export const _ = {
+	roundWithDecimals,
+	sendData,
 };
