@@ -115,7 +115,7 @@ describe('coreWebVitals', () => {
 		const mockAddEventListener = jest.spyOn(global, 'addEventListener');
 		initCoreWebVitals({ browserId: 'abc', pageViewId: '123' });
 
-		setVisibilityState('visible');
+		setVisibilityState('hidden');
 		global.dispatchEvent(new Event('visibilitychange'));
 		global.dispatchEvent(new Event('pagehide'));
 
