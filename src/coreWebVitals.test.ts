@@ -50,6 +50,9 @@ jest.mock('web-vitals', () => ({
 const mockBeacon = jest.fn().mockReturnValue(true);
 navigator.sendBeacon = mockBeacon;
 
+const mockMath = jest.spyOn(global.Math, 'random');
+mockMath.mockReturnValue(99 / 100);
+
 const setVisibilityState = (value: VisibilityState = 'visible') => {
 	Object.defineProperty(document, 'visibilityState', {
 		writable: true,
@@ -113,14 +116,6 @@ describe('roundWithDecimals', () => {
 });
 
 describe('sendData', () => {
-	beforeAll(() => {
-		jest.spyOn(global.Math, 'random');
-	});
-
-	afterAll(() => {
-		jest.spyOn(global.Math, 'random').mockRestore();
-	});
-
 	beforeEach(() => {
 		jest.resetModules();
 		window.location.hash = '';
@@ -138,22 +133,19 @@ describe('sendData', () => {
 	const pageViewId = String(defaultCoreWebVitalsPayload.page_view_id);
 
 	it('should send data if in sample', () => {
-		(global.Math.random as jest.Mock).mockReturnValue(0.09 / 100);
+		mockMath.mockReturnValueOnce(0.1 / 100);
 		coreWebVitals({ browserId, pageViewId });
 
 		expect(sendData()).toBe(true);
 	});
 
 	it('should not send data if not in sample', () => {
-		(global.Math.random as jest.Mock).mockReturnValue(2 / 10);
 		coreWebVitals({ browserId, pageViewId });
 
 		expect(sendData()).toBe(false);
 	});
 
 	it('should send data if not in sample but forced via init', () => {
-		(global.Math.random as jest.Mock).mockReturnValue(2 / 100);
-
 		coreWebVitals({
 			browserId,
 			pageViewId,
@@ -164,8 +156,6 @@ describe('sendData', () => {
 	});
 
 	it('should send data if not in sample but forced via hash', () => {
-		(global.Math.random as jest.Mock).mockReturnValue(2 / 100);
-
 		window.location.hash = '#forceSendMetrics';
 		coreWebVitals({ browserId, pageViewId });
 
@@ -173,8 +163,6 @@ describe('sendData', () => {
 	});
 
 	it('should send data if forced asynchronously', () => {
-		(global.Math.random as jest.Mock).mockReturnValue(2 / 100);
-
 		coreWebVitals({ browserId, pageViewId });
 
 		expect(sendData()).toBe(false);
