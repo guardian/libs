@@ -139,13 +139,6 @@ describe('sendData', () => {
 		resetShouldForceMetrics();
 	});
 
-	const setLocation = (hostname: string) => {
-		Object.defineProperty(window, 'location', {
-			writable: true,
-			value: { hostname },
-		});
-	};
-
 	const browserId = String(defaultCoreWebVitalsPayload.browser_id);
 	const pageViewId = String(defaultCoreWebVitalsPayload.page_view_id);
 
@@ -188,23 +181,21 @@ describe('sendData', () => {
 		expect(sendData()).toBe(true);
 	});
 
-	it('should use PROD URL by default', () => {
+	it('should use CODE URL by default', () => {
 		initCoreWebVitals({ browserId, pageViewId });
 		forceSendMetrics();
 
-		setLocation('www.theguardian.com');
-		sendData();
+		sendData(false);
 		expect(mockBeacon).toHaveBeenCalledWith(
 			'https://performance-events.guardianapis.com/core-web-vitals',
 			expect.any(String),
 		);
 	});
 
-	it('should use CODE URL on localhost', () => {
+	it('should use PROD URL if isDev is false', () => {
 		initCoreWebVitals({ browserId, pageViewId });
 		forceSendMetrics();
 
-		setLocation('localhost');
 		sendData();
 		expect(mockBeacon).toHaveBeenCalledWith(
 			'https://performance-events.code.dev-guardianapis.com/core-web-vitals',

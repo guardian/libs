@@ -31,15 +31,12 @@ const roundWithDecimals = (value: number, precision = 6): number => {
 	return Math.round(value * power) / power;
 };
 
-const sendData = (): boolean => {
+const sendData = (isDev = true): boolean => {
 	if (!shouldSendMetrics || coreWebVitalsPayload.fcp === null) return false;
 
-	const endpoint =
-		window.location.hostname === 'm.code.dev-theguardian.com' ||
-		window.location.hostname === 'localhost' ||
-		window.location.hostname === 'preview.gutools.co.uk'
-			? 'https://performance-events.code.dev-guardianapis.com/core-web-vitals'
-			: 'https://performance-events.guardianapis.com/core-web-vitals';
+	const endpoint = isDev
+		? 'https://performance-events.code.dev-guardianapis.com/core-web-vitals'
+		: 'https://performance-events.guardianapis.com/core-web-vitals';
 
 	return navigator.sendBeacon(endpoint, JSON.stringify(coreWebVitalsPayload));
 };
@@ -74,9 +71,11 @@ export const initCoreWebVitals = (
 		browserId,
 		pageViewId,
 		forceSendMetrics = false,
+		isDev,
 	}: {
 		browserId: string;
 		pageViewId: string;
+		isDev?: boolean;
 		forceSendMetrics?: boolean;
 	},
 	metricsSentCallback?: (queued?: boolean) => void,
@@ -101,13 +100,13 @@ export const initCoreWebVitals = (
 	// Report all available metrics when the page is backgrounded or unloaded.
 	addEventListener('visibilitychange', () => {
 		if (document.visibilityState === 'hidden') {
-			const queued = sendData();
+			const queued = sendData(isDev);
 			if (metricsSentCallback) metricsSentCallback(queued);
 		}
 	});
 	// Safari does not reliably fire the `visibilitychange` on page unload.
 	addEventListener('pagehide', () => {
-		const queued = sendData();
+		const queued = sendData(isDev);
 		if (metricsSentCallback) metricsSentCallback(queued);
 	});
 };
