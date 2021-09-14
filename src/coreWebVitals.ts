@@ -66,6 +66,13 @@ const onReport: ReportHandler = (metric) => {
 	}
 };
 
+/**
+ * Initialise sending Core Web Vitals metrics to a logging endpoint.
+ *
+ * @param init - the initialisation options
+ * @param init.isDev - Whether to log to CODE or PROD endpoints
+ * @param metricsSentCallback - Optional callback, triggered after metrics are queued for sending
+ */
 export const initCoreWebVitals = (
 	{
 		browserId,
