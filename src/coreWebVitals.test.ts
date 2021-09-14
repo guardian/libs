@@ -90,7 +90,18 @@ describe('coreWebVitals', () => {
 		expect(mockCallback).toBeCalledWith(false);
 	});
 
-	it.todo('trigger simluated events – maybe EventEmitter?');
+	it('does not trigger a callback if none is passed', () => {
+		const mockCallback = jest.fn(); // won’t be used
+		const mockAddEventListener = jest.spyOn(global, 'addEventListener');
+		coreWebVitals({ browserId: 'abc', pageViewId: '123' });
+
+		setVisibilityState('visible');
+		global.dispatchEvent(new Event('visibilitychange'));
+		global.dispatchEvent(new Event('pagehide'));
+
+		expect(mockCallback).not.toHaveBeenCalled();
+		expect(mockAddEventListener).toHaveBeenCalledTimes(2);
+	});
 });
 
 describe('roundWithDecimals', () => {

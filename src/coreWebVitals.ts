@@ -79,7 +79,7 @@ export const coreWebVitals = (
 		pageViewId: string;
 		forceSendMetrics?: boolean;
 	},
-	metricsSentCallback: (queued?: boolean) => void = () => void 0,
+	metricsSentCallback?: (queued?: boolean) => void,
 ): void => {
 	coreWebVitalsPayload.browser_id = browserId;
 	coreWebVitalsPayload.page_view_id = pageViewId;
@@ -102,13 +102,13 @@ export const coreWebVitals = (
 	addEventListener('visibilitychange', () => {
 		if (document.visibilityState === 'hidden') {
 			const queued = sendData();
-			metricsSentCallback(queued);
+			if (metricsSentCallback) metricsSentCallback(queued);
 		}
 	});
 	// Safari does not reliably fire the `visibilitychange` on page unload.
 	addEventListener('pagehide', () => {
 		const queued = sendData();
-		metricsSentCallback(queued);
+		if (metricsSentCallback) metricsSentCallback(queued);
 	});
 };
 
