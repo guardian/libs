@@ -96,6 +96,20 @@ describe('coreWebVitals', () => {
 		expect(mockCallback).toBeCalledWith(false);
 	});
 
+	it('triggers the callback with `true` if metrics will be sent', () => {
+		const mockCallback = jest.fn();
+		initCoreWebVitals(
+			{ browserId: 'abc', pageViewId: '123' },
+			mockCallback,
+		);
+
+		forceSendMetrics();
+		global.dispatchEvent(new Event('pagehide'));
+
+		expect(mockCallback).toBeCalledTimes(1);
+		expect(mockCallback).toHaveBeenLastCalledWith(true);
+	});
+
 	it('does not trigger a callback if none is passed', () => {
 		const mockCallback = jest.fn(); // won’t be used
 		const mockAddEventListener = jest.spyOn(global, 'addEventListener');
