@@ -69,7 +69,7 @@ const onReport: ReportHandler = (metric) => {
 	}
 };
 
-export const coreWebVitals = (
+export const initCoreWebVitals = (
 	{
 		browserId,
 		pageViewId,

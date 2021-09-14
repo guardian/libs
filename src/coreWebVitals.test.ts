@@ -1,6 +1,6 @@
 import type { Metric, ReportHandler } from 'web-vitals';
 import type { CoreWebVitalsPayload } from './coreWebVitals';
-import { _, coreWebVitals, forceSendMetrics } from './coreWebVitals';
+import { _, forceSendMetrics, initCoreWebVitals } from './coreWebVitals';
 
 const { roundWithDecimals, sendData, resetShouldForceMetrics } = _;
 
@@ -68,7 +68,10 @@ describe('coreWebVitals', () => {
 
 	it('registers callbacks', () => {
 		const mockCallback = jest.fn();
-		coreWebVitals({ browserId: 'abc', pageViewId: '123' }, mockCallback);
+		initCoreWebVitals(
+			{ browserId: 'abc', pageViewId: '123' },
+			mockCallback,
+		);
 
 		setVisibilityState('hidden');
 		global.dispatchEvent(new Event('visibilitychange'));
@@ -80,7 +83,10 @@ describe('coreWebVitals', () => {
 
 	it('only registers pagehide if document is visible', () => {
 		const mockCallback = jest.fn();
-		coreWebVitals({ browserId: 'abc', pageViewId: '123' }, mockCallback);
+		initCoreWebVitals(
+			{ browserId: 'abc', pageViewId: '123' },
+			mockCallback,
+		);
 
 		setVisibilityState('visible');
 		global.dispatchEvent(new Event('visibilitychange'));
@@ -93,7 +99,7 @@ describe('coreWebVitals', () => {
 	it('does not trigger a callback if none is passed', () => {
 		const mockCallback = jest.fn(); // won’t be used
 		const mockAddEventListener = jest.spyOn(global, 'addEventListener');
-		coreWebVitals({ browserId: 'abc', pageViewId: '123' });
+		initCoreWebVitals({ browserId: 'abc', pageViewId: '123' });
 
 		setVisibilityState('visible');
 		global.dispatchEvent(new Event('visibilitychange'));
@@ -145,19 +151,19 @@ describe('sendData', () => {
 
 	it('should send data if in sample', () => {
 		mockMath.mockReturnValueOnce(0.1 / 100);
-		coreWebVitals({ browserId, pageViewId });
+		initCoreWebVitals({ browserId, pageViewId });
 
 		expect(sendData()).toBe(true);
 	});
 
 	it('should not send data if not in sample', () => {
-		coreWebVitals({ browserId, pageViewId });
+		initCoreWebVitals({ browserId, pageViewId });
 
 		expect(sendData()).toBe(false);
 	});
 
 	it('should send data if not in sample but forced via init', () => {
-		coreWebVitals({
+		initCoreWebVitals({
 			browserId,
 			pageViewId,
 			forceSendMetrics: true,
@@ -168,13 +174,13 @@ describe('sendData', () => {
 
 	it('should send data if not in sample but forced via hash', () => {
 		window.location.hash = '#forceSendMetrics';
-		coreWebVitals({ browserId, pageViewId });
+		initCoreWebVitals({ browserId, pageViewId });
 
 		expect(sendData()).toBe(true);
 	});
 
 	it('should send data if forced asynchronously', () => {
-		coreWebVitals({ browserId, pageViewId });
+		initCoreWebVitals({ browserId, pageViewId });
 
 		expect(sendData()).toBe(false);
 
@@ -183,7 +189,7 @@ describe('sendData', () => {
 	});
 
 	it('should use PROD URL by default', () => {
-		coreWebVitals({ browserId, pageViewId });
+		initCoreWebVitals({ browserId, pageViewId });
 		forceSendMetrics();
 
 		setLocation('www.theguardian.com');
@@ -195,7 +201,7 @@ describe('sendData', () => {
 	});
 
 	it('should use CODE URL on localhost', () => {
-		coreWebVitals({ browserId, pageViewId });
+		initCoreWebVitals({ browserId, pageViewId });
 		forceSendMetrics();
 
 		setLocation('localhost');
