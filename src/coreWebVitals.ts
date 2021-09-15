@@ -82,7 +82,7 @@ export const initCoreWebVitals = (
 	}: {
 		browserId: string;
 		pageViewId: string;
-		isDev?: boolean;
+		isDev: boolean;
 		forceSendMetrics?: boolean;
 	},
 	metricsSentCallback?: (queued?: boolean) => void,

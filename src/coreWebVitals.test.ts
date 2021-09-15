@@ -69,7 +69,7 @@ describe('coreWebVitals', () => {
 	it('registers callbacks', () => {
 		const mockCallback = jest.fn();
 		initCoreWebVitals(
-			{ browserId: 'abc', pageViewId: '123' },
+			{ browserId: 'abc', pageViewId: '123', isDev: true },
 			mockCallback,
 		);
 
@@ -84,7 +84,7 @@ describe('coreWebVitals', () => {
 	it('only registers pagehide if document is visible', () => {
 		const mockCallback = jest.fn();
 		initCoreWebVitals(
-			{ browserId: 'abc', pageViewId: '123' },
+			{ browserId: 'abc', pageViewId: '123', isDev: true },
 			mockCallback,
 		);
 
@@ -99,7 +99,7 @@ describe('coreWebVitals', () => {
 	it('triggers the callback with `true` if metrics will be sent', () => {
 		const mockCallback = jest.fn();
 		initCoreWebVitals(
-			{ browserId: 'abc', pageViewId: '123' },
+			{ browserId: 'abc', pageViewId: '123', isDev: true },
 			mockCallback,
 		);
 
@@ -113,7 +113,7 @@ describe('coreWebVitals', () => {
 	it('does not trigger a callback if none is passed', () => {
 		const mockCallback = jest.fn(); // won’t be used
 		const mockAddEventListener = jest.spyOn(global, 'addEventListener');
-		initCoreWebVitals({ browserId: 'abc', pageViewId: '123' });
+		initCoreWebVitals({ browserId: 'abc', pageViewId: '123', isDev: true });
 
 		setVisibilityState('hidden');
 		global.dispatchEvent(new Event('visibilitychange'));
@@ -158,45 +158,46 @@ describe('sendData', () => {
 
 	it('should send data if in sample', () => {
 		mockMath.mockReturnValueOnce(0.1 / 100);
-		initCoreWebVitals({ browserId, pageViewId });
+		initCoreWebVitals({ browserId, pageViewId, isDev: true });
 
-		expect(sendData()).toBe(true);
+		expect(sendData(true)).toBe(true);
 	});
 
 	it('should not send data if not in sample', () => {
-		initCoreWebVitals({ browserId, pageViewId });
+		initCoreWebVitals({ browserId, pageViewId, isDev: true });
 
-		expect(sendData()).toBe(false);
+		expect(sendData(true)).toBe(false);
 	});
 
 	it('should send data if not in sample but forced via init', () => {
 		initCoreWebVitals({
 			browserId,
 			pageViewId,
+			isDev: true,
 			forceSendMetrics: true,
 		});
 
-		expect(sendData()).toBe(true);
+		expect(sendData(true)).toBe(true);
 	});
 
 	it('should send data if not in sample but forced via hash', () => {
 		window.location.hash = '#forceSendMetrics';
-		initCoreWebVitals({ browserId, pageViewId });
+		initCoreWebVitals({ browserId, pageViewId, isDev: true });
 
-		expect(sendData()).toBe(true);
+		expect(sendData(true)).toBe(true);
 	});
 
 	it('should send data if forced asynchronously', () => {
-		initCoreWebVitals({ browserId, pageViewId });
+		initCoreWebVitals({ browserId, pageViewId, isDev: true });
 
-		expect(sendData()).toBe(false);
+		expect(sendData(true)).toBe(false);
 
 		forceSendMetrics();
-		expect(sendData()).toBe(true);
+		expect(sendData(true)).toBe(true);
 	});
 
-	it('should use CODE URL by default', () => {
-		initCoreWebVitals({ browserId, pageViewId });
+	it('should use CODE URL if isDev', () => {
+		initCoreWebVitals({ browserId, pageViewId, isDev: true });
 		forceSendMetrics();
 
 		sendData(false);
@@ -207,10 +208,10 @@ describe('sendData', () => {
 	});
 
 	it('should use PROD URL if isDev is false', () => {
-		initCoreWebVitals({ browserId, pageViewId });
+		initCoreWebVitals({ browserId, pageViewId, isDev: false });
 		forceSendMetrics();
 
-		sendData();
+		sendData(true);
 		expect(mockBeacon).toHaveBeenCalledWith(
 			'https://performance-events.code.dev-guardianapis.com/core-web-vitals',
 			expect.any(String),
