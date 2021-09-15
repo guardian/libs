@@ -1,6 +1,6 @@
 import type { Metric, ReportHandler } from 'web-vitals';
 import type { CoreWebVitalsPayload } from './coreWebVitals';
-import { _, forceSendMetrics, initCoreWebVitals } from './coreWebVitals';
+import { _, bypassSampling, initCoreWebVitals } from './coreWebVitals';
 
 const { roundWithDecimals, sendData, resetShouldForceMetrics } = _;
 
@@ -13,6 +13,9 @@ const defaultCoreWebVitalsPayload: CoreWebVitalsPayload = {
 	ttfb: 9.99,
 	cls: 0.01,
 };
+
+const browserId = defaultCoreWebVitalsPayload.browser_id;
+const pageViewId = defaultCoreWebVitalsPayload.page_view_id;
 
 jest.mock('web-vitals', () => ({
 	getTTFB: (onReport: ReportHandler) => {
@@ -50,8 +53,9 @@ jest.mock('web-vitals', () => ({
 const mockBeacon = jest.fn().mockReturnValue(true);
 navigator.sendBeacon = mockBeacon;
 
-const mockMath = jest.spyOn(global.Math, 'random');
-mockMath.mockReturnValue(99 / 100);
+const mockConsoleWarn = jest
+	.spyOn(console, 'warn')
+	.mockImplementation(() => void 0);
 
 const setVisibilityState = (value: VisibilityState = 'visible') => {
 	Object.defineProperty(document, 'visibilityState', {
@@ -69,7 +73,7 @@ describe('coreWebVitals', () => {
 	it('registers callbacks', () => {
 		const mockCallback = jest.fn();
 		initCoreWebVitals(
-			{ browserId: 'abc', pageViewId: '123', isDev: true },
+			{ browserId, pageViewId, isDev: true, sampling: 0 },
 			mockCallback,
 		);
 
@@ -83,44 +87,26 @@ describe('coreWebVitals', () => {
 
 	it('only registers pagehide if document is visible', () => {
 		const mockCallback = jest.fn();
-		initCoreWebVitals(
-			{ browserId: 'abc', pageViewId: '123', isDev: true },
-			mockCallback,
-		);
+		initCoreWebVitals({ browserId, pageViewId, isDev: true }, mockCallback);
 
 		setVisibilityState('visible');
 		global.dispatchEvent(new Event('visibilitychange'));
-		global.dispatchEvent(new Event('pagehide'));
 
-		expect(mockCallback).toBeCalledTimes(1);
-		expect(mockCallback).toBeCalledWith(false);
-	});
-
-	it('triggers the callback with `true` if metrics will be sent', () => {
-		const mockCallback = jest.fn();
-		initCoreWebVitals(
-			{ browserId: 'abc', pageViewId: '123', isDev: true },
-			mockCallback,
-		);
-
-		forceSendMetrics();
-		global.dispatchEvent(new Event('pagehide'));
-
-		expect(mockCallback).toBeCalledTimes(1);
-		expect(mockCallback).toHaveBeenLastCalledWith(true);
+		expect(mockCallback).not.toHaveBeenCalled();
 	});
 
 	it('does not trigger a callback if none is passed', () => {
 		const mockCallback = jest.fn(); // won’t be used
 		const mockAddEventListener = jest.spyOn(global, 'addEventListener');
-		initCoreWebVitals({ browserId: 'abc', pageViewId: '123', isDev: true });
+		initCoreWebVitals({ browserId, pageViewId, isDev: true });
 
 		setVisibilityState('hidden');
 		global.dispatchEvent(new Event('visibilitychange'));
 		global.dispatchEvent(new Event('pagehide'));
 
-		expect(mockCallback).not.toHaveBeenCalled();
 		expect(mockAddEventListener).toHaveBeenCalledTimes(2);
+
+		expect(mockCallback).not.toHaveBeenCalled();
 	});
 });
 
@@ -153,12 +139,8 @@ describe('sendData', () => {
 		resetShouldForceMetrics();
 	});
 
-	const browserId = String(defaultCoreWebVitalsPayload.browser_id);
-	const pageViewId = String(defaultCoreWebVitalsPayload.page_view_id);
-
 	it('should send data if in sample', () => {
-		mockMath.mockReturnValueOnce(0.1 / 100);
-		initCoreWebVitals({ browserId, pageViewId, isDev: true });
+		initCoreWebVitals({ browserId, pageViewId, isDev: true, sampling: 1 });
 
 		expect(sendData(true)).toBe(true);
 	});
@@ -169,36 +151,51 @@ describe('sendData', () => {
 		expect(sendData(true)).toBe(false);
 	});
 
-	it('should send data if not in sample but forced via init', () => {
+	it('should send data if sampling at 0% but bypassed at init', () => {
 		initCoreWebVitals({
 			browserId,
 			pageViewId,
 			isDev: true,
-			forceSendMetrics: true,
+			sampling: 0,
+			bypassSampling: true,
 		});
 
 		expect(sendData(true)).toBe(true);
 	});
 
-	it('should send data if not in sample but forced via hash', () => {
-		window.location.hash = '#forceSendMetrics';
-		initCoreWebVitals({ browserId, pageViewId, isDev: true });
+	it('should send data if sampling at 0% but bypassed via hash', () => {
+		window.location.hash = '#bypassSampling';
+
+		initCoreWebVitals({
+			browserId,
+			pageViewId,
+			isDev: true,
+			sampling: 0,
+			bypassSampling: false,
+		});
 
 		expect(sendData(true)).toBe(true);
 	});
 
-	it('should send data if forced asynchronously', () => {
-		initCoreWebVitals({ browserId, pageViewId, isDev: true });
+	it('should send data if sampling at 0% but bypassed asynchronously', () => {
+		initCoreWebVitals({
+			browserId,
+			pageViewId,
+			isDev: true,
+			sampling: 0,
+			bypassSampling: false,
+		});
 
 		expect(sendData(true)).toBe(false);
 
-		forceSendMetrics();
+		bypassSampling();
+
 		expect(sendData(true)).toBe(true);
 	});
 
 	it('should use CODE URL if isDev', () => {
-		initCoreWebVitals({ browserId, pageViewId, isDev: true });
-		forceSendMetrics();
+		initCoreWebVitals({ browserId, pageViewId, isDev: true, sampling: 1 });
+		bypassSampling();
 
 		sendData(false);
 		expect(mockBeacon).toHaveBeenCalledWith(
@@ -208,8 +205,12 @@ describe('sendData', () => {
 	});
 
 	it('should use PROD URL if isDev is false', () => {
-		initCoreWebVitals({ browserId, pageViewId, isDev: false });
-		forceSendMetrics();
+		initCoreWebVitals({
+			browserId,
+			pageViewId,
+			isDev: false,
+			sampling: 1,
+		});
 
 		sendData(true);
 		expect(mockBeacon).toHaveBeenCalledWith(

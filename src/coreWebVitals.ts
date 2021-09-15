@@ -22,7 +22,7 @@ const coreWebVitalsPayload: CoreWebVitalsPayload = {
 };
 
 let shouldSendMetrics = false;
-export const forceSendMetrics = (): void => {
+export const bypassSampling = (): void => {
 	shouldSendMetrics = true;
 };
 
@@ -31,7 +31,13 @@ const roundWithDecimals = (value: number, precision = 6): number => {
 	return Math.round(value * power) / power;
 };
 
-const sendData = (isDev = true): boolean => {
+/**
+ * Send the Core Web Vitals payload to our logging endpoint.
+ *
+ * @param isDev - whether the CODE of PROD endpoint will be used
+ * @returns {boolean} - `true` if the metrics are queued for sending. `false` otherwise
+ */
+const sendData = (isDev: boolean): boolean => {
 	if (!shouldSendMetrics || coreWebVitalsPayload.fcp === null) return false;
 
 	const endpoint = isDev
@@ -66,37 +72,55 @@ const onReport: ReportHandler = (metric) => {
 	}
 };
 
+type InitCoreWebVitalsOptions = {
+	browserId?: string | null;
+	pageViewId?: string | null;
+	isDev: boolean;
+	sampling?: number;
+	bypassSampling?: boolean;
+};
+
 /**
  * Initialise sending Core Web Vitals metrics to a logging endpoint.
  *
  * @param init - the initialisation options
- * @param init.isDev - Whether to log to CODE or PROD endpoints
+ * @param init.isDev - used to determine whether to use CODE or PROD endpoints.
+ * @param init.browserId - identifies the browser. Usually available via `getCookie('bwid')`.
+ * @param init.pageViewId - identifies the page view. Usually available on `guardian.config.page.pageViewId`.
  * @param metricsSentCallback - Optional callback, triggered after metrics are queued for sending
  */
 export const initCoreWebVitals = (
 	{
-		browserId,
-		pageViewId,
-		forceSendMetrics = false,
+		browserId = null,
+		pageViewId = null,
+		bypassSampling = false,
+		sampling = 1 / 100, // 1% of page view by default
 		isDev,
-	}: {
-		browserId: string;
-		pageViewId: string;
-		isDev: boolean;
-		forceSendMetrics?: boolean;
-	},
+	}: InitCoreWebVitalsOptions,
 	metricsSentCallback?: (queued?: boolean) => void,
 ): void => {
 	coreWebVitalsPayload.browser_id = browserId;
 	coreWebVitalsPayload.page_view_id = pageViewId;
 
-	// By default, sample 1% of page views
-	const pageViewInSample = Math.random() < 1 / 100;
+	if (!browserId || !pageViewId)
+		console.warn(
+			'browserId or pageViewId missing from Core Web Vitals.',
+			'Resulting data cannot be joined to page view tables',
+			{ browserId, pageViewId },
+		);
+
+	if (sampling < 0 || sampling > 1)
+		console.warn('Core Web Vitals sampling is outside the 0 to 1 range');
+	if (sampling === 0) console.warn('Core Web Vitals are sampled at 0%');
+	if (sampling === 1) console.warn('Core Web Vitals are sampled at 100%');
+
+	// By default, sample a percentage of page views
+	const pageViewInSample = Math.random() < sampling;
 	// Unless we are forcing sending metrics for this page view
-	// via initialisation or calling forceSendMetrics()
-	if (forceSendMetrics || pageViewInSample) shouldSendMetrics = true;
+	// via initialisation or calling bypassSampling()
+	if (bypassSampling || pageViewInSample) shouldSendMetrics = true;
 	// Or using a specific hash
-	if (window.location.hash === '#forceSendMetrics') shouldSendMetrics = true;
+	if (window.location.hash === '#bypassSampling') shouldSendMetrics = true;
 
 	getCLS(onReport, false);
 	getFID(onReport);
