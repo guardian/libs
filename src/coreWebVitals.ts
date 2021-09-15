@@ -110,7 +110,10 @@ export const initCoreWebVitals = (
 		);
 
 	if (sampling < 0 || sampling > 1)
-		console.warn('Core Web Vitals sampling is outside the 0 to 1 range');
+		console.warn(
+			'Core Web Vitals sampling is outside the 0 to 1 range: ',
+			sampling,
+		);
 	if (sampling === 0) console.warn('Core Web Vitals are sampled at 0%');
 	if (sampling === 1) console.warn('Core Web Vitals are sampled at 100%');
 

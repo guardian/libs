@@ -132,6 +132,82 @@ describe('roundWithDecimals', () => {
 	});
 });
 
+describe('Warnings', () => {
+	it('should warn if browserId is missing', () => {
+		initCoreWebVitals({ pageViewId, isDev: true });
+
+		expect(mockConsoleWarn).toHaveBeenCalledWith(
+			'browserId or pageViewId missing from Core Web Vitals.',
+			expect.any(String),
+			expect.objectContaining({ browserId: null }),
+		);
+	});
+
+	it('should warn if pageViewId is missing', () => {
+		initCoreWebVitals({ browserId, isDev: true });
+
+		expect(mockConsoleWarn).toHaveBeenCalledWith(
+			'browserId or pageViewId missing from Core Web Vitals.',
+			expect.any(String),
+			expect.objectContaining({ pageViewId: null }),
+		);
+	});
+
+	it('should warn if sampling is below 0', () => {
+		initCoreWebVitals({
+			browserId,
+			pageViewId,
+			isDev: true,
+			sampling: -0.1,
+		});
+
+		expect(mockConsoleWarn).toHaveBeenCalledWith(
+			'Core Web Vitals sampling is outside the 0 to 1 range: ',
+			-0.1,
+		);
+	});
+
+	it('should warn if sampling is above 1', () => {
+		initCoreWebVitals({
+			browserId,
+			pageViewId,
+			isDev: true,
+			sampling: 1.1,
+		});
+
+		expect(mockConsoleWarn).toHaveBeenCalledWith(
+			'Core Web Vitals sampling is outside the 0 to 1 range: ',
+			1.1,
+		);
+	});
+
+	it('should warn if sampling is above at 0%', () => {
+		initCoreWebVitals({
+			browserId,
+			pageViewId,
+			isDev: true,
+			sampling: 0,
+		});
+
+		expect(mockConsoleWarn).toHaveBeenCalledWith(
+			'Core Web Vitals are sampled at 0%',
+		);
+	});
+
+	it('should warn if sampling is above at 100%', () => {
+		initCoreWebVitals({
+			browserId,
+			pageViewId,
+			isDev: true,
+			sampling: 1,
+		});
+
+		expect(mockConsoleWarn).toHaveBeenCalledWith(
+			'Core Web Vitals are sampled at 100%',
+		);
+	});
+});
+
 describe('sendData', () => {
 	beforeEach(() => {
 		jest.resetModules();
