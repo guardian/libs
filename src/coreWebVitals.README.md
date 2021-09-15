@@ -18,39 +18,65 @@ const optionalCallback = () => {
     log('dotcom', 'CWV payload queued for async request')
 }
 
-initCoreWebVitals({
-    browserId,
-    pageViewId,
-    isDev, // will decide whether to use PROD or CODE enpoints
-}, optionalCallback)
+// browserId & pageViewId are needed to join up the data downstream.
+const init: InitCoreWebVitalsOptions = {
+    browserId : getCookie('bwid'),
+    pageViewId: guardian.ophan.pageViewId,
+
+    // Whether to use CODE or PROD endpoints.
+    isDev: window.location.hostname !== 'www.theguardian.com',
+}
+
+initCoreWebVitals(init, optionalCallback)
 ```
 
-### `init.forceSendMetrics`
+### `init.sampling`
 
-Allows to set at initialisation whether metrics should be sent
-for this page view.
+Sets a sampling rate for which to send data to the logging endpoint.
+
+Defaults to `0.01` (1%).
 
 ```ts
-const init = {
-    browserId: 'abc',
-    pageViewId: '123',
+const init: InitCoreWebVitalsOptions = {
     isDev: false,
-    forceSendMetrics: isInSeverSideTest(),
+
+    // Send data for 20% of page views. Inform Data Tech team about expected
+    // spikes in data ingestion
+    sampling: 20 / 100,
 }
 
 initCoreWebVitals(init)
 ```
 
-### `forceSendMetrics`
+### `init.bypassSampling`
 
-Allows to set after initialisation whether metrics should be sent
-for this page view.
+Allows to set at initialisation whether to bypass the sampling rate.
+If `true`, this is equivalent for setting the sampling to 100%.
+Typical use case is checking whether a page view is part of an experiment.
+
+Defaults to `false`.
+
+```ts
+const init: InitCoreWebVitalsOptions = {
+    isDev: false,
+
+    // capture metrics for all page views in experiment group
+    bypassSampling: isInExperiment(),
+}
+
+initCoreWebVitals(init)
+```
+
+### `bypassSampling`
+
+Allows to asynchronously bypass the sampling rate.
 
 ```ts
 /* … after having called initCoreWebVitals() … */
 
-addEventListener('some-event-which-should track pageviews', () => {
-    forceSendMetrics(); // metrics will be sent when the user leaves the page
+addEventListener('some-event', () => {
+    // Metrics will be sent for all page views where `some-event` was triggered
+    bypassSampling();
 })
 ```
 
@@ -68,5 +94,19 @@ type CoreWebVitalsPayload = {
 	lcp: null | number;
 	fcp: null | number;
 	ttfb: null | number;
+};
+```
+
+### `InitCoreWebVitalsOptions`
+
+```ts
+type InitCoreWebVitalsOptions = {
+	isDev: boolean;
+
+	browserId?: string | null;
+	pageViewId?: string | null;
+
+	sampling?: number;
+	bypassSampling?: boolean;
 };
 ```

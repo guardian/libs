@@ -73,9 +73,11 @@ const onReport: ReportHandler = (metric) => {
 };
 
 type InitCoreWebVitalsOptions = {
+	isDev: boolean;
+
 	browserId?: string | null;
 	pageViewId?: string | null;
-	isDev: boolean;
+
 	sampling?: number;
 	bypassSampling?: boolean;
 };
@@ -85,8 +87,12 @@ type InitCoreWebVitalsOptions = {
  *
  * @param init - the initialisation options
  * @param init.isDev - used to determine whether to use CODE or PROD endpoints.
- * @param init.browserId - identifies the browser. Usually available via `getCookie('bwid')`.
- * @param init.pageViewId - identifies the page view. Usually available on `guardian.config.page.pageViewId`.
+ * @param init.browserId - identifies the browser. Usually available via `getCookie('bwid')`. Defaults to `null`
+ * @param init.pageViewId - identifies the page view. Usually available on `guardian.ophan.pageViewId`. Defaults to `null`
+ *
+ * @param init.sampling - sampling rate for sending data. Defaults to `0.01`.
+ * @param init.bypassSampling - send data regardless of sampling rate. Defaults to `false`.
+ *
  * @param metricsSentCallback - Optional callback, triggered after metrics are queued for sending
  */
 export const initCoreWebVitals = (
