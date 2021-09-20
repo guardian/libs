@@ -25,7 +25,6 @@ class StorageFactory {
 
 	/* eslint-disable
 		@typescript-eslint/no-unsafe-assignment,
-		@typescript-eslint/no-unsafe-return,
 		@typescript-eslint/no-explicit-any
 		--
 		- we're using the `try` to handle anything bad happening
@@ -55,7 +54,6 @@ class StorageFactory {
 	}
 	/* eslint-enable
 		@typescript-eslint/no-unsafe-assignment,
-		@typescript-eslint/no-unsafe-return,
 		@typescript-eslint/no-explicit-any
 	*/
 
