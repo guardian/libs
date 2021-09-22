@@ -3,8 +3,9 @@
 Reports on Core Web Vitals using Google’s [`web-vitals`] library, and send the
 metrics to an logging endpoint when the user leaves the page.
 
-By default, only 1% of page views will the data, but it’s possible to force this
-behaviour at initialisation or asynchronously.
+By default, a sampling rate is set at 1% for which the data will be sent,
+but it’s possible to set and bypass this sampling, either at initialisation
+or asynchronously.
 
 [`web-vitals`]: https://github.com/GoogleChrome/web-vitals
 
