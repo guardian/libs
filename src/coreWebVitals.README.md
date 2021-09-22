@@ -14,9 +14,9 @@ or asynchronously.
 ```js
 import { initCoreWebVitals } from '@guardian/libs';
 
-const optionalCallback = () => {
+const optionalCallback = (queued) => {
     // An optional callback which triggers when the user leaves the page
-    log('dotcom', 'CWV payload queued for async request')
+    log('dotcom', `CWV payload ${queued ? 'queued' : 'not queued'} for async request`)
 }
 
 // browserId & pageViewId are needed to join up the data downstream.
