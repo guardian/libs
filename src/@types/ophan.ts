@@ -34,7 +34,11 @@ type OphanAction =
 	| 'SUBSCRIBE'
 	| 'ANSWER'
 	| 'VOTE'
-	| 'CLICK';
+	| 'CLICK'
+	| 'ACCEPT_DEFAULT_CONSENT'
+	| 'MANAGE_CONSENT'
+	| 'CONSENT_ACCEPT_ALL'
+	| 'CONSENT_REJECT_ALL';
 
 type OphanComponentType =
 	| 'READERS_QUESTIONS_ATOM'
@@ -58,7 +62,8 @@ type OphanComponentType =
 	| 'ACQUISITIONS_OTHER'
 	| 'SIGN_IN_GATE'
 	| 'RETENTION_ENGAGEMENT_BANNER'
-	| 'RETENTION_EPIC';
+	| 'RETENTION_EPIC'
+	| 'CONSENT';
 
 type OphanComponent = {
 	componentType: OphanComponentType;

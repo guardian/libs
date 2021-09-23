@@ -2,6 +2,8 @@
 
 Types related to Ophan.
 
+Ophan has an official type system described in [thrift](https://github.com/guardian/ophan/tree/abb022b43a1fa3922a6cf24478c4a8982cd13b79/event-model/src/main/thrift). In particular, updates in [componentevent.thrift](https://github.com/guardian/ophan/blob/abb022b43a1fa3922a6cf24478c4a8982cd13b79/event-model/src/main/thrift/componentevent.thrift) should be mirrored in this repository.
+
 ## Example
 
 ```js
