@@ -27,9 +27,11 @@ jobs:
 
       - name: Setup node
         uses: guardian/actions-setup-node@main
+        with:
+          cache: 'yarn'
 
       - name: Install dependencies
-        uses: bahmutov/npm-install@v1
+        run: yarn install --frozen-lockfile
 
       - name: Run unit tests
         run: 'yarn test --coverage --ci'
@@ -48,9 +50,11 @@ jobs:
 
       - name: Setup node
         uses: guardian/actions-setup-node@main
+        with:
+          cache: 'yarn'
 
       - name: Install dependencies
-        uses: bahmutov/npm-install@v1
+        run: yarn install --frozen-lockfile
 
       - name: Lint files
         run: yarn lint
@@ -64,9 +68,11 @@ jobs:
 
       - name: Setup node
         uses: guardian/actions-setup-node@main
+        with:
+          cache: 'yarn'
 
       - name: Install dependencies
-        uses: bahmutov/npm-install@v1
+        run: yarn install --frozen-lockfile
 
       - name: Check types
         run: yarn tsc
@@ -80,9 +86,11 @@ jobs:
 
       - name: Setup node
         uses: guardian/actions-setup-node@main
+        with:
+          cache: 'yarn'
 
       - name: Install dependencies
-        uses: bahmutov/npm-install@v1
+        run: yarn install --frozen-lockfile
 
       - name: Build package
         run: yarn build
@@ -107,9 +115,11 @@ jobs:
 
       - name: Setup node
         uses: guardian/actions-setup-node@main
+        with:
+          cache: 'yarn'
 
       - name: Install dependencies
-        uses: bahmutov/npm-install@v1
+        run: yarn install --frozen-lockfile
 
       - name: Fetch build
         uses: actions/download-artifact@v2
