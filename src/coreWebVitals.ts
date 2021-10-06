@@ -129,7 +129,7 @@ export const initCoreWebVitals = (
 	// via initialisation or calling bypassSampling()
 	if (bypassSampling || pageViewInSample) shouldSendMetrics = true;
 	// Or using a specific hash
-	if (window.location.hash === '#bypassSampling') shouldSendMetrics = true;
+	if (window.location.hash === '#bypassCVWSampling') shouldSendMetrics = true;
 
 	getCLS(onReport, false);
 	getFID(onReport);
