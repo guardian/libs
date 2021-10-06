@@ -240,7 +240,7 @@ describe('sendData', () => {
 	});
 
 	it('should send data if sampling at 0% but bypassed via hash', () => {
-		window.location.hash = '#bypassSampling';
+		window.location.hash = '#bypassCWVSampling';
 
 		initCoreWebVitals({
 			browserId,
