@@ -139,7 +139,7 @@ describe('coreWebVitals', () => {
 	});
 
 	it('only registers pagehide if document is visible', () => {
-		initCoreWebVitals({ browserId, pageViewId, isDev: true });
+		initCoreWebVitals({ browserId, pageViewId, isDev: true, sampling: 1 });
 
 		setVisibilityState('visible');
 		global.dispatchEvent(new Event('visibilitychange'));
@@ -183,6 +183,17 @@ describe('Warnings', () => {
 			'initCoreWebVitals already initialised',
 			expect.any(String),
 		);
+	});
+
+	it('expect to be initialised before calling bypassCoreWebVitalsSampling', () => {
+		bypassCoreWebVitalsSampling();
+
+		expect(mockConsoleWarn).toHaveBeenCalledWith(
+			'initCoreWebVitals not yet initialised',
+		);
+
+		global.dispatchEvent(new Event('pagehide'));
+		expect(mockBeacon).not.toHaveBeenCalled();
 	});
 
 	it('should warn if browserId is missing', () => {
@@ -293,6 +304,7 @@ describe('Endpoints', () => {
 describe('Logging', () => {
 	beforeEach(() => {
 		reset();
+		setVisibilityState();
 	});
 
 	it('should log for every team that registered', () => {
@@ -319,6 +331,32 @@ describe('Logging', () => {
 			3,
 			'commercial',
 			expect.stringContaining('successfully'),
+		);
+	});
+
+	it('should log a failure if it happens', () => {
+		const mockAddEventListener = jest.spyOn(global, 'addEventListener');
+		const isDev = true;
+		const sampling = 100 / 100;
+		initCoreWebVitals({
+			browserId,
+			pageViewId,
+			isDev,
+			sampling,
+			team: 'dotcom',
+		});
+
+		mockBeacon.mockReturnValueOnce(false);
+
+		setVisibilityState('hidden');
+		global.dispatchEvent(new Event('visibilitychange'));
+
+		expect(mockAddEventListener).toHaveBeenCalledTimes(2);
+
+		expect(spyLog).toHaveBeenCalledTimes(1);
+		expect(spyLog).toHaveBeenLastCalledWith(
+			'dotcom',
+			expect.stringContaining('Failed to queue'),
 		);
 	});
 });

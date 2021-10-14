@@ -93,14 +93,15 @@ const onReport: ReportHandler = (metric) => {
 	}
 };
 
-type InitCoreWebVitalsOptions = {
-	isDev: boolean;
-
-	browserId?: string | null;
-	pageViewId?: string | null;
-
-	sampling?: number;
-	team?: TeamName;
+const listener = (e: Event): void => {
+	switch (e.type) {
+		case 'visibilitychange':
+			if (document.visibilityState === 'hidden') sendData();
+			return;
+		case 'pagehide':
+			sendData();
+			return;
+	}
 };
 
 const getCoreWebVitals = (): void => {
@@ -111,16 +112,20 @@ const getCoreWebVitals = (): void => {
 	getTTFB(onReport);
 
 	// Report all available metrics when the page is unloaded or in background.
-	addEventListener('visibilitychange', () => {
-		if (document.visibilityState === 'hidden') {
-			sendData();
-		}
-	});
+	addEventListener('visibilitychange', listener);
 
 	// Safari does not reliably fire the `visibilitychange` on page unload.
-	addEventListener('pagehide', () => {
-		sendData();
-	});
+	addEventListener('pagehide', listener);
+};
+
+type InitCoreWebVitalsOptions = {
+	isDev: boolean;
+
+	browserId?: string | null;
+	pageViewId?: string | null;
+
+	sampling?: number;
+	team?: TeamName;
 };
 
 /**
@@ -197,6 +202,7 @@ export const initCoreWebVitals = ({
 export const _ = {
 	roundWithDecimals,
 	coreWebVitalsPayload,
+	sendData,
 	reset: (): void => {
 		initialised = false;
 		teamsForLogging.clear();
@@ -204,6 +210,8 @@ export const _ = {
 		Object.keys(coreWebVitalsPayload).map((key) => {
 			coreWebVitalsPayload[key as keyof CoreWebVitalsPayload] = null;
 		});
+		removeEventListener('visibilitychange', listener);
+		removeEventListener('pagehide', listener);
 	},
 	Endpoints,
 };
