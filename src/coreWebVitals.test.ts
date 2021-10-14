@@ -360,3 +360,22 @@ describe('Logging', () => {
 		);
 	});
 });
+
+describe('web-vitals', () => {
+	beforeEach(() => {
+		reset();
+		setVisibilityState();
+	});
+
+	it('should not send data if FCP is null', () => {
+		const isDev = true;
+		initCoreWebVitals({ browserId, pageViewId, isDev, sampling: 1 });
+
+		_.coreWebVitalsPayload.fcp = null; // simulate a failing FCP
+
+		setVisibilityState('hidden');
+		global.dispatchEvent(new Event('visibilitychange'));
+
+		expect(mockBeacon).not.toHaveBeenCalled();
+	});
+});

@@ -49,8 +49,6 @@ const sendData = (): void => {
 	// So we’re not sending anything.
 	if (coreWebVitalsPayload.fcp === null) return;
 
-	if (!endpoint.startsWith('https://')) return;
-
 	queued = navigator.sendBeacon(
 		endpoint,
 		JSON.stringify(coreWebVitalsPayload),
