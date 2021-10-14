@@ -289,3 +289,36 @@ describe('Endpoints', () => {
 		);
 	});
 });
+
+describe('Logging', () => {
+	beforeEach(() => {
+		reset();
+	});
+
+	it('should log for every team that registered', () => {
+		const isDev = true;
+		initCoreWebVitals({ browserId, pageViewId, isDev, team: 'dotcom' });
+		bypassCoreWebVitalsSampling('design');
+		bypassCoreWebVitalsSampling('commercial');
+
+		setVisibilityState('hidden');
+		global.dispatchEvent(new Event('visibilitychange'));
+
+		expect(spyLog).toHaveBeenCalledTimes(3);
+		expect(spyLog).nthCalledWith(
+			1,
+			'dotcom',
+			expect.stringContaining('successfully'),
+		);
+		expect(spyLog).nthCalledWith(
+			2,
+			'design',
+			expect.stringContaining('successfully'),
+		);
+		expect(spyLog).nthCalledWith(
+			3,
+			'commercial',
+			expect.stringContaining('successfully'),
+		);
+	});
+});

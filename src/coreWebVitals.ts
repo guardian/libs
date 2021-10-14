@@ -42,7 +42,7 @@ const setEndpoint = (isDev: boolean) => {
 };
 
 let queued = false;
-const sendData = (team?: TeamName): void => {
+const sendData = (): void => {
 	if (queued) return;
 
 	// If we’re missing FCP, the data is unusable in the lake,
@@ -56,7 +56,7 @@ const sendData = (team?: TeamName): void => {
 		JSON.stringify(coreWebVitalsPayload),
 	);
 
-	if (team) {
+	if (teamsForLogging.size > 0) {
 		teamsForLogging.forEach((team) => {
 			log(
 				team,
