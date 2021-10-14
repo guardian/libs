@@ -373,10 +373,10 @@
     sort-keys "^4.2.0"
     sort-package-json "1.48.1"
 
-"@guardian/prettier@0.6.0":
-  version "0.6.0"
-  resolved "https://registry.yarnpkg.com/@guardian/prettier/-/prettier-0.6.0.tgz#b3dcbef0e2a9232d2afe04dff075426b2939f44e"
-  integrity sha512-RN8GBRth5BXHoWymCZIYDbmZM8DkUbgecf+wyv+9hdXA/ad4Ob4qP9u/ARU689qMo+JSC1z3FRKelvkkjtYzJw==
+"@guardian/prettier@0.7.0":
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/@guardian/prettier/-/prettier-0.7.0.tgz#360256e1cb77cba2873ceb1317484956d96039b7"
+  integrity sha512-1FPQ3QDbb5lPcOKJJy0aU6lU9h9CSe91FI4J9ZZ6Qc9Ewb2XS5VL1eX2df2YJOGZ+nXo90Q/YG7+LUUYtcQKKw==
 
 "@humanwhocodes/config-array@^0.5.0":
   version "0.5.0"
@@ -5585,10 +5585,10 @@ prettier-linter-helpers@^1.0.0:
   dependencies:
     fast-diff "^1.1.2"
 
-prettier@2.3.2, prettier@^2.2.1:
-  version "2.3.2"
-  resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.3.2.tgz#ef280a05ec253712e486233db5c6f23441e7342d"
-  integrity sha512-lnJzDfJ66zkMy58OL5/NY5zp70S7Nz6KqcKkXYzn2tMVrNxvbqaBpg7H3qHaLxCJ5lNMsGuM8+ohS7cZrthdLQ==
+prettier@2.4.1, prettier@^2.2.1:
+  version "2.4.1"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.4.1.tgz#671e11c89c14a4cfc876ce564106c4a6726c9f5c"
+  integrity sha512-9fbDAXSBcc6Bs1mZrDYb3XKzDLm4EXXL9sC1LqKP5rZkT6KRr/rf9amVUcODVXgguK/isJz0d0hP72WeaKWsvA==
 
 pretty-bytes@^5.3.0:
   version "5.6.0"
