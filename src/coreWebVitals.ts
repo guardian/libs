@@ -1,5 +1,12 @@
 import type { ReportHandler } from 'web-vitals';
 import { getCLS, getFCP, getFID, getLCP, getTTFB } from 'web-vitals';
+import type { TeamName } from './logger';
+import { log } from './logger';
+
+enum Endpoints {
+	PROD = 'https://performance-events.guardianapis.com/core-web-vitals',
+	CODE = 'https://performance-events.code.dev-guardianapis.com/core-web-vitals',
+}
 
 export type CoreWebVitalsPayload = {
 	page_view_id: string | null;
@@ -21,30 +28,44 @@ const coreWebVitalsPayload: CoreWebVitalsPayload = {
 	ttfb: null,
 };
 
-let shouldSendMetrics = false;
-export const bypassSampling = (): void => {
-	shouldSendMetrics = true;
-};
+const teamsForLogging: Set<TeamName> = new Set();
+let endpoint: Endpoints;
+let initialised = false;
 
 const roundWithDecimals = (value: number, precision = 6): number => {
 	const power = Math.pow(10, precision);
 	return Math.round(value * power) / power;
 };
 
-/**
- * Send the Core Web Vitals payload to our logging endpoint.
- *
- * @param isDev - whether the CODE of PROD endpoint will be used
- * @returns {boolean} - `true` if the metrics are queued for sending. `false` otherwise
- */
-const sendData = (isDev: boolean): boolean => {
-	if (!shouldSendMetrics || coreWebVitalsPayload.fcp === null) return false;
+const setEndpoint = (isDev: boolean) => {
+	endpoint = isDev ? Endpoints.CODE : Endpoints.PROD;
+};
 
-	const endpoint = isDev
-		? 'https://performance-events.code.dev-guardianapis.com/core-web-vitals'
-		: 'https://performance-events.guardianapis.com/core-web-vitals';
+let queued = false;
+const sendData = (team?: TeamName): void => {
+	if (queued) return;
 
-	return navigator.sendBeacon(endpoint, JSON.stringify(coreWebVitalsPayload));
+	// If we’re missing FCP, the data is unusable in the lake,
+	// So we’re not sending anything.
+	if (coreWebVitalsPayload.fcp === null) return;
+
+	if (!endpoint.startsWith('https://')) return;
+
+	queued = navigator.sendBeacon(
+		endpoint,
+		JSON.stringify(coreWebVitalsPayload),
+	);
+
+	if (team) {
+		teamsForLogging.forEach((team) => {
+			log(
+				team,
+				queued
+					? 'Core Web Vitals payload successfully queued for transfer'
+					: 'Failed to queue Core Web Vitals payload for transfer',
+			);
+		});
+	}
 };
 
 const onReport: ReportHandler = (metric) => {
@@ -79,7 +100,40 @@ type InitCoreWebVitalsOptions = {
 	pageViewId?: string | null;
 
 	sampling?: number;
-	bypassSampling?: boolean;
+	team?: TeamName;
+};
+
+const getCoreWebVitals = (): void => {
+	getCLS(onReport, false);
+	getFID(onReport);
+	getLCP(onReport);
+	getFCP(onReport);
+	getTTFB(onReport);
+
+	// Report all available metrics when the page is unloaded or in background.
+	addEventListener('visibilitychange', () => {
+		if (document.visibilityState === 'hidden') {
+			sendData();
+		}
+	});
+
+	// Safari does not reliably fire the `visibilitychange` on page unload.
+	addEventListener('pagehide', () => {
+		sendData();
+	});
+};
+
+/**
+ * A method to asynchronously send web vitals after initialization.
+ * @param team - Optional team to trigger a log event once metrics are queued.
+ */
+export const bypassCoreWebVitalsSampling = (team?: TeamName): void => {
+	if (!initialised) {
+		console.warn('initCoreWebVitals not yet initialised');
+		return;
+	}
+	if (team) teamsForLogging.add(team);
+	getCoreWebVitals();
 };
 
 /**
@@ -87,24 +141,34 @@ type InitCoreWebVitalsOptions = {
  *
  * @param init - the initialisation options
  * @param init.isDev - used to determine whether to use CODE or PROD endpoints.
- * @param init.browserId - identifies the browser. Usually available via `getCookie('bwid')`. Defaults to `null`
+ * @param init.browserId - identifies the browser. Usually available via `getCookie({ name: 'bwid' })`. Defaults to `null`
  * @param init.pageViewId - identifies the page view. Usually available on `guardian.ophan.pageViewId`. Defaults to `null`
  *
  * @param init.sampling - sampling rate for sending data. Defaults to `0.01`.
- * @param init.bypassSampling - send data regardless of sampling rate. Defaults to `false`.
  *
- * @param metricsSentCallback - Optional callback, triggered after metrics are queued for sending
+ * @param team - Optional team to trigger a log event once metrics are queued.
  */
-export const initCoreWebVitals = (
-	{
-		browserId = null,
-		pageViewId = null,
-		bypassSampling = false,
-		sampling = 1 / 100, // 1% of page view by default
-		isDev,
-	}: InitCoreWebVitalsOptions,
-	metricsSentCallback?: (queued?: boolean) => void,
-): void => {
+export const initCoreWebVitals = ({
+	browserId = null,
+	pageViewId = null,
+	sampling = 1 / 100, // 1% of page view by default
+	isDev,
+	team,
+}: InitCoreWebVitalsOptions): void => {
+	if (initialised) {
+		console.warn(
+			'initCoreWebVitals already initialised',
+			'use the bypassCoreWebVitalsSampling method instead',
+		);
+		return;
+	}
+
+	initialised = true;
+
+	if (team) teamsForLogging.add(team);
+
+	setEndpoint(isDev);
+
 	coreWebVitalsPayload.browser_id = browserId;
 	coreWebVitalsPayload.page_view_id = pageViewId;
 
@@ -123,38 +187,23 @@ export const initCoreWebVitals = (
 	if (sampling === 0) console.warn('Core Web Vitals are sampled at 0%');
 	if (sampling === 1) console.warn('Core Web Vitals are sampled at 100%');
 
-	// By default, sample a percentage of page views
 	const pageViewInSample = Math.random() < sampling;
-	// Unless we are forcing sending metrics for this page view
-	// via initialisation or calling bypassSampling()
-	if (bypassSampling || pageViewInSample) shouldSendMetrics = true;
-	// Or using a specific hash
-	if (window.location.hash === '#bypassCWVSampling') shouldSendMetrics = true;
+	const bypassWithHash =
+		window.location.hash === '#bypassCoreWebVitalsSampling';
 
-	getCLS(onReport, false);
-	getFID(onReport);
-	getLCP(onReport);
-	getFCP(onReport);
-	getTTFB(onReport);
-
-	// Report all available metrics when the page is backgrounded or unloaded.
-	addEventListener('visibilitychange', () => {
-		if (document.visibilityState === 'hidden') {
-			const queued = sendData(isDev);
-			if (metricsSentCallback) metricsSentCallback(queued);
-		}
-	});
-	// Safari does not reliably fire the `visibilitychange` on page unload.
-	addEventListener('pagehide', () => {
-		const queued = sendData(isDev);
-		if (metricsSentCallback) metricsSentCallback(queued);
-	});
+	if (pageViewInSample || bypassWithHash) getCoreWebVitals();
 };
 
 export const _ = {
 	roundWithDecimals,
-	sendData,
-	resetShouldForceMetrics: (): void => {
-		shouldSendMetrics = false;
+	coreWebVitalsPayload,
+	reset: (): void => {
+		initialised = false;
+		teamsForLogging.clear();
+		queued = false;
+		Object.keys(coreWebVitalsPayload).map((key) => {
+			coreWebVitalsPayload[key as keyof CoreWebVitalsPayload] = null;
+		});
 	},
+	Endpoints,
 };
