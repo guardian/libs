@@ -17,7 +17,7 @@ import { initCoreWebVitals, getCookie } from '@guardian/libs';
 // browserId & pageViewId are needed to join up the data downstream.
 const init: InitCoreWebVitalsOptions = {
     browserId : getCookie({ name: 'bwid', shouldMemoize: true}),
-    pageViewId: guardian.ophan.pageViewId,
+    pageViewId: guardian.ophan.config.pageViewId,
 
     // Whether to use CODE or PROD endpoints.
     isDev: window.location.hostname !== 'www.theguardian.com',
