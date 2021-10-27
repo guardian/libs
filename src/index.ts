@@ -6,6 +6,10 @@ export {
 	setCookie,
 	setSessionCookie,
 } from './cookies';
+export {
+	initCoreWebVitals,
+	bypassCoreWebVitalsSampling,
+} from './coreWebVitals';
 export type { Country } from './countries';
 export { countries, getCountryByCountryCode } from './countries';
 export type { CountryCode } from './@types/countries';
