@@ -2,3 +2,5 @@
 # please add yourself in a PR
 
 * @guardian/client-side-infra @gtrufitt
+
+src/coreWebVitals*  @guardian/guardian-frontend-team @guardian/commercial-dev
