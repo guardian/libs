@@ -36,7 +36,7 @@ enum ArticleDesign {
 	Obituary,
 	Correction,
 	FullPageInteractive,
-	Newsletter,
+	NewsletterSignup,
 }
 
 enum ArticleDisplay {
