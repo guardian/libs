@@ -145,7 +145,7 @@ export const bypassCoreWebVitalsSampling = (team?: TeamName): void => {
  * @param init - the initialisation options
  * @param init.isDev - used to determine whether to use CODE or PROD endpoints.
  * @param init.browserId - identifies the browser. Usually available via `getCookie({ name: 'bwid' })`. Defaults to `null`
- * @param init.pageViewId - identifies the page view. Usually available on `guardian.ophan.pageViewId`. Defaults to `null`
+ * @param init.pageViewId - identifies the page view. Usually available on `guardian.config.ophan.pageViewId`. Defaults to `null`
  *
  * @param init.sampling - sampling rate for sending data. Defaults to `0.01`.
  *
