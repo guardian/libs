@@ -2,11 +2,11 @@
  * Use this function to delay execution of something until an element is visible
  * in the viewport
  *
- * @param marker : The html element that we want to observe;
+ * @param element : The html element that we want to observe;
  * @param callback : This is fired when the marker is visible in the viewport
  */
 export const whenVisible = (
-	marker: HTMLElement,
+	element: HTMLElement,
 	callback: () => void,
 ): void => {
 	const io = new IntersectionObserver(([entry]) => {
@@ -16,5 +16,5 @@ export const whenVisible = (
 		callback();
 	});
 
-	io.observe(marker);
+	io.observe(element);
 };
