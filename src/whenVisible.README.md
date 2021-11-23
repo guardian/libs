@@ -1,15 +1,17 @@
-# `whenIdle()`
+# `whenVisible()`
 
 Returns: `void`
 
-Runs the given callback when it detects that the browser is idle or if 500ms has passed
+Runs the given callback when it detects that the given element is visible
 
 ## Example
 
 ```js
-import { whenIdle } from '@guardian/libs';
+import { whenVisible } from '@guardian/libs';
 
-whenIdle(function () {
-    console.log('The browser is idle');
+const myElement = document.getElementById('my-element');
+
+whenVisible(myElement, function () {
+    console.log('My element is now visible');
 });
 ```
