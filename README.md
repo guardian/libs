@@ -28,6 +28,7 @@
   - [`storage`](#storage)
   - [`timeAgo`](#timeago)
   - [`joinUrl`](#joinurl)
+  - [`whenIdle`](#whenidle)
 - [Installation](#installation)
   - [Bundling](#bundling)
 - [Development](#development)
