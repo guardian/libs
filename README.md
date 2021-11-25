@@ -104,6 +104,10 @@ Turns absolute dates into time ago strings.
 
 Combines separate url parts into one valid url string.
 
+### [`whenIdle`](./src/whenIdle.README.md)
+
+Defers code execution until the browser is idle.
+
 ## Installation
 
 [![Generic badge](https://img.shields.io/badge/google-chat-259082.svg)](https://chat.google.com/room/AAAAWwBdSMs)
