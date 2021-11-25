@@ -104,6 +104,10 @@ Turns absolute dates into time ago strings.
 
 Combines separate url parts into one valid url string.
 
+### [`whenVisible`](./src/whenVisible.README.md)
+
+Defers code execution until the given element is in the viewport.
+
 ## Installation
 
 [![Generic badge](https://img.shields.io/badge/google-chat-259082.svg)](https://chat.google.com/room/AAAAWwBdSMs)
