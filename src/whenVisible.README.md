@@ -14,4 +14,7 @@ const myElement = document.getElementById('my-element');
 whenVisible(myElement, function () {
     console.log('My element is now visible');
 });
+
+## Support for older browsers
+`IntersectionObserver` is (not supported)[https://caniuse.com/?search=IntersectionObserver] on IE or other older browsers. We check for support and fallback to returning early.
 ```

@@ -9,12 +9,17 @@ export const whenVisible = (
 	element: HTMLElement,
 	callback: () => void,
 ): void => {
-	const io = new IntersectionObserver(([entry]) => {
-		if (!entry.isIntersecting) return;
-		// Disconnect this IntersectionObserver once seen
-		io.disconnect();
-		callback();
-	});
+	if ('IntersectionObserver' in window) {
+		const io = new IntersectionObserver(([entry]) => {
+			if (!entry.isIntersecting) return;
+			// Disconnect this IntersectionObserver once seen
+			io.disconnect();
+			callback();
+		});
 
-	io.observe(element);
+		io.observe(element);
+	} else {
+		// IntersectionObserver is not supported so failover to calling back immediately
+		callback();
+	}
 };
