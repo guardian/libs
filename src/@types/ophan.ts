@@ -63,7 +63,8 @@ type OphanComponentType =
 	| 'SIGN_IN_GATE'
 	| 'RETENTION_ENGAGEMENT_BANNER'
 	| 'RETENTION_EPIC'
-	| 'CONSENT';
+	| 'CONSENT'
+	| 'LIVE-BLOG-PINNED-POST';
 
 type OphanComponent = {
 	componentType: OphanComponentType;
