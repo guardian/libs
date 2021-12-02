@@ -19,7 +19,7 @@ export const whenVisible = (
 
 		io.observe(element);
 	} else {
-		// IntersectionObserver is not supported so failover to calling back immediately
+		// IntersectionObserver is not supported so failover to calling back at the end of the call stack
 		setTimeout(() => callback(), 0);
 	}
 };
