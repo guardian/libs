@@ -64,7 +64,7 @@ type OphanComponentType =
 	| 'RETENTION_ENGAGEMENT_BANNER'
 	| 'RETENTION_EPIC'
 	| 'CONSENT'
-	| 'LIVE-BLOG-PINNED-POST';
+	| 'LIVE_BLOG_PINNED_POST';
 
 type OphanComponent = {
 	componentType: OphanComponentType;
