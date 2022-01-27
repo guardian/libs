@@ -29,4 +29,8 @@ export const teams = {
 		background: '#2F4F4F',
 		font: '#FFFFFF',
 	},
+	supporterRevenue: {
+		background: '#0F70B7',
+		font: '#ffffff',
+	},
 };
