@@ -82,15 +82,15 @@ addEventListener('some-event', () => {
 ### `CoreWebVitalsPayload`
 
 ```ts
-type CoreWebVitalsPayload = {
-	page_view_id: string | null;
-	browser_id: string | null;
-	fid: null | number;
-	cls: null | number;
-	lcp: null | number;
-	fcp: null | number;
-	ttfb: null | number;
-};
+type CoreWebVitalsPayload = Partial<{
+	page_view_id: string;
+	browser_id: string;
+	fid: number;
+	cls: number;
+	lcp: number;
+	fcp: number;
+	ttfb: number;
+}>;
 ```
 
 ### `InitCoreWebVitalsOptions`
@@ -99,8 +99,8 @@ type CoreWebVitalsPayload = {
 type InitCoreWebVitalsOptions = {
 	isDev: boolean;
 
-	browserId?: string | null;
-	pageViewId?: string | null;
+	browserId?: string;
+	pageViewId?: string;
 
 	sampling?: number;
 	team?: TeamName;

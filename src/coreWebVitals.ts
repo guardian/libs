@@ -8,15 +8,15 @@ enum Endpoints {
 	CODE = 'https://performance-events.code.dev-guardianapis.com/core-web-vitals',
 }
 
-export type CoreWebVitalsPayload = {
-	page_view_id?: string;
-	browser_id?: string;
-	fid?: number;
-	cls?: number;
-	lcp?: number;
-	fcp?: number;
-	ttfb?: number;
-};
+export type CoreWebVitalsPayload = Partial<{
+	page_view_id: string;
+	browser_id: string;
+	fid: number;
+	cls: number;
+	lcp: number;
+	fcp: number;
+	ttfb: number;
+}>;
 
 const coreWebVitalsPayload: CoreWebVitalsPayload = {};
 
