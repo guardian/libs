@@ -9,24 +9,16 @@ enum Endpoints {
 }
 
 export type CoreWebVitalsPayload = {
-	page_view_id: string | null;
-	browser_id: string | null;
-	fid: null | number;
-	cls: null | number;
-	lcp: null | number;
-	fcp: null | number;
-	ttfb: null | number;
+	page_view_id?: string;
+	browser_id?: string;
+	fid?: number;
+	cls?: number;
+	lcp?: number;
+	fcp?: number;
+	ttfb?: number;
 };
 
-const coreWebVitalsPayload: CoreWebVitalsPayload = {
-	browser_id: null,
-	page_view_id: null,
-	fid: null,
-	cls: null,
-	lcp: null,
-	fcp: null,
-	ttfb: null,
-};
+const coreWebVitalsPayload: CoreWebVitalsPayload = {};
 
 const teamsForLogging: Set<TeamName> = new Set();
 let endpoint: Endpoints;
@@ -47,7 +39,7 @@ const sendData = (): void => {
 
 	// If we’re missing FCP, the data is unusable in the lake,
 	// So we’re not sending anything.
-	if (coreWebVitalsPayload.fcp === null) return;
+	if (coreWebVitalsPayload.fcp === undefined) return;
 
 	queued = navigator.sendBeacon(
 		endpoint,
@@ -119,8 +111,8 @@ const getCoreWebVitals = (): void => {
 type InitCoreWebVitalsOptions = {
 	isDev: boolean;
 
-	browserId?: string | null;
-	pageViewId?: string | null;
+	browserId?: string;
+	pageViewId?: string;
 
 	sampling?: number;
 	team?: TeamName;
@@ -144,16 +136,16 @@ export const bypassCoreWebVitalsSampling = (team?: TeamName): void => {
  *
  * @param init - the initialisation options
  * @param init.isDev - used to determine whether to use CODE or PROD endpoints.
- * @param init.browserId - identifies the browser. Usually available via `getCookie({ name: 'bwid' })`. Defaults to `null`
- * @param init.pageViewId - identifies the page view. Usually available on `guardian.config.ophan.pageViewId`. Defaults to `null`
+ * @param init.browserId - identifies the browser. Usually available via `getCookie({ name: 'bwid' })`. Defaults to `undefined`
+ * @param init.pageViewId - identifies the page view. Usually available on `guardian.config.ophan.pageViewId`. Defaults to `undefined`
  *
  * @param init.sampling - sampling rate for sending data. Defaults to `0.01`.
  *
  * @param team - Optional team to trigger a log event once metrics are queued.
  */
 export const initCoreWebVitals = ({
-	browserId = null,
-	pageViewId = null,
+	browserId = undefined,
+	pageViewId = undefined,
 	sampling = 1 / 100, // 1% of page view by default
 	isDev,
 	team,
@@ -206,7 +198,7 @@ export const _ = {
 		teamsForLogging.clear();
 		queued = false;
 		Object.keys(coreWebVitalsPayload).map((key) => {
-			coreWebVitalsPayload[key as keyof CoreWebVitalsPayload] = null;
+			delete coreWebVitalsPayload[key as keyof CoreWebVitalsPayload];
 		});
 		removeEventListener('visibilitychange', listener);
 		removeEventListener('pagehide', listener);
