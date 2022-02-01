@@ -149,9 +149,9 @@ export const getCookie = ({
 }: {
 	name: string;
 	shouldMemoize?: boolean;
-}): string | null => {
+}): string | undefined => {
 	if (memoizedCookies.has(name)) {
-		return memoizedCookies.get(name) ?? null;
+		return memoizedCookies.get(name);
 	}
 
 	const cookieVal = getCookieValues(name);
@@ -162,5 +162,5 @@ export const getCookie = ({
 		}
 		return cookieVal[0];
 	}
-	return null;
+	return;
 };

@@ -84,7 +84,7 @@ setSessionCookie({name:'GU_country_code', value: 'GB'})
 
 ## `getCookie({name, shouldMemoize?})`
 
-Returns: `cookie` value if it exists or `null`. Takes a config object with name and shouldMemoize params
+Returns: `cookie` value if it exists or `undefined`. Takes a config object with name and shouldMemoize params
 
 #### `name`
 
