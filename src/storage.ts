@@ -1,6 +1,5 @@
 class StorageFactory {
-	// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/Private_class_fields
-	#storage: Storage | undefined;
+	#storage: Storage | undefined; // https://mdn.io/Private_class_fields
 
 	constructor(storage: Storage) {
 		try {
@@ -25,11 +24,11 @@ class StorageFactory {
 
 	/* eslint-disable
 		@typescript-eslint/no-unsafe-assignment,
-		@typescript-eslint/no-unsafe-return,
-		@typescript-eslint/no-explicit-any
+		@typescript-eslint/no-explicit-any,
+		@typescript-eslint/no-unsafe-argument
 		--
 		- we're using the `try` to handle anything bad happening
-		- JSON.parse returns an `any`, we really are returning an `any`
+		- JSON.parse returns an `any`, we really are with an `any`
 	*/
 	/**
 	 * Retrieve an item from storage.
@@ -55,8 +54,8 @@ class StorageFactory {
 	}
 	/* eslint-enable
 		@typescript-eslint/no-unsafe-assignment,
-		@typescript-eslint/no-unsafe-return,
-		@typescript-eslint/no-explicit-any
+		@typescript-eslint/no-explicit-any,
+		@typescript-eslint/no-unsafe-argument
 	*/
 
 	/**

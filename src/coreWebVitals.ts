@@ -175,18 +175,20 @@ export const initCoreWebVitals = ({
 	coreWebVitalsPayload.browser_id = browserId;
 	coreWebVitalsPayload.page_view_id = pageViewId;
 
-	if (!browserId || !pageViewId)
+	if (!browserId || !pageViewId) {
 		console.warn(
 			'browserId or pageViewId missing from Core Web Vitals.',
 			'Resulting data cannot be joined to page view tables',
 			{ browserId, pageViewId },
 		);
+	}
 
-	if (sampling < 0 || sampling > 1)
+	if (sampling < 0 || sampling > 1) {
 		console.warn(
 			'Core Web Vitals sampling is outside the 0 to 1 range: ',
 			sampling,
 		);
+	}
 	if (sampling === 0) console.warn('Core Web Vitals are sampled at 0%');
 	if (sampling === 1) console.warn('Core Web Vitals are sampled at 100%');
 

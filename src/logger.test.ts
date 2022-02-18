@@ -9,8 +9,9 @@ const spy = jest
 	.spyOn(console, 'log')
 	.mockImplementation(() => () => undefined);
 const consoleMessage = (): string | undefined => {
-	if (spy.mock.calls[0] && typeof spy.mock.calls[0][5] === 'string')
+	if (spy.mock.calls[0] && typeof spy.mock.calls[0][5] === 'string') {
 		return spy.mock.calls[0][5];
+	}
 	return undefined;
 };
 
@@ -83,15 +84,17 @@ describe('Add and remove teams', () => {
 	});
 
 	it(`should be able to remove a third team`, () => {
-		if (window.guardian?.logger)
+		if (window.guardian?.logger) {
 			window.guardian.logger.unsubscribeFrom('cmp');
+		}
 		const registered: string = storage.local.get(KEY) as string;
 		expect(registered).toBe('commercial,dotcom');
 	});
 
 	it(`should be able to remove a team`, () => {
-		if (window.guardian?.logger)
+		if (window.guardian?.logger) {
 			window.guardian.logger.unsubscribeFrom('commercial');
+		}
 		const registered: string = storage.local.get(KEY) as string;
 		expect(registered).toBe('dotcom');
 	});
