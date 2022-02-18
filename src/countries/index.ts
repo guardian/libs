@@ -1,4 +1,4 @@
-import type { CountryCode, CountryKey } from './@types/countries';
+import type { CountryCode, CountryKey } from '../@types/countries';
 
 export type Country = {
 	countryCode: CountryCode;

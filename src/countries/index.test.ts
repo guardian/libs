@@ -1,4 +1,4 @@
-import { countries, getCountryByCountryCode } from './countries';
+import { countries, getCountryByCountryCode } from './index';
 
 describe('The getCountryByCountryCode', () => {
 	it('returns a country object', () => {

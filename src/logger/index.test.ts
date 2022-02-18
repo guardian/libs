@@ -1,7 +1,7 @@
 import { hex } from 'wcag-contrast';
-import type { TeamName } from './logger';
-import { _, debug, log } from './logger';
-import { storage } from './storage';
+import { storage } from '../storage';
+import type { TeamName } from './index';
+import { _, debug, log } from './index';
 
 const KEY = _.KEY;
 

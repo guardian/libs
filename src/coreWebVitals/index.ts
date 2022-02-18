@@ -1,7 +1,7 @@
 import type { ReportHandler } from 'web-vitals';
 import { getCLS, getFCP, getFID, getLCP, getTTFB } from 'web-vitals';
-import type { TeamName } from './logger';
-import { log } from './logger';
+import type { TeamName } from '../logger';
+import { log } from '../logger';
 
 enum Endpoints {
 	PROD = 'https://performance-events.guardianapis.com/core-web-vitals',

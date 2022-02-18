@@ -1,11 +1,7 @@
 import type { Metric, ReportHandler } from 'web-vitals';
-import type { CoreWebVitalsPayload } from './coreWebVitals';
-import {
-	_,
-	bypassCoreWebVitalsSampling,
-	initCoreWebVitals,
-} from './coreWebVitals';
-import * as logObject from './logger';
+import * as logObject from '../logger';
+import type { CoreWebVitalsPayload } from './index';
+import { _, bypassCoreWebVitalsSampling, initCoreWebVitals } from './index';
 
 const { roundWithDecimals, coreWebVitalsPayload, reset } = _;
 

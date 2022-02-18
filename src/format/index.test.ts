@@ -3,7 +3,7 @@ import {
 	ArticleDisplay,
 	ArticlePillar,
 	ArticleSpecial,
-} from './format';
+} from './index';
 
 it('Design enum contains Article', () => {
 	expect(ArticleDesign.Standard).toBeDefined();

@@ -8,8 +8,8 @@
  * Subscribing to logs relies on LocalStorage
  */
 
-import { teams } from './logger.teams';
-import { storage } from './storage';
+import { storage } from '../storage';
+import { teams } from './teams';
 
 const KEY = 'gu.logger';
 

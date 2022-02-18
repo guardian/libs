@@ -1,4 +1,4 @@
-import { storage } from './storage';
+import { storage } from './index';
 
 function functionThatThrowsAnError() {
 	throw new Error('bang');
@@ -34,7 +34,7 @@ describe.each([
 		getSpy.mockImplementation(functionThatThrowsAnError);
 
 		// re-import now we've disabled native storage API
-		const { storage } = await import('./storage');
+		const { storage } = await import('../storage');
 		expect(storage[name].isAvailable()).toBe(false);
 	});
 
@@ -42,7 +42,7 @@ describe.each([
 		getSpy.mockImplementation(() => '🚫');
 
 		// re-import now we've fiddled with the native storage API
-		const { storage } = await import('./storage');
+		const { storage } = await import('../storage');
 		expect(storage[name].isAvailable()).toBe(false);
 	});
 
@@ -51,7 +51,7 @@ describe.each([
 		getSpy.mockImplementation(functionThatThrowsAnError);
 
 		// re-import now we've disabled native storage API
-		const { storage } = await import('./storage');
+		const { storage } = await import('../storage');
 		expect(() => storage[name].set('🚫', true)).not.toThrowError();
 		// eslint-disable-next-line @typescript-eslint/no-unsafe-return -- it's correct
 		expect(() => storage[name].get('🚫')).not.toThrowError();
@@ -119,7 +119,7 @@ describe.each([
 		getSpy.mockImplementation(functionThatThrowsAnError);
 
 		// re-import now we've disabled native storage API
-		const { storage } = await import('./storage');
+		const { storage } = await import('../storage');
 		expect(storage[name].getRaw('raw item')).toBeNull();
 	});
 

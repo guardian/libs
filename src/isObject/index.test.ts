@@ -1,4 +1,4 @@
-import { isObject } from './isObject';
+import { isObject } from './index';
 
 describe('isObject', () => {
 	it('detects a valid object', () => {

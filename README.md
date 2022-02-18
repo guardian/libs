@@ -40,67 +40,67 @@
 
 The following modules are available:
 
-### [`cookies`](./src/cookies.README.md)
+### [`cookies`](./src/cookies/README.md)
 
 API over `document.cookies`.
 
-### [Countries](./src/countries.README.md)
+### [Countries](./src/countries/README.md)
 
 Country data and methods to access it.
 
-### [`format`](./src/format.README.md)
+### [`format`](./src/format/README.md)
 
 Types and enums related to editorial formats.
 
-### [`getLocale`](./src/getLocale.README.md)
+### [`getLocale`](./src/getLocale/README.md)
 
 Get the user’s current location.
 
-### [`getSwitches`](./src/getSwitches.README.md)
+### [`getSwitches`](./src/getSwitches/README.md)
 
 Get the active switches on theguardian.com.
 
-### [`isBoolean`](./src/isBoolean.README.md)
+### [`isBoolean`](./src/isBoolean/README.md)
 
 Check whether a value is a boolean.
 
-### [`isObject`](./src/isObject.README.md)
+### [`isObject`](./src/isObject/README.md)
 
 Checks whether a value is a plain object (i.e. `{}`-like).
 
-### [`isString`](./src/isString.README.md)
+### [`isString`](./src/isString/README.md)
 
 Check whether a value is a string.
 
-### [`isUndefined`](./src/isUndefined.README.md)
+### [`isUndefined`](./src/isUndefined/README.md)
 
 Check whether a value is `undefined`.
 
-### [`loadScript`](./src/loadScript.README.md)
+### [`loadScript`](./src/loadScript/README.md)
 
 Inject an external JavaScript file.
 
-### [`log`/`debug`](./src/logger.README.md)
+### [`log`/`debug`](./src/logger/README.md)
 
 Selectively log team-specific messages to the console.
 
-### [Ophan](./src/@types/ophan.README.md)
+### [Ophan](./src/@types/ophan/README.md)
 
 Types related to Ophan.
 
-### [`role`](./src/role.README.md)
+### [`role`](./src/role/README.md)
 
 Types that define the role of an element in an article.
 
-### [`storage`](./src/storage.README.md)
+### [`storage`](./src/storage/README.md)
 
 Robust API over `localStorage` and `sessionStorage`.
 
-### [`timeAgo`](./src/timeAgo.README.md)
+### [`timeAgo`](./src/timeAgo/README.md)
 
 Turns absolute dates into time ago strings.
 
-### [`joinUrl`](./src/joinUrl.README.md)
+### [`joinUrl`](./src/joinUrl/README.md)
 
 Combines separate url parts into one valid url string.
 

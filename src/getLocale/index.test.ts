@@ -1,7 +1,7 @@
 import fetchMock from 'jest-fetch-mock';
-import * as cookies from './cookies';
-import { __resetCachedValue, getLocale } from './getLocale';
-import { storage } from './storage';
+import * as cookies from '../cookies';
+import { storage } from '../storage';
+import { __resetCachedValue, getLocale } from './index';
 
 const KEY = 'GU_geo_country';
 const KEY_OVERRIDE = 'gu.geo.override';

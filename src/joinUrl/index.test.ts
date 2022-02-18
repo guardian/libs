@@ -1,4 +1,4 @@
-import { joinUrl } from './joinUrl';
+import { joinUrl } from '../joinUrl';
 
 describe('joinUrl', () => {
 	it('prevents double slashes', () => {

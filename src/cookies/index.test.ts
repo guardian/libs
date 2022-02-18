@@ -1,5 +1,5 @@
 import MockDate from 'mockdate';
-import * as cookies from './cookies';
+import * as cookies from './index';
 
 describe('cookies', () => {
 	let cookieValue = '';

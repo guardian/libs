@@ -1,6 +1,6 @@
-import type { Switches } from './@types/switches';
-import { isBoolean } from './isBoolean';
-import { isObject } from './isObject';
+import type { Switches } from '../@types/switches';
+import { isBoolean } from '../isBoolean';
+import { isObject } from '../isObject';
 
 const URL = 'https://www.theguardian.com/switches.json';
 

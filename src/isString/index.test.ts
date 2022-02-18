@@ -1,4 +1,4 @@
-import { isString } from './isString';
+import { isString } from './index';
 
 describe('isString', () => {
 	it('detects a valid string', () => {

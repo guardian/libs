@@ -1,5 +1,5 @@
 import MockDate from 'mockdate';
-import { timeAgo } from './timeAgo';
+import { timeAgo } from './index';
 
 describe('timeAgo', () => {
 	beforeAll(() => {
