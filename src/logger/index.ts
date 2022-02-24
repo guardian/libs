@@ -30,11 +30,8 @@ const style = (team: Styles): string => {
  * Only logs in dev environments.
  */
 export const debug: LogCall = (team, ...args) => {
-	const isDevEnv =
-		window.location.host.includes('localhost') ||
-		window.location.host.endsWith('thegulocal.com') ||
-		window.location.host.endsWith('.dev-theguardian.com');
-	if (isDevEnv) log(team, ...args);
+	const isNotProd = window.location.origin !== 'https://www.theguardian.com';
+	if (isNotProd) log(team, ...args);
 };
 
 /**
