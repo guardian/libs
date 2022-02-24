@@ -7155,9 +7155,9 @@ walker@^1.0.7:
   dependencies:
     makeerror "1.0.x"
 
-wcag-contrast@^3.0.0:
+wcag-contrast@3.0.0:
   version "3.0.0"
-  resolved "https://registry.yarnpkg.com/wcag-contrast/-/wcag-contrast-3.0.0.tgz#51c2df43f15162993006454b3362844205889efb"
+  resolved "https://registry.npmjs.org/wcag-contrast/-/wcag-contrast-3.0.0.tgz#51c2df43f15162993006454b3362844205889efb"
   integrity sha512-RWbpg/S7FOXDCwqC2oFhN/vh8dHzj0OS6dpyOSDHyQFSmqmR+lAUStV/ziTT1GzDqL9wol+nZQB4vCi5yEak+w==
   dependencies:
     relative-luminance "^2.0.0"
