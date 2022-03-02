@@ -1,4 +1,4 @@
-# `log`/`debug`
+# `log`, `debug`
 
 Selectively log team-specific messages to the console.
 

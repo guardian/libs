@@ -1,4 +1,4 @@
-# `format`
+# Format
 
 Types and enums related to editorial formats.
 

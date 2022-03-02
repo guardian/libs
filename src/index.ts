@@ -28,7 +28,7 @@ export { isString } from './isString';
 export { isUndefined } from './isUndefined';
 export { loadScript } from './loadScript';
 export { debug, log } from './logger';
-export { ArticleElementRole } from './role';
+export { ArticleElementRole } from './ArticleElementRole';
 export { storage } from './storage';
 export { timeAgo } from './timeAgo';
 export type {
