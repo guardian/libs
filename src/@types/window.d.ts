@@ -1,5 +1,5 @@
-import type { TeamSubscription } from '../logger';
-import type { Switches } from './switches';
+import type { TeamSubscription } from '../logger/@types/logger';
+import type { Switches } from '../switches/@types/Switches';
 
 declare global {
 	interface Window {

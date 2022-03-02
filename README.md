@@ -7,73 +7,23 @@
 
 > A collection of JavaScript libraries and TypeScript types for Guardian projects
 
-## Modules
-
-The following modules are available:
-
-### [`ArticleElementRole`](./src/ArticleElementRole)
-
-Type that defines the role of an element in an article.
-
-### [Cookies](./src/cookies)
-
-API over `document.cookies`.
-
-### [Countries](./src/countries)
-
-Country data and methods to access it.
-
-### [Format](./src/format)
-
-Types and enums related to editorial formats.
-
-### [`getLocale`](./src/getLocale)
-
-Get the user’s current location.
-
-### [`getSwitches`](./src/getSwitches)
-
-Get the active switches on theguardian.com.
-
-### [`isBoolean`](./src/isBoolean)
-
-Check whether a value is a boolean.
-
-### [`isObject`](./src/isObject)
-
-Checks whether a value is a plain object (i.e. `{}`-like).
-
-### [`isString`](./src/isString)
-
-Check whether a value is a string.
-
-### [`isUndefined`](./src/isUndefined)
-
-Check whether a value is `undefined`.
-
-### [`joinUrl`](./src/joinUrl)
-
-Combines separate url parts into one valid url string.
-
-### [`loadScript`](./src/loadScript)
-
-Inject an external JavaScript file.
-
-### [`log`, `debug`](./src/logger)
-
-Selectively log team-specific messages to the console.
-
-### [Ophan](./src/@types/ophan)
-
-Types related to Ophan.
-
-### [`storage`](./src/storage)
-
-Robust API over `localStorage` and `sessionStorage`.
-
-### [`timeAgo`](./src/timeAgo)
-
-Turns absolute dates into time ago strings.
+- [`ArticleElementRole`](./src/ArticleElementRole) Type that describes the role of an element in an article.
+- [Cookies](./src/cookies) API over `document.cookies`.
+- [Core Web Vitals](./src/coreWebVitals) API over Google’s `web-vitals`.
+- [Countries](./src/countries) Country data and methods to access it.
+- [Format](./src/format) Codified editorial design and information architecture.
+- [Locale](./src/getLocale) Get the user’s current location.
+- [Switches](./src/getSwitches) Get the active switches on theguardian.com.
+- [`isBoolean`](./src/isBoolean) Check whether a value is a boolean.
+- [`isObject`](./src/isObject) Checks whether a value is a plain object (i.e. `{}`-like).
+- [`isString`](./src/isString) Check whether a value is a string.
+- [`isUndefined`](./src/isUndefined) Check whether a value is `undefined`.
+- [`joinUrl`](./src/joinUrl) Combines separate url parts into one valid url string.
+- [`loadScript`](./src/loadScript) Inject an external JavaScript file.
+- [`log`, `debug`](./src/logger) Selectively log team-specific messages to the console.
+- [Ophan](./src/@types/ophan) Types relating to Ophan.
+- [`storage`](./src/storage) Robust API over `localStorage` and `sessionStorage`.
+- [`timeAgo`](./src/timeAgo) Format absolute dates as time-ago strings.
 
 ## Installation
 
