@@ -1,5 +1,5 @@
 import fs from 'fs';
-import { teams } from '../src/logger.teams';
+import { teams } from '../src/logger/teams';
 
 fs.writeFileSync(__dirname + '/../static/logger.svg', generateSvg());
 

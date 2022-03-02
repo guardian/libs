@@ -1,0 +1,22 @@
+import {
+	ArticleDesign,
+	ArticleDisplay,
+	ArticlePillar,
+	ArticleSpecial,
+} from './index';
+
+it('Design enum contains Article', () => {
+	expect(ArticleDesign.Standard).toBeDefined();
+});
+
+it('Display enum contains Standard', () => {
+	expect(ArticleDisplay.Standard).toBeDefined();
+});
+
+it('Pillar enum contains News', () => {
+	expect(ArticlePillar.News).toBe(0);
+});
+
+it('Special enum contains SpecialReport', () => {
+	expect(ArticleSpecial.SpecialReport).toBe(5);
+});
