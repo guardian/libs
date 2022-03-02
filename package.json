@@ -2,7 +2,7 @@
   "name": "@guardian/libs",
   "version": "0.0.0-this-never-updates-in-source-code-refer-to-git-tags",
   "private": false,
-  "description": "A collection of JavaScript libraries for Guardian projects",
+  "description": "A collection of JavaScript libraries and TypeScript types for Guardian projects",
   "homepage": "https://github.com/guardian/libs#readme",
   "bugs": {
     "url": "https://github.com/guardian/libs/issues"

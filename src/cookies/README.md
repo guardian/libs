@@ -1,4 +1,4 @@
-# `cookies`
+# Cookies
 
 Robust API over `document.cookie`.
 

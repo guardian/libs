@@ -1,8 +1,10 @@
-# `joinUrl()`
+# `joinUrl`
 
 Returns: `string`
 
-Takes a variable number of strings as arguments, joining them as a single valid url. Handles trailing or leading spaces and double slashes.
+Function that takes a variable number of strings as arguments, joining them as a single valid URL string.
+
+Handles trailing or leading spaces and double slashes.
 
 ## Example
 

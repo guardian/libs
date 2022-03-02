@@ -57,7 +57,7 @@ type Country = {
 
 ### `CountryCode`
 
-ISO 3166-1 alpha-2 two-letter country code. See [the type definition](./src/@types/countries.ts) for the full list.
+ISO 3166-1 alpha-2 two-letter country code. See [the type definition](../@types/countries.ts) for the full list.
 
 ```typescript
 type CountryCode = 'AF' | 'AX' /* etc */;

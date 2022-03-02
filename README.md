@@ -5,42 +5,17 @@
 [![npm type definitions](https://img.shields.io/npm/types/@guardian/libs)](https://www.typescriptlang.org/)
 [![Coverage Status](https://coveralls.io/repos/github/guardian/libs/badge.svg)](https://coveralls.io/github/guardian/libs)
 
-> A collection of JavaScript libraries for Guardian projects
-
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-## Table of contents
-
-- [Modules](#modules)
-  - [`cookies`](#cookies)
-  - [Countries](#countries)
-  - [`format`](#format)
-  - [`getLocale`](#getlocale)
-  - [`getSwitches`](#getswitches)
-  - [`isBoolean`](#isboolean)
-  - [`isObject`](#isobject)
-  - [`isString`](#isstring)
-  - [`isUndefined`](#isundefined)
-  - [`loadScript`](#loadscript)
-  - [`log`/`debug`](#logdebug)
-  - [Ophan](#ophan)
-  - [`role`](#role)
-  - [`storage`](#storage)
-  - [`timeAgo`](#timeago)
-  - [`joinUrl`](#joinurl)
-- [Installation](#installation)
-  - [Bundling](#bundling)
-- [Development](#development)
-  - [Requirements](#requirements)
-  - [Releasing](#releasing)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+> A collection of JavaScript libraries and TypeScript types for Guardian projects
 
 ## Modules
 
 The following modules are available:
 
-### [`cookies`](./src/cookies)
+### [`ArticleElementRole`](./src/ArticleElementRole)
+
+Type that defines the role of an element in an article.
+
+### [Cookies](./src/cookies)
 
 API over `document.cookies`.
 
@@ -48,7 +23,7 @@ API over `document.cookies`.
 
 Country data and methods to access it.
 
-### [`format`](./src/format)
+### [Format](./src/format)
 
 Types and enums related to editorial formats.
 
@@ -76,21 +51,21 @@ Check whether a value is a string.
 
 Check whether a value is `undefined`.
 
+### [`joinUrl`](./src/joinUrl)
+
+Combines separate url parts into one valid url string.
+
 ### [`loadScript`](./src/loadScript)
 
 Inject an external JavaScript file.
 
-### [`log`/`debug`](./src/logger)
+### [`log`, `debug`](./src/logger)
 
 Selectively log team-specific messages to the console.
 
 ### [Ophan](./src/@types/ophan)
 
 Types related to Ophan.
-
-### [`role`](./src/role)
-
-Types that define the role of an element in an article.
 
 ### [`storage`](./src/storage)
 
@@ -99,10 +74,6 @@ Robust API over `localStorage` and `sessionStorage`.
 ### [`timeAgo`](./src/timeAgo)
 
 Turns absolute dates into time ago strings.
-
-### [`joinUrl`](./src/joinUrl)
-
-Combines separate url parts into one valid url string.
 
 ## Installation
 
