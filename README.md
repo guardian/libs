@@ -40,67 +40,67 @@
 
 The following modules are available:
 
-### [`cookies`](./src/cookies/README.md)
+### [`cookies`](./src/cookies)
 
 API over `document.cookies`.
 
-### [Countries](./src/countries/README.md)
+### [Countries](./src/countries)
 
 Country data and methods to access it.
 
-### [`format`](./src/format/README.md)
+### [`format`](./src/format)
 
 Types and enums related to editorial formats.
 
-### [`getLocale`](./src/getLocale/README.md)
+### [`getLocale`](./src/getLocale)
 
 Get the user’s current location.
 
-### [`getSwitches`](./src/getSwitches/README.md)
+### [`getSwitches`](./src/getSwitches)
 
 Get the active switches on theguardian.com.
 
-### [`isBoolean`](./src/isBoolean/README.md)
+### [`isBoolean`](./src/isBoolean)
 
 Check whether a value is a boolean.
 
-### [`isObject`](./src/isObject/README.md)
+### [`isObject`](./src/isObject)
 
 Checks whether a value is a plain object (i.e. `{}`-like).
 
-### [`isString`](./src/isString/README.md)
+### [`isString`](./src/isString)
 
 Check whether a value is a string.
 
-### [`isUndefined`](./src/isUndefined/README.md)
+### [`isUndefined`](./src/isUndefined)
 
 Check whether a value is `undefined`.
 
-### [`loadScript`](./src/loadScript/README.md)
+### [`loadScript`](./src/loadScript)
 
 Inject an external JavaScript file.
 
-### [`log`/`debug`](./src/logger/README.md)
+### [`log`/`debug`](./src/logger)
 
 Selectively log team-specific messages to the console.
 
-### [Ophan](./src/@types/ophan/README.md)
+### [Ophan](./src/@types/ophan)
 
 Types related to Ophan.
 
-### [`role`](./src/role/README.md)
+### [`role`](./src/role)
 
 Types that define the role of an element in an article.
 
-### [`storage`](./src/storage/README.md)
+### [`storage`](./src/storage)
 
 Robust API over `localStorage` and `sessionStorage`.
 
-### [`timeAgo`](./src/timeAgo/README.md)
+### [`timeAgo`](./src/timeAgo)
 
 Turns absolute dates into time ago strings.
 
-### [`joinUrl`](./src/joinUrl/README.md)
+### [`joinUrl`](./src/joinUrl)
 
 Combines separate url parts into one valid url string.
 
