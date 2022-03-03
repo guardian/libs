@@ -40,7 +40,8 @@ type OphanAction =
 	| 'CONSENT_ACCEPT_ALL'
 	| 'CONSENT_REJECT_ALL'
 	| 'STICK'
-	| 'CLOSE';
+	| 'CLOSE'
+	| 'RETURN';
 
 type OphanComponentType =
 	| 'READERS_QUESTIONS_ATOM'
