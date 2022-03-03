@@ -38,7 +38,9 @@ type OphanAction =
 	| 'ACCEPT_DEFAULT_CONSENT'
 	| 'MANAGE_CONSENT'
 	| 'CONSENT_ACCEPT_ALL'
-	| 'CONSENT_REJECT_ALL';
+	| 'CONSENT_REJECT_ALL'
+	| 'STICK'
+	| 'CLOSE';
 
 type OphanComponentType =
 	| 'READERS_QUESTIONS_ATOM'
@@ -64,7 +66,8 @@ type OphanComponentType =
 	| 'RETENTION_ENGAGEMENT_BANNER'
 	| 'RETENTION_EPIC'
 	| 'CONSENT'
-	| 'LIVE_BLOG_PINNED_POST';
+	| 'LIVE_BLOG_PINNED_POST'
+	| 'STICKY_VIDEO';
 
 type OphanComponent = {
 	componentType: OphanComponentType;
