@@ -1,22 +1,14 @@
 import type { ReportHandler } from 'web-vitals';
 import { getCLS, getFCP, getFID, getLCP, getTTFB } from 'web-vitals';
-import type { TeamName } from '../logger';
-import { log } from '../logger';
+import type { TeamName } from '../logger/@types/logger';
+import { log } from '../logger/log';
+import type { CoreWebVitalsPayload } from './@types/CoreWebVitalsPayload';
+import { roundWithDecimals } from './roundWithDecimals';
 
 enum Endpoints {
 	PROD = 'https://performance-events.guardianapis.com/core-web-vitals',
 	CODE = 'https://performance-events.code.dev-guardianapis.com/core-web-vitals',
 }
-
-export type CoreWebVitalsPayload = {
-	page_view_id: string | null;
-	browser_id: string | null;
-	fid: null | number;
-	cls: null | number;
-	lcp: null | number;
-	fcp: null | number;
-	ttfb: null | number;
-};
 
 const coreWebVitalsPayload: CoreWebVitalsPayload = {
 	browser_id: null,
@@ -31,11 +23,6 @@ const coreWebVitalsPayload: CoreWebVitalsPayload = {
 const teamsForLogging: Set<TeamName> = new Set();
 let endpoint: Endpoints;
 let initialised = false;
-
-const roundWithDecimals = (value: number, precision = 6): number => {
-	const power = Math.pow(10, precision);
-	return Math.round(value * power) / power;
-};
 
 const setEndpoint = (isDev: boolean) => {
 	endpoint = isDev ? Endpoints.CODE : Endpoints.PROD;
@@ -127,19 +114,6 @@ type InitCoreWebVitalsOptions = {
 };
 
 /**
- * A method to asynchronously send web vitals after initialization.
- * @param team - Optional team to trigger a log event once metrics are queued.
- */
-export const bypassCoreWebVitalsSampling = (team?: TeamName): void => {
-	if (!initialised) {
-		console.warn('initCoreWebVitals not yet initialised');
-		return;
-	}
-	if (team) teamsForLogging.add(team);
-	getCoreWebVitals();
-};
-
-/**
  * Initialise sending Core Web Vitals metrics to a logging endpoint.
  *
  * @param init - the initialisation options
@@ -199,8 +173,20 @@ export const initCoreWebVitals = ({
 	if (pageViewInSample || bypassWithHash) getCoreWebVitals();
 };
 
+/**
+ * A method to asynchronously send web vitals after initialization.
+ * @param team - Optional team to trigger a log event once metrics are queued.
+ */
+export const bypassCoreWebVitalsSampling = (team?: TeamName): void => {
+	if (!initialised) {
+		console.warn('initCoreWebVitals not yet initialised');
+		return;
+	}
+	if (team) teamsForLogging.add(team);
+	getCoreWebVitals();
+};
+
 export const _ = {
-	roundWithDecimals,
 	coreWebVitalsPayload,
 	sendData,
 	reset: (): void => {
