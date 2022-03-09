@@ -1,45 +1,57 @@
 /* istanbul ignore file */
 
+export { ArticleElementRole } from './ArticleElementRole/ArticleElementRole';
+
+export { getCookie } from './cookies/getCookie';
+export { removeCookie } from './cookies/removeCookie';
+export { setCookie } from './cookies/setCookie';
+export { setSessionCookie } from './cookies/setSessionCookie';
+
 export {
-	getCookie,
-	removeCookie,
-	setCookie,
-	setSessionCookie,
-} from './cookies';
-export {
-	initCoreWebVitals,
 	bypassCoreWebVitalsSampling,
+	initCoreWebVitals,
 } from './coreWebVitals';
-export type { Country } from './countries';
-export { countries, getCountryByCountryCode } from './countries';
-export type { CountryCode } from './@types/countries';
-export type { ArticleTheme, ArticleFormat } from './format';
-export {
-	ArticlePillar,
-	ArticleSpecial,
-	ArticleDesign,
-	ArticleDisplay,
-} from './format';
-export { getLocale } from './getLocale';
-export { getSwitches } from './getSwitches';
-export { isBoolean } from './isBoolean';
-export { isObject } from './isObject';
-export { isString } from './isString';
-export { isUndefined } from './isUndefined';
-export { loadScript } from './loadScript';
-export { debug, log } from './logger';
-export { ArticleElementRole } from './ArticleElementRole';
-export { storage } from './storage';
-export { timeAgo } from './timeAgo';
+
+export type { Country } from './countries/@types/Country';
+export type { CountryCode } from './countries/@types/CountryCode';
+export { countries } from './countries/countries';
+export { getCountryByCountryCode } from './countries/getCountryByCountryCode';
+
+export { timeAgo } from './datetime/timeAgo';
+
+export { ArticleDesign } from './format/ArticleDesign';
+export { ArticleDisplay } from './format/ArticleDisplay';
+export type { ArticleFormat } from './format/ArticleFormat';
+export { ArticlePillar } from './format/ArticlePillar';
+export { ArticleSpecial } from './format/ArticleSpecial';
+export type { ArticleTheme } from './format/ArticleTheme';
+
+export { isBoolean } from './isBoolean/isBoolean';
+export { isObject } from './isObject/isObject';
+export { isString } from './isString/isString';
+export { isUndefined } from './isUndefined/isUndefined';
+
+export { joinUrl } from './joinUrl/joinUrl';
+
+export { loadScript } from './loadScript/loadScript';
+
+export { getLocale } from './locale/getLocale';
+
+export { debug } from './logger/debug';
+export { log } from './logger/log';
+
 export type {
 	OphanABEvent,
 	OphanABPayload,
+	OphanABTestMeta,
 	OphanAction,
 	OphanComponent,
 	OphanComponentEvent,
 	OphanComponentType,
 	OphanProduct,
-	OphanABTestMeta,
-} from './@types/ophan';
-export type { Switches } from './@types/switches';
-export { joinUrl } from './joinUrl';
+} from './ophan/@types';
+
+export { storage } from './storage/storage';
+
+export type { Switches } from './switches/@types/Switches';
+export { getSwitches } from './switches/getSwitches';

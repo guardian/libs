@@ -7,17 +7,17 @@
 
 > A collection of JavaScript libraries and TypeScript types for Guardian projects
 
-## Modules
-
-The following modules are available:
-
 ### [`ArticleElementRole`](./src/ArticleElementRole)
 
-Type that defines the role of an element in an article.
+Type that describes the role of an element in an article.
 
 ### [Cookies](./src/cookies)
 
 API over `document.cookies`.
+
+### [Core Web Vitals](./src/coreWebVitals)
+
+API over Google’s `web-vitals`.
 
 ### [Countries](./src/countries)
 
@@ -25,13 +25,13 @@ Country data and methods to access it.
 
 ### [Format](./src/format)
 
-Types and enums related to editorial formats.
+Codified editorial design and information architecture.
 
-### [`getLocale`](./src/getLocale)
+### [Locale](./src/getLocale)
 
 Get the user’s current location.
 
-### [`getSwitches`](./src/getSwitches)
+### [Switches](./src/getSwitches)
 
 Get the active switches on theguardian.com.
 
@@ -65,7 +65,7 @@ Selectively log team-specific messages to the console.
 
 ### [Ophan](./src/@types/ophan)
 
-Types related to Ophan.
+Types relating to Ophan.
 
 ### [`storage`](./src/storage)
 
@@ -73,7 +73,7 @@ Robust API over `localStorage` and `sessionStorage`.
 
 ### [`timeAgo`](./src/timeAgo)
 
-Turns absolute dates into time ago strings.
+Format absolute dates as time-ago strings.
 
 ## Installation
 

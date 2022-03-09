@@ -1,10 +1,10 @@
 import fs from 'fs';
-import { teams } from '../src/logger/teams';
+import { teamStyles } from '../src/logger/teamStyles';
 
 fs.writeFileSync(__dirname + '/../static/logger.svg', generateSvg());
 
 function generateSvg(): string {
-	const filteredTeams = Object.entries(teams).filter((team) => {
+	const filteredTeams = Object.entries(teamStyles).filter((team) => {
 		const [name] = team;
 		return name !== 'common';
 	});
@@ -72,8 +72,8 @@ function generateSvg(): string {
 		}
 
 		.common {
-			background-color: ${teams.common.background};
-			color: ${teams.common.font};
+			background-color: ${teamStyles.common.background};
+			color: ${teamStyles.common.font};
 		}
 	</style>
 	<foreignObject x="0" y="0" width="${width}" height="${height}">
