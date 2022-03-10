@@ -7,3 +7,4 @@ yarn npm-run-all precommit:*
 
 # generate the logger SVG
 git add static/logger.svg
+git add README.md

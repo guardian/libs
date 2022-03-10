@@ -95,14 +95,9 @@ then
 import { loadScript, storage, ...etc } from '@guardian/libs';
 ```
 
-or
+### TypeScript
 
-```html
-<script src="https://unpkg.com/@guardian/libs"></script>
-<script>
-    // window.gu.libs = { loadScript, storage, ...etc }
-</script>
-```
+If you are using this library with TypeScript, make sure you are using at least TypeScript v<!-- TS_VERSION -->4.2.2<!-- /TS_VERSION -->.
 
 ### Bundling
 

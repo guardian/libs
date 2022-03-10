@@ -24,6 +24,7 @@
     "clean": "rm -rf dist",
     "lint": "eslint . --ext .js,.ts",
     "precommit:logger-preview": "ts-node scripts/generateSvg.logger.teams.ts",
+    "precommit:update-readme": "ts-node scripts/update-readme.ts",
     "prepare": "husky install",
     "prepush:test": "jest --runInBand --onlyChanged --coverage=false",
     "test": "jest",
