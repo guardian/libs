@@ -1,5 +1,4 @@
 import type { ReportHandler } from 'web-vitals';
-import { getCLS, getFCP, getFID, getLCP, getTTFB } from 'web-vitals';
 import type { TeamName } from '../logger/@types/logger';
 import { log } from '../logger/log';
 import type { CoreWebVitalsPayload } from './@types/CoreWebVitalsPayload';
@@ -89,7 +88,10 @@ const listener = (e: Event): void => {
 	}
 };
 
-const getCoreWebVitals = (): void => {
+const getCoreWebVitals = async (): Promise<void> => {
+	const webVitals = await import('web-vitals');
+	const { getCLS, getFCP, getFID, getLCP, getTTFB } = webVitals;
+
 	getCLS(onReport, false);
 	getFID(onReport);
 	getLCP(onReport);
@@ -125,13 +127,13 @@ type InitCoreWebVitalsOptions = {
  *
  * @param team - Optional team to trigger a log event once metrics are queued.
  */
-export const initCoreWebVitals = ({
+export const initCoreWebVitals = async ({
 	browserId = null,
 	pageViewId = null,
 	sampling = 1 / 100, // 1% of page view by default
 	isDev,
 	team,
-}: InitCoreWebVitalsOptions): void => {
+}: InitCoreWebVitalsOptions): Promise<void> => {
 	if (initialised) {
 		console.warn(
 			'initCoreWebVitals already initialised',
@@ -170,20 +172,22 @@ export const initCoreWebVitals = ({
 	const bypassWithHash =
 		window.location.hash === '#bypassCoreWebVitalsSampling';
 
-	if (pageViewInSample || bypassWithHash) getCoreWebVitals();
+	if (pageViewInSample || bypassWithHash) return getCoreWebVitals();
 };
 
 /**
  * A method to asynchronously send web vitals after initialization.
  * @param team - Optional team to trigger a log event once metrics are queued.
  */
-export const bypassCoreWebVitalsSampling = (team?: TeamName): void => {
+export const bypassCoreWebVitalsSampling = async (
+	team?: TeamName,
+): Promise<void> => {
 	if (!initialised) {
 		console.warn('initCoreWebVitals not yet initialised');
 		return;
 	}
 	if (team) teamsForLogging.add(team);
-	getCoreWebVitals();
+	return getCoreWebVitals();
 };
 
 export const _ = {
