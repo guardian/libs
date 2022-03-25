@@ -1,4 +1,4 @@
-import { recordLog } from './payload';
+import { recordLog } from './record';
 
 const mockBeacon = jest.fn().mockReturnValue(true);
 navigator.sendBeacon = mockBeacon;
