@@ -77,11 +77,16 @@ describe('coreWebVitals', () => {
 		setVisibilityState();
 	});
 
-	it('sends a beacon when sampling is 100%', () => {
+	it('sends a beacon when sampling is 100%', async () => {
 		const mockAddEventListener = jest.spyOn(global, 'addEventListener');
 
 		const sampling = 100 / 100;
-		initCoreWebVitals({ browserId, pageViewId, isDev: true, sampling });
+		await initCoreWebVitals({
+			browserId,
+			pageViewId,
+			isDev: true,
+			sampling,
+		});
 
 		expect(mockAddEventListener).toHaveBeenCalledTimes(2);
 
@@ -92,9 +97,14 @@ describe('coreWebVitals', () => {
 		expect(mockBeacon).toHaveBeenCalledTimes(1);
 	});
 
-	it('does not run web-vitals if sampling is 0%', () => {
+	it('does not run web-vitals if sampling is 0%', async () => {
 		const sampling = 0 / 100;
-		initCoreWebVitals({ browserId, pageViewId, isDev: true, sampling });
+		await initCoreWebVitals({
+			browserId,
+			pageViewId,
+			isDev: true,
+			sampling,
+		});
 
 		setVisibilityState('hidden');
 		global.dispatchEvent(new Event('visibilitychange'));
@@ -110,10 +120,15 @@ describe('coreWebVitals', () => {
 		});
 	});
 
-	it('sends a beacon if sampling at 0% but bypassed via hash', () => {
+	it('sends a beacon if sampling at 0% but bypassed via hash', async () => {
 		window.location.hash = '#bypassCoreWebVitalsSampling';
 		const sampling = 0 / 100;
-		initCoreWebVitals({ browserId, pageViewId, isDev: true, sampling });
+		await initCoreWebVitals({
+			browserId,
+			pageViewId,
+			isDev: true,
+			sampling,
+		});
 		window.location.hash = '';
 
 		global.dispatchEvent(new Event('pagehide'));
@@ -121,21 +136,31 @@ describe('coreWebVitals', () => {
 		expect(mockBeacon).toHaveBeenCalledTimes(1);
 	});
 
-	it('sends a beacon if sampling at 0% but bypassed asynchronously', () => {
+	it('sends a beacon if sampling at 0% but bypassed asynchronously', async () => {
 		const sampling = 0 / 100;
-		initCoreWebVitals({ browserId, pageViewId, isDev: true, sampling });
+		await initCoreWebVitals({
+			browserId,
+			pageViewId,
+			isDev: true,
+			sampling,
+		});
 
 		expect(mockBeacon).not.toHaveBeenCalled();
 
-		bypassCoreWebVitalsSampling();
+		await bypassCoreWebVitalsSampling();
 
 		global.dispatchEvent(new Event('pagehide'));
 
 		expect(mockBeacon).toHaveBeenCalledTimes(1);
 	});
 
-	it('only registers pagehide if document is visible', () => {
-		initCoreWebVitals({ browserId, pageViewId, isDev: true, sampling: 1 });
+	it('only registers pagehide if document is visible', async () => {
+		await initCoreWebVitals({
+			browserId,
+			pageViewId,
+			isDev: true,
+			sampling: 1,
+		});
 
 		setVisibilityState('visible');
 		global.dispatchEvent(new Event('visibilitychange'));
@@ -149,9 +174,9 @@ describe('Warnings', () => {
 		reset();
 	});
 
-	it('should warn if already initialised', () => {
-		initCoreWebVitals({ pageViewId, browserId, isDev: true });
-		initCoreWebVitals({ pageViewId, browserId, isDev: true });
+	it('should warn if already initialised', async () => {
+		await initCoreWebVitals({ pageViewId, browserId, isDev: true });
+		await initCoreWebVitals({ pageViewId, browserId, isDev: true });
 
 		expect(mockConsoleWarn).toHaveBeenCalledWith(
 			'initCoreWebVitals already initialised',
@@ -159,8 +184,8 @@ describe('Warnings', () => {
 		);
 	});
 
-	it('expect to be initialised before calling bypassCoreWebVitalsSampling', () => {
-		bypassCoreWebVitalsSampling();
+	it('expect to be initialised before calling bypassCoreWebVitalsSampling', async () => {
+		await bypassCoreWebVitalsSampling();
 
 		expect(mockConsoleWarn).toHaveBeenCalledWith(
 			'initCoreWebVitals not yet initialised',
@@ -170,8 +195,8 @@ describe('Warnings', () => {
 		expect(mockBeacon).not.toHaveBeenCalled();
 	});
 
-	it('should warn if browserId is missing', () => {
-		initCoreWebVitals({ pageViewId, isDev: true });
+	it('should warn if browserId is missing', async () => {
+		await initCoreWebVitals({ pageViewId, isDev: true });
 
 		expect(mockConsoleWarn).toHaveBeenCalledWith(
 			'browserId or pageViewId missing from Core Web Vitals.',
@@ -180,8 +205,8 @@ describe('Warnings', () => {
 		);
 	});
 
-	it('should warn if pageViewId is missing', () => {
-		initCoreWebVitals({ browserId, isDev: true });
+	it('should warn if pageViewId is missing', async () => {
+		await initCoreWebVitals({ browserId, isDev: true });
 
 		expect(mockConsoleWarn).toHaveBeenCalledWith(
 			'browserId or pageViewId missing from Core Web Vitals.',
@@ -190,8 +215,8 @@ describe('Warnings', () => {
 		);
 	});
 
-	it('should warn if sampling is below 0', () => {
-		initCoreWebVitals({
+	it('should warn if sampling is below 0', async () => {
+		await initCoreWebVitals({
 			browserId,
 			pageViewId,
 			isDev: true,
@@ -204,8 +229,8 @@ describe('Warnings', () => {
 		);
 	});
 
-	it('should warn if sampling is above 1', () => {
-		initCoreWebVitals({
+	it('should warn if sampling is above 1', async () => {
+		await initCoreWebVitals({
 			browserId,
 			pageViewId,
 			isDev: true,
@@ -218,8 +243,8 @@ describe('Warnings', () => {
 		);
 	});
 
-	it('should warn if sampling is above at 0%', () => {
-		initCoreWebVitals({
+	it('should warn if sampling is above at 0%', async () => {
+		await initCoreWebVitals({
 			browserId,
 			pageViewId,
 			isDev: true,
@@ -231,8 +256,8 @@ describe('Warnings', () => {
 		);
 	});
 
-	it('should warn if sampling is above at 100%', () => {
-		initCoreWebVitals({
+	it('should warn if sampling is above at 100%', async () => {
+		await initCoreWebVitals({
 			browserId,
 			pageViewId,
 			isDev: true,
@@ -250,9 +275,9 @@ describe('Endpoints', () => {
 		reset();
 	});
 
-	it('should use CODE URL if isDev', () => {
+	it('should use CODE URL if isDev', async () => {
 		const isDev = true;
-		initCoreWebVitals({ browserId, pageViewId, isDev, sampling: 1 });
+		await initCoreWebVitals({ browserId, pageViewId, isDev, sampling: 1 });
 
 		global.dispatchEvent(new Event('pagehide'));
 
@@ -262,9 +287,9 @@ describe('Endpoints', () => {
 		);
 	});
 
-	it('should use PROD URL if isDev is false', () => {
+	it('should use PROD URL if isDev is false', async () => {
 		const isDev = false;
-		initCoreWebVitals({ browserId, pageViewId, isDev, sampling: 1 });
+		await initCoreWebVitals({ browserId, pageViewId, isDev, sampling: 1 });
 
 		global.dispatchEvent(new Event('pagehide'));
 
@@ -281,11 +306,16 @@ describe('Logging', () => {
 		setVisibilityState();
 	});
 
-	it('should log for every team that registered', () => {
+	it('should log for every team that registered', async () => {
 		const isDev = true;
-		initCoreWebVitals({ browserId, pageViewId, isDev, team: 'dotcom' });
-		bypassCoreWebVitalsSampling('design');
-		bypassCoreWebVitalsSampling('commercial');
+		await initCoreWebVitals({
+			browserId,
+			pageViewId,
+			isDev,
+			team: 'dotcom',
+		});
+		await bypassCoreWebVitalsSampling('design');
+		await bypassCoreWebVitalsSampling('commercial');
 
 		setVisibilityState('hidden');
 		global.dispatchEvent(new Event('visibilitychange'));
@@ -308,11 +338,11 @@ describe('Logging', () => {
 		);
 	});
 
-	it('should log a failure if it happens', () => {
+	it('should log a failure if it happens', async () => {
 		const mockAddEventListener = jest.spyOn(global, 'addEventListener');
 		const isDev = true;
 		const sampling = 100 / 100;
-		initCoreWebVitals({
+		await initCoreWebVitals({
 			browserId,
 			pageViewId,
 			isDev,
@@ -341,9 +371,9 @@ describe('web-vitals', () => {
 		setVisibilityState();
 	});
 
-	it('should not send data if FCP is null', () => {
+	it('should not send data if FCP is null', async () => {
 		const isDev = true;
-		initCoreWebVitals({ browserId, pageViewId, isDev, sampling: 1 });
+		await initCoreWebVitals({ browserId, pageViewId, isDev, sampling: 1 });
 
 		_.coreWebVitalsPayload.fcp = null; // simulate a failing FCP
 

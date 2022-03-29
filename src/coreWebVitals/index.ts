@@ -1,5 +1,4 @@
 import type { ReportHandler } from 'web-vitals';
-import { getCLS, getFCP, getFID, getLCP, getTTFB } from 'web-vitals';
 import type { TeamName } from '../logger/@types/logger';
 import { log } from '../logger/log';
 import type { CoreWebVitalsPayload } from './@types/CoreWebVitalsPayload';
@@ -89,7 +88,10 @@ const listener = (e: Event): void => {
 	}
 };
 
-const getCoreWebVitals = (): void => {
+const getCoreWebVitals = async (): Promise<void> => {
+	const webVitals = await import('web-vitals');
+	const { getCLS, getFCP, getFID, getLCP, getTTFB } = webVitals;
+
 	getCLS(onReport, false);
 	getFID(onReport);
 	getLCP(onReport);
@@ -116,22 +118,22 @@ type InitCoreWebVitalsOptions = {
 /**
  * Initialise sending Core Web Vitals metrics to a logging endpoint.
  *
- * @param init - the initialisation options
+ * @param {InitCoreWebVitalsOptions} init - the initialisation options
  * @param init.isDev - used to determine whether to use CODE or PROD endpoints.
  * @param init.browserId - identifies the browser. Usually available via `getCookie({ name: 'bwid' })`. Defaults to `null`
  * @param init.pageViewId - identifies the page view. Usually available on `guardian.config.ophan.pageViewId`. Defaults to `null`
  *
  * @param init.sampling - sampling rate for sending data. Defaults to `0.01`.
  *
- * @param team - Optional team to trigger a log event once metrics are queued.
+ * @param init.team - Optional team to trigger a log event once metrics are queued.
  */
-export const initCoreWebVitals = ({
+export const initCoreWebVitals = async ({
 	browserId = null,
 	pageViewId = null,
 	sampling = 1 / 100, // 1% of page view by default
 	isDev,
 	team,
-}: InitCoreWebVitalsOptions): void => {
+}: InitCoreWebVitalsOptions): Promise<void> => {
 	if (initialised) {
 		console.warn(
 			'initCoreWebVitals already initialised',
@@ -170,20 +172,22 @@ export const initCoreWebVitals = ({
 	const bypassWithHash =
 		window.location.hash === '#bypassCoreWebVitalsSampling';
 
-	if (pageViewInSample || bypassWithHash) getCoreWebVitals();
+	if (pageViewInSample || bypassWithHash) return getCoreWebVitals();
 };
 
 /**
  * A method to asynchronously send web vitals after initialization.
  * @param team - Optional team to trigger a log event once metrics are queued.
  */
-export const bypassCoreWebVitalsSampling = (team?: TeamName): void => {
+export const bypassCoreWebVitalsSampling = async (
+	team?: TeamName,
+): Promise<void> => {
 	if (!initialised) {
 		console.warn('initCoreWebVitals not yet initialised');
 		return;
 	}
 	if (team) teamsForLogging.add(team);
-	getCoreWebVitals();
+	return getCoreWebVitals();
 };
 
 export const _ = {
