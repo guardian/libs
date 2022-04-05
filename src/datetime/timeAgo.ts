@@ -75,6 +75,19 @@ const getSuffix = (type: Unit, value: number, verbose?: boolean): string => {
 const withTime = (date: Date): string =>
 	` ${date.getHours()}.${pad(date.getMinutes())}`;
 
+/**
+ * Takes an absolute date in [epoch format] and returns a string representing
+ * relative time ago.
+ *
+ * Time is formatted according to [the Guardian and Observer Style Guide (T)][T]
+ *
+ * @param {number} epoch The date when an event happened in epoch format
+ * @param {Object} [options] Options to control the formatting
+ * @returns {string | false} A formatted relative time string, or `false` if the epoch is in the future
+ *
+ * [epoch format]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date#description
+ * [T]: https://www.theguardian.com/guardian-observer-style-guide-t
+ */
 export const timeAgo = (
 	epoch: number,
 	options?: {
