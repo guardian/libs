@@ -65,7 +65,7 @@ const getSuffix = (type: Unit, value: number, verbose?: boolean): string => {
 			return 'h ago';
 		}
 		case 'd': {
-			// Always pluralised, as less than 2 days returns “Yesterday HH:MM”
+			// Always pluralised, as less than 2 days returns “Yesterday HH.MM”
 			if (verbose) return ' days ago';
 			return 'd ago';
 		}
@@ -73,7 +73,7 @@ const getSuffix = (type: Unit, value: number, verbose?: boolean): string => {
 };
 
 const withTime = (date: Date): string =>
-	` ${date.getHours()}:${pad(date.getMinutes())}`;
+	` ${date.getHours()}.${pad(date.getMinutes())}`;
 
 export const timeAgo = (
 	epoch: number,
