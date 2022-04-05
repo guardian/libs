@@ -15,9 +15,8 @@ export const getCookie = ({
 	name: string;
 	shouldMemoize?: boolean;
 }): string | null => {
-	if (memoizedCookies.has(name)) {
-		return memoizedCookies.get(name) ?? null;
-	}
+	const memoized = memoizedCookies.get(name);
+	if (memoized) return memoized;
 
 	const cookieVal = getCookieValues(name);
 
