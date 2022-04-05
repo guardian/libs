@@ -36,7 +36,7 @@ const pad = (n: number): number | string => n.toString().padStart(2, '0');
 
 const isWithin24Hours = (date: Date): boolean => {
 	const today = new Date();
-	return date.valueOf() > today.valueOf() - 24 * 60 * 60 * 1000;
+	return date.getTime() > today.getTime() - 24 * 60 * 60 * 1000;
 };
 
 const isYesterday = (relative: Date): boolean => {
