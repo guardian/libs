@@ -19,7 +19,7 @@ const shortMonth = (month: number): string =>
 const longMonth = (month: number): string =>
 	[
 		'January',
-		'Febuary',
+		'February',
 		'March',
 		'April',
 		'May',
