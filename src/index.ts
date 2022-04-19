@@ -30,6 +30,7 @@ export { isBoolean } from './isBoolean/isBoolean';
 export { isObject } from './isObject/isObject';
 export { isString } from './isString/isString';
 export { isUndefined } from './isUndefined/isUndefined';
+export { isEnum } from './isEnum/isEnum';
 
 export { joinUrl } from './joinUrl/joinUrl';
 
