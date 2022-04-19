@@ -1,4 +1,4 @@
-export const ArticleDesign = {
+export const articleDesign = {
 	Standard: 0,
 	Media: 1,
 	Review: 2,
@@ -21,3 +21,5 @@ export const ArticleDesign = {
 	FullPageInteractive: 19,
 	NewsletterSignup: 20,
 } as const;
+
+export type ArticleDesign = keyof typeof articleDesign;

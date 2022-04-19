@@ -1,4 +1,5 @@
-import { ArticlePillar } from './ArticlePillar';
-import { ArticleSpecial } from './ArticleSpecial';
+import { articlePillar } from './ArticlePillar';
+import { articleSpecial } from './ArticleSpecial';
 
-export const ArticleTheme = { ...ArticlePillar, ...ArticleSpecial } as const;
+export const articleTheme = { ...articlePillar, ...articleSpecial } as const;
+export type ArticleTheme = keyof typeof articleTheme;

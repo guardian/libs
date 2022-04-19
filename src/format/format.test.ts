@@ -1,39 +1,39 @@
-import { ArticleDesign } from './ArticleDesign';
-import { ArticleDisplay } from './ArticleDisplay';
-import { ArticlePillar } from './ArticlePillar';
-import { ArticleSpecial } from './ArticleSpecial';
-import { ArticleTheme } from './ArticleTheme';
+import { articleDesign } from './ArticleDesign';
+import { articleDisplay } from './ArticleDisplay';
+import { articlePillar } from './ArticlePillar';
+import { articleSpecial } from './ArticleSpecial';
+import { articleTheme } from './ArticleTheme';
 
 it('Design enum contains Article', () => {
-	expect(ArticleDesign.Standard).toBeDefined();
+	expect(articleDesign.Standard).toBeDefined();
 });
 
 it('Display enum contains Standard', () => {
-	expect(ArticleDisplay.Standard).toBeDefined();
+	expect(articleDisplay.Standard).toBeDefined();
 });
 
 it('Pillar enum contains News', () => {
-	expect(ArticlePillar.News).toBe(0);
+	expect(articlePillar.News).toBe(0);
 });
 
 it('Special enum contains SpecialReport', () => {
-	expect(ArticleSpecial.SpecialReport).toBe(5);
+	expect(articleSpecial.SpecialReport).toBe(5);
 });
 
 it('Design has unique key-value pairs', () => {
-	const keys = new Set(Object.keys(ArticleDesign));
-	const values = new Set(Object.values(ArticleDesign));
+	const keys = new Set(Object.keys(articleDesign));
+	const values = new Set(Object.values(articleDesign));
 	expect(keys.size).toEqual(values.size);
 });
 
 it('Display has unique key-value pairs', () => {
-	const keys = new Set(Object.keys(ArticleDisplay));
-	const values = new Set(Object.values(ArticleDisplay));
+	const keys = new Set(Object.keys(articleDisplay));
+	const values = new Set(Object.values(articleDisplay));
 	expect(keys.size).toEqual(values.size);
 });
 
 it('Theme has unique key-value pairs', () => {
-	const keys = new Set(Object.keys(ArticleTheme));
-	const values = new Set(Object.values(ArticleTheme));
+	const keys = new Set(Object.keys(articleTheme));
+	const values = new Set(Object.values(articleTheme));
 	expect(keys.size).toEqual(values.size);
 });
