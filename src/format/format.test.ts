@@ -1,3 +1,4 @@
+import { isEnum } from '../isEnum/isEnum';
 import { ArticleDesign } from './ArticleDesign';
 import { ArticleDisplay } from './ArticleDisplay';
 import { ArticlePillar } from './ArticlePillar';
@@ -20,20 +21,8 @@ it('Special enum contains SpecialReport', () => {
 	expect(ArticleSpecial.SpecialReport).toBe(5);
 });
 
-it('Design has unique key-value pairs', () => {
-	const keys = new Set(Object.keys(ArticleDesign));
-	const values = new Set(Object.values(ArticleDesign));
-	expect(keys.size).toEqual(values.size);
-});
-
-it('Display has unique key-value pairs', () => {
-	const keys = new Set(Object.keys(ArticleDisplay));
-	const values = new Set(Object.values(ArticleDisplay));
-	expect(keys.size).toEqual(values.size);
-});
-
-it('Theme has unique key-value pairs', () => {
-	const keys = new Set(Object.keys(ArticleTheme));
-	const values = new Set(Object.values(ArticleTheme));
-	expect(keys.size).toEqual(values.size);
+it('Design, Display & Theme are enum-like', () => {
+	expect(isEnum(ArticleDesign)).toBe(true);
+	expect(isEnum(ArticleDisplay)).toBe(true);
+	expect(isEnum(ArticleTheme)).toBe(true);
 });
