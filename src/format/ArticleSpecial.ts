@@ -1,4 +1,4 @@
-export enum ArticleSpecial {
-	SpecialReport = 5,
-	Labs = 6,
-}
+export const ArticleSpecial = {
+	SpecialReport: 5,
+	Labs: 6,
+} as const;

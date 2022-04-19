@@ -3,7 +3,7 @@ import type { ArticleDisplay } from './ArticleDisplay';
 import type { ArticleTheme } from './ArticleTheme';
 
 export interface ArticleFormat {
-	theme: ArticleTheme;
-	design: ArticleDesign;
-	display: ArticleDisplay;
+	theme: typeof ArticleTheme;
+	design: typeof ArticleDesign;
+	display: typeof ArticleDisplay;
 }

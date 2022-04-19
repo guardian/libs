@@ -1,4 +1,4 @@
-import type { ArticlePillar } from './ArticlePillar';
-import type { ArticleSpecial } from './ArticleSpecial';
+import { ArticlePillar } from './ArticlePillar';
+import { ArticleSpecial } from './ArticleSpecial';
 
-export type ArticleTheme = ArticlePillar | ArticleSpecial;
+export const ArticleTheme = { ...ArticlePillar, ...ArticleSpecial } as const;
