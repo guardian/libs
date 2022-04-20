@@ -72,7 +72,7 @@ describe('timeAgo', () => {
 		const yesterday = new Date(Date.UTC(2019, 10, 16, 3, 0, 0)).getTime();
 
 		expect(timeAgo(yesterday)).toBe('1d ago');
-		expect(timeAgo(yesterday, { verbose: true })).toBe('Yesterday 3:00');
+		expect(timeAgo(yesterday, { verbose: true })).toBe('Yesterday 3.00');
 	});
 
 	it('does not pluralise the unit when the delta is one', () => {
@@ -101,7 +101,7 @@ describe('timeAgo', () => {
 			timeAgo(oneDayAgo, {
 				verbose: true,
 			}),
-		).toBe('Yesterday 12:00');
+		).toBe('Yesterday 12.00');
 	});
 
 	it('returns verbose format for seconds when this option is given', () => {
@@ -172,7 +172,7 @@ describe('timeAgo', () => {
 			timeAgo(thirtyHoursAgo, {
 				verbose: true,
 			}),
-		).toBe('Yesterday 6:00');
+		).toBe('Yesterday 6.00');
 	});
 
 	it('returns absolute format dates for dates over one week ago, regardless of options', () => {
