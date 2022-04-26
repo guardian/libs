@@ -1,6 +1,8 @@
 export enum ArticleDesign {
 	Standard,
-	Media,
+	Gallery,
+	Audio,
+	Video,
 	Review,
 	Analysis,
 	Comment,
