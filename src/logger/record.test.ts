@@ -1,11 +1,11 @@
-import { recordLog } from './record';
+import { getLoggingEndpoint, recordLog } from './record';
 
 const mockBeacon = jest.fn().mockReturnValue(true);
 navigator.sendBeacon = mockBeacon;
 
 describe('Record logs to the data lake', () => {
 	it('should send data to PROD by default', () => {
-		recordLog('test', {});
+		recordLog('test', { endpoint: getLoggingEndpoint(false) });
 		expect(mockBeacon).toHaveBeenCalledWith(
 			'https://logs.guardianapis.com/log',
 			JSON.stringify({ label: 'test', properties: [], metrics: [] }),
@@ -13,7 +13,7 @@ describe('Record logs to the data lake', () => {
 	});
 
 	it('should send data to CODE when isDev=true', () => {
-		recordLog('test', { isDev: true });
+		recordLog('test', { endpoint: getLoggingEndpoint(true) });
 		expect(mockBeacon).toHaveBeenCalledWith(
 			'https://logs.code.dev-guardianapis.com/log',
 			JSON.stringify({ label: 'test', properties: [], metrics: [] }),
@@ -23,6 +23,7 @@ describe('Record logs to the data lake', () => {
 	it('should handle nominal data', () => {
 		recordLog('test', {
 			properties: { device: 'mobile', section: 'sports' },
+			endpoint: getLoggingEndpoint(false),
 		});
 		expect(mockBeacon).toHaveBeenCalledWith(
 			'https://logs.guardianapis.com/log',
@@ -46,6 +47,7 @@ describe('Record logs to the data lake', () => {
 	it('should handle nominal data', () => {
 		recordLog('test', {
 			metrics: { speed: 120, height: 321 },
+			endpoint: getLoggingEndpoint(false),
 		});
 		expect(mockBeacon).toHaveBeenCalledWith(
 			'https://logs.guardianapis.com/log',

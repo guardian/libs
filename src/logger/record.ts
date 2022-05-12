@@ -1,11 +1,41 @@
+/** Nominal data */
+type Properties = Record<string, string>;
+/** Numerical data */
+type Metrics = Record<string, number>;
+
+type Flatten<R extends Record<string, string | number>> = Array<{
+	name: keyof R;
+	value: R[keyof R];
+}>;
+
+/** This turns an object’s key-value pairs into an array objects
+ * with `name` and `value` keys.
+ *
+ * @example
+ * ({
+ *   label: 'libs',
+ *   network: 'wifi',
+ * }) => [
+ *   {
+ *		name: 'label',
+ *		value: 'libs',
+ *   },
+ *		name: 'network',
+ *		value: 'wifi',
+ *   },
+ * ]
+ */
+const flatten = <Value extends string | number>(obj: Record<string, Value>) =>
+	Object.entries(obj).map(([name, value]) => ({
+		name,
+		value,
+	}));
+
 type Payload = {
 	label: string;
-	properties: Array<{ name: string; value: string }>;
-	metrics: Array<{ name: string; value: number }>;
+	properties: Flatten<Properties>;
+	metrics: Flatten<Metrics>;
 };
-
-type Properties = Record<string, string>;
-type Metrics = Record<string, number>;
 
 const generateJSONPayload = (
 	label: string,
@@ -14,19 +44,14 @@ const generateJSONPayload = (
 ): string => {
 	const payload: Payload = {
 		label,
-		properties: Object.entries(properties).map(([name, value]) => ({
-			name,
-			value,
-		})),
-		metrics: Object.entries(metrics).map(([name, value]) => ({
-			name,
-			value,
-		})),
+		properties: flatten(properties),
+		metrics: flatten(metrics),
 	};
 
 	return JSON.stringify(payload);
 };
 
+/** Helper method to get default logging endpoints */
 const getLoggingEndpoint = (
 	isDev: boolean,
 ): `https://logs.${string}guardianapis.com/log` =>
@@ -35,7 +60,7 @@ const getLoggingEndpoint = (
 		: 'https://logs.guardianapis.com/log';
 
 type Data = {
-	isDev?: boolean;
+	endpoint?: string;
 	metrics?: Metrics;
 	properties?: Properties;
 };
@@ -57,11 +82,24 @@ type Data = {
  */
 export const recordLog = (
 	label: string,
-	{ properties = {}, metrics = {}, isDev = false }: Data = {},
-): boolean =>
-	typeof label === 'string' &&
-	label.length > 0 &&
-	navigator.sendBeacon(
-		getLoggingEndpoint(isDev),
-		generateJSONPayload(label, properties, metrics),
-	);
+	{ properties = {}, metrics = {}, endpoint }: Data = {},
+): boolean => {
+	if (typeof label !== 'string' || label === '') return false;
+	if (!endpoint) return false;
+
+	const body = generateJSONPayload(label, properties, metrics);
+
+	if ('sendBeacon' in navigator) {
+		return navigator.sendBeacon(
+			endpoint,
+			generateJSONPayload(label, properties, metrics),
+		);
+	}
+
+	void fetch(endpoint, {
+		body,
+	});
+	return true;
+};
+
+export { getLoggingEndpoint };
