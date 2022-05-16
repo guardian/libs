@@ -60,7 +60,8 @@ const getLoggingEndpoint = (
 		: 'https://logs.guardianapis.com/log';
 
 type Data = {
-	endpoint?: string;
+	label: string;
+	endpoint: string;
 	metrics?: Metrics;
 	properties?: Properties;
 };
@@ -73,17 +74,19 @@ type Data = {
  * - Nominal datum is of type `string`
  * - Numerical datum is of type `number`
  *
- * @param label Used to identify the data in BigQuery
  * @param {Data} options The data to send
+ * @param {string} options.label Used to identify the data (in BigQuery)
+ * @param {string} options.endpoint The endpoint to send the data to.
  * @param {Properties} [options.properties] Nominal data. Defaults to an empty object.
  * @param {Metrics} [options.metrics] Numerical data. Defaults to an empty object.
- * @param {Metrics} [options.isDev] Record on CODE Data Lake if `true` or PROD if `false`. Defaults to `false`
- * @returns {boolean} whether the metrics have been queued
+ * @returns {boolean} Whether sending the data has been successfully queued.
  */
-export const recordLog = (
-	label: string,
-	{ properties = {}, metrics = {}, endpoint }: Data = {},
-): boolean => {
+export const recordLog = ({
+	label,
+	endpoint,
+	properties = {},
+	metrics = {},
+}: Data): boolean => {
 	if (typeof label !== 'string' || label === '') return false;
 	if (!endpoint) return false;
 
@@ -96,10 +99,14 @@ export const recordLog = (
 		);
 	}
 
-	void fetch(endpoint, {
-		body,
-	});
-	return true;
+	try {
+		void fetch(endpoint, {
+			body,
+		});
+		return true;
+	} catch (e) {
+		return false;
+	}
 };
 
 export { getLoggingEndpoint };
