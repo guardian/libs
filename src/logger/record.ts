@@ -68,7 +68,8 @@ type Data = {
 
 /**
  * Record log to our Data Lake.
- * ⚠️ Make sure the data collection is GDPR compliant.
+ * ⚠️ Make sure we have consent for collecting this data.
+ * If in doubt, reach out to [@guardian/transparency-consent](https://github.com/orgs/guardian/teams/transparency-consent)
  *
  * Send nominal and numerical data:
  * - Nominal datum is of type `string`
