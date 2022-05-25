@@ -75,14 +75,14 @@ type Data = {
  * - Nominal datum is of type `string`
  * - Numerical datum is of type `number`
  *
- * @param {Data} options The data to send
- * @param {string} options.label Used to identify the data (in BigQuery)
- * @param {string} options.endpoint The endpoint to send the data to.
- * @param {Properties} [options.properties] Nominal data. Defaults to an empty object.
- * @param {Metrics} [options.metrics] Numerical data. Defaults to an empty object.
+ * @param {Data} data The data to send
+ * @param {string} data.label Used to identify the data (in BigQuery)
+ * @param {string} data.endpoint The endpoint to send the data to.
+ * @param {Properties} [data.properties] Nominal data. Defaults to an empty object.
+ * @param {Metrics} [data.metrics] Numerical data. Defaults to an empty object.
  * @returns {boolean} Whether sending the data has been successfully queued.
  */
-export const recordLog = ({
+const recordLog = ({
 	label,
 	endpoint,
 	properties = {},
@@ -93,14 +93,14 @@ export const recordLog = ({
 
 	const body = generateJSONPayload(label, properties, metrics);
 
-	if ('sendBeacon' in navigator) {
-		return navigator.sendBeacon(
-			endpoint,
-			generateJSONPayload(label, properties, metrics),
-		);
-	}
-
 	try {
+		if ('sendBeacon' in navigator) {
+			return navigator.sendBeacon(
+				endpoint,
+				generateJSONPayload(label, properties, metrics),
+			);
+		}
+
 		void fetch(endpoint, {
 			body,
 		});
@@ -110,4 +110,4 @@ export const recordLog = ({
 	}
 };
 
-export { getLoggingEndpoint };
+export { getLoggingEndpoint, recordLog };
