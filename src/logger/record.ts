@@ -1,3 +1,6 @@
+import type { TeamName } from './@types/logger';
+import { isTeam } from './teamStyles';
+
 /** Nominal data */
 type Properties = Record<string, string>;
 /** Numerical data */
@@ -60,7 +63,7 @@ const getLoggingEndpoint = (
 		: 'https://logs.guardianapis.com/log';
 
 type Data = {
-	label: string;
+	label: `${TeamName}.${string}`;
 	endpoint: string;
 	metrics?: Metrics;
 	properties?: Properties;
@@ -76,7 +79,7 @@ type Data = {
  * - Numerical datum is of type `number`
  *
  * @param {Data} data The data to send
- * @param {string} data.label Used to identify the data (in BigQuery)
+ * @param {`${TeamName}.${string}`} data.label Used to identify the data (in BigQuery). Starts with a registered team name.
  * @param {string} data.endpoint The endpoint to send the data to.
  * @param {Properties} [data.properties] Nominal data. Defaults to an empty object.
  * @param {Metrics} [data.metrics] Numerical data. Defaults to an empty object.
@@ -88,7 +91,8 @@ const recordLog = ({
 	properties = {},
 	metrics = {},
 }: Data): boolean => {
-	if (typeof label !== 'string' || label === '') return false;
+	if (typeof label !== 'string') return false;
+	if (!isTeam(label.split('.')[0])) return false;
 	if (!endpoint) return false;
 
 	const body = generateJSONPayload(label, properties, metrics);

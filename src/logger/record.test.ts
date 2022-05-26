@@ -10,23 +10,27 @@ describe('Record logs to an endpoint', () => {
 	const endpoint = 'https://example.com/';
 
 	it('should send data to specified endpoint', () => {
-		recordLog({ label: 'test', endpoint });
+		recordLog({ label: 'dotcom.test', endpoint });
 		expect(mockBeacon).toHaveBeenCalledWith(
 			endpoint,
-			JSON.stringify({ label: 'test', properties: [], metrics: [] }),
+			JSON.stringify({
+				label: 'dotcom.test',
+				properties: [],
+				metrics: [],
+			}),
 		);
 	});
 
 	it('should handle nominal data (strings)', () => {
 		recordLog({
-			label: 'test',
+			label: 'dotcom.test',
 			endpoint,
 			properties: { device: 'mobile', section: 'sports' },
 		});
 		expect(mockBeacon).toHaveBeenCalledWith(
 			endpoint,
 			JSON.stringify({
-				label: 'test',
+				label: 'dotcom.test',
 				properties: [
 					{
 						name: 'device',
@@ -44,14 +48,14 @@ describe('Record logs to an endpoint', () => {
 
 	it('should handle numerical data (numbers)', () => {
 		recordLog({
-			label: 'test',
+			label: 'dotcom.test',
 			endpoint,
 			metrics: { speed: 120, height: 321 },
 		});
 		expect(mockBeacon).toHaveBeenCalledWith(
 			endpoint,
 			JSON.stringify({
-				label: 'test',
+				label: 'dotcom.test',
 				properties: [],
 				metrics: [
 					{
@@ -68,16 +72,24 @@ describe('Record logs to an endpoint', () => {
 	});
 
 	describe('failure modes', () => {
-		it('should not send a beacon if label is missing', () => {
+		it('should not send a beacon if label is not a string', () => {
 			//@ts-expect-error -- we’re omitting the label
 			recordLog({});
+			//@ts-expect-error -- we’re setting the label to a number
+			recordLog({ label: 0 });
+			expect(mockBeacon).not.toHaveBeenCalled();
+		});
+
+		it('should not send a beacon if label does not start with team name', () => {
+			//@ts-expect-error -- we’re omitting the label
+			recordLog({ label: 'common.test' });
 			expect(mockBeacon).not.toHaveBeenCalled();
 		});
 
 		it('should not send a beacon if endpoint is missing', () => {
 			//@ts-expect-error -- we’re omitting the endpoint
 			recordLog({ label: 'test' });
-			recordLog({ label: 'test', endpoint: '' });
+			recordLog({ label: 'dotcom.test', endpoint: '' });
 			expect(mockBeacon).not.toHaveBeenCalled();
 		});
 	});
@@ -92,11 +104,11 @@ describe('Record logs to an endpoint', () => {
 		});
 
 		it('use fetch fallback if missing', () => {
-			recordLog({ label: 'test', endpoint });
+			recordLog({ label: 'dotcom.test', endpoint });
 			expect(mockBeacon).not.toHaveBeenCalled();
 			expect(mockFetch).toHaveBeenCalledWith(endpoint, {
 				body: JSON.stringify({
-					label: 'test',
+					label: 'dotcom.test',
 					properties: [],
 					metrics: [],
 				}),
@@ -107,7 +119,7 @@ describe('Record logs to an endpoint', () => {
 			// @ts-expect-error -- we’re removing fetch
 			delete window.fetch;
 
-			const queued = recordLog({ label: 'test', endpoint });
+			const queued = recordLog({ label: 'dotcom.test', endpoint });
 			expect(queued).toBe(false);
 
 			window.fetch = mockFetch;

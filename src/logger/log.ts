@@ -1,10 +1,12 @@
 import { storage } from '../storage/storage';
 import type { LogCall, TeamStyle, TeamSubscription } from './@types/logger';
 import { STORAGE_KEY } from './storage-key';
-import { teamStyles } from './teamStyles';
+import { commonStyle, teamStyles } from './teamStyles';
+
+const allStyles = { ...teamStyles, ...commonStyle };
 
 const messageStyle = (teamStyle: TeamStyle): string => {
-	const { background, font } = teamStyles[teamStyle];
+	const { background, font } = allStyles[teamStyle];
 	return `background: ${background}; color: ${font}; padding: 2px 3px; border-radius:3px`;
 };
 
