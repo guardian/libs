@@ -339,10 +339,10 @@
     eslint-plugin-import "2.25.3"
     eslint-plugin-prettier "4.0.0"
 
-"@guardian/pkgu@0.6.1":
-  version "0.6.1"
-  resolved "https://registry.yarnpkg.com/@guardian/pkgu/-/pkgu-0.6.1.tgz#2e5186d2a449853196180fdfed7f678913ddea21"
-  integrity sha512-f/AhyWJIj50s+8phHaym2r2udVuR9skwlFBjX8q8ROzaooef4mAWoUPT4U8n3CYiGUMH99fxCVm/6E12Vj1zdw==
+"@guardian/pkgu@0.6.0":
+  version "0.6.0"
+  resolved "https://registry.npmjs.org/@guardian/pkgu/-/pkgu-0.6.0.tgz#abb5b136df6b1d72f9b653d87342ac4e16d90a6b"
+  integrity sha512-ZQAOr9AT5h13QB7vjjAKiuLqzFCwuEg6/LZBsKr+O05rITzTrsQhguY3IwV8jMCf76Y6Rzq8A39zE3C8eFBioA==
   dependencies:
     chalk "^4.1.0"
     execa "^5.0.0"
