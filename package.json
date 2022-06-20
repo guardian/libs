@@ -39,7 +39,7 @@
     "@guardian/prettier": "1.0.0",
     "@semantic-release/github": "8.0.4",
     "@types/jest": "27.4.1",
-    "@types/node": "16.11.41",
+    "@types/node": "18.0.0",
     "@types/wcag-contrast": "3.0.0",
     "conventional-changelog-conventionalcommits": "5.0.0",
     "eslint": "8.18.0",
