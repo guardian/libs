@@ -95,3 +95,15 @@ export type OphanABTestMeta = {
 	componentType: OphanComponentType;
 	products?: OphanProduct[];
 };
+
+/**
+ * Record any data object to Ophan.
+ *
+ * Typically exposed on `window.guardian.ophan.record`
+ *
+ * Source: [`ophan/transmit.coffee#L27-L32`](https://github.com/guardian/ophan/blob/ccaa57bcee3f5f3f83ec28973074c9b3f98f1438/tracker-js/assets/coffee/ophan/transmit.coffee#L27-L32)
+ */
+export type OphanRecordFunction = (
+	data: Record<string, unknown>,
+	callback?: () => void,
+) => void;
