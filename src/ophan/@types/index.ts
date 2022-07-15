@@ -66,8 +66,7 @@ export type OphanComponentType =
 	| 'RETENTION_EPIC'
 	| 'CONSENT'
 	| 'LIVE_BLOG_PINNED_POST'
-	| 'STICKY_VIDEO'
-	| 'KEY_EVENT_CARD';
+	| 'STICKY_VIDEO';
 
 export type OphanComponent = {
 	componentType: OphanComponentType;
