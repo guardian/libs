@@ -1,10 +1,17 @@
 import type { TeamName } from './@types/logger';
 import { isTeam } from './teamStyles';
 
-/** Nominal data */
-type Properties = Record<string, string>;
-/** Numerical data */
-type Metrics = Record<string, number>;
+const forbiddenKeys = ['browserId', 'pageViewId'] as const;
+const containsForbiddenKeys = (...objects: Array<Record<string, unknown>>) =>
+	forbiddenKeys.some((key) => objects.flatMap(Object.keys).includes(key));
+
+/** **STOP!** this key can only be recorded via Ophan */
+type Anonymised = { [K in typeof forbiddenKeys[number]]?: never };
+
+/** Anonymous Nominal data */
+type Properties = Record<string, string> & Anonymised;
+/** Anonymous Numerical data */
+type Metrics = Record<string, number> & Anonymised;
 
 type Flatten<R extends Record<string, string | number>> = Array<{
 	name: keyof R;
@@ -70,8 +77,9 @@ type Data = {
 };
 
 /**
- * Record log to our Data Lake.
- * ⚠️ Make sure we have consent for collecting this data.
+ * Record anonymous logs to our Data Lake.
+ *
+ * The data collected via this pipeline should be entirely anonymised.
  * If in doubt, reach out to [@guardian/transparency-consent](https://github.com/orgs/guardian/teams/transparency-consent)
  *
  * Send nominal and numerical data:
@@ -85,15 +93,17 @@ type Data = {
  * @param {Metrics} [data.metrics] Numerical data. Defaults to an empty object.
  * @returns {boolean} Whether sending the data has been successfully queued.
  */
-const recordLog = ({
+const recordAnonymousLog = ({
 	label,
 	endpoint,
 	properties = {},
 	metrics = {},
 }: Data): boolean => {
 	if (typeof label !== 'string') return false;
-	if (!isTeam(label.split('.')[0])) return false;
+	const [team] = label.split('.');
+	if (!isTeam(team)) return false;
 	if (!endpoint) return false;
+	if (containsForbiddenKeys(properties, metrics)) return false;
 
 	const body = generateJSONPayload(label, properties, metrics);
 
@@ -114,4 +124,4 @@ const recordLog = ({
 	}
 };
 
-export { getLoggingEndpoint, recordLog };
+export { getLoggingEndpoint, recordAnonymousLog as recordLog };

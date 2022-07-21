@@ -125,6 +125,30 @@ describe('Record logs to an endpoint', () => {
 			window.fetch = mockFetch;
 		});
 	});
+
+	describe('Only anonymous data', () => {
+		it('should prevent data containing a browserId', () => {
+			const queued = recordLog({
+				label: 'dotcom.test',
+				endpoint,
+				// @ts-expect-error -- we’re passing a forbidden field
+				properties: { browserId: 'abc123' },
+			});
+
+			expect(queued).toBe(false);
+		});
+
+		it('should prevent data containing a pageViewId', () => {
+			const queued = recordLog({
+				label: 'dotcom.test',
+				endpoint,
+				// @ts-expect-error -- we’re passing a forbidden field
+				metrics: { pageViewId: 456789 },
+			});
+
+			expect(queued).toBe(false);
+		});
+	});
 });
 
 describe('getLoggingEndpoint', () => {
