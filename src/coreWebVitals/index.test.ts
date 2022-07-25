@@ -60,7 +60,7 @@ const mockConsoleWarn = jest
 
 const spyLog = jest.spyOn(logger, 'log');
 
-const setVisibilityState = (value: DocumentVisibilityState = 'visible') => {
+const setVisibilityState = (value: VisibilityState = 'visible') => {
 	Object.defineProperty(document, 'visibilityState', {
 		writable: true,
 		configurable: true,
