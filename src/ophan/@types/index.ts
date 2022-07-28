@@ -39,7 +39,9 @@ export type OphanAction =
 	| 'CONSENT_REJECT_ALL'
 	| 'STICK'
 	| 'CLOSE'
-	| 'RETURN';
+	| 'RETURN'
+	| 'SIGN_IN'
+	| 'CREATE_ACCOUNT';
 
 export type OphanComponentType =
 	| 'READERS_QUESTIONS_ATOM'
@@ -66,7 +68,8 @@ export type OphanComponentType =
 	| 'RETENTION_EPIC'
 	| 'CONSENT'
 	| 'LIVE_BLOG_PINNED_POST'
-	| 'STICKY_VIDEO';
+	| 'STICKY_VIDEO'
+	| 'IDENTITY_AUTHENTICATION';
 
 export type OphanComponent = {
 	componentType: OphanComponentType;
