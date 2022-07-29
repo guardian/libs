@@ -1,6 +1,6 @@
 # Format
 
-Types and enums related to editorial formats.
+Types related to editorial formats.
 
 ## Usage
 

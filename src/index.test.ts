@@ -1,6 +1,5 @@
 import * as packageExports from './index';
 
-console.debug(Object.keys(packageExports).sort());
 describe('The package', () => {
 	it('exports everything it did before', () => {
 		expect(Object.keys(packageExports).sort()).toEqual([
