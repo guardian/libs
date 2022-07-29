@@ -1,25 +1,24 @@
-export enum ArticleDesign {
-	Standard,
-	Gallery,
-	Audio,
-	Video,
-	Review,
-	Analysis,
-	Comment,
-	Letter,
-	Feature,
-	LiveBlog,
-	DeadBlog,
-	Recipe,
-	MatchReport,
-	Interview,
-	Editorial,
-	Quiz,
-	Interactive,
-	PhotoEssay,
-	PrintShop,
-	Obituary,
-	Correction,
-	FullPageInteractive,
-	NewsletterSignup,
-}
+type ArticleDesign =
+	| 'DesignStandard'
+	| 'DesignMedia'
+	| 'DesignReview'
+	| 'DesignAnalysis'
+	| 'DesignComment'
+	| 'DesignLetter'
+	| 'DesignFeature'
+	| 'DesignLiveBlog'
+	| 'DesignDeadBlog'
+	| 'DesignRecipe'
+	| 'DesignMatchReport'
+	| 'DesignInterview'
+	| 'DesignEditorial'
+	| 'DesignQuiz'
+	| 'DesignInteractive'
+	| 'DesignPhotoEssay'
+	| 'DesignPrintShop'
+	| 'DesignObituary'
+	| 'DesignCorrection'
+	| 'DesignFullPageInteractive'
+	| 'DesignNewsletterSignup';
+
+export type { ArticleDesign };

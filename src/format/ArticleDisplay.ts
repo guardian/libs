@@ -1,6 +1,7 @@
-export enum ArticleDisplay {
-	Standard,
-	Immersive,
-	Showcase,
-	NumberedList,
-}
+type ArticleDisplay =
+	| 'DisplayStandard'
+	| 'DisplayImmersive'
+	| 'DisplayShowcase'
+	| 'DisplayNumberedList';
+
+export type { ArticleDisplay };
