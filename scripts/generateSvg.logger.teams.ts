@@ -1,5 +1,5 @@
 import fs from 'fs';
-import { teamStyles } from '../src/logger/teamStyles';
+import { commonStyle, teamStyles } from '../src/logger/teamStyles';
 
 fs.writeFileSync(__dirname + '/../static/logger.svg', generateSvg());
 
@@ -72,8 +72,8 @@ function generateSvg(): string {
 		}
 
 		.common {
-			background-color: ${teamStyles.common.background};
-			color: ${teamStyles.common.font};
+			background-color: ${commonStyle.common.background};
+			color: ${commonStyle.common.font};
 		}
 	</style>
 	<foreignObject x="0" y="0" width="${width}" height="${height}">
