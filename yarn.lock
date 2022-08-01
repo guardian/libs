@@ -339,10 +339,10 @@
     eslint-plugin-import "2.26.0"
     eslint-plugin-prettier "4.0.0"
 
-"@guardian/pkgu@0.6.0":
-  version "0.6.0"
-  resolved "https://registry.npmjs.org/@guardian/pkgu/-/pkgu-0.6.0.tgz#abb5b136df6b1d72f9b653d87342ac4e16d90a6b"
-  integrity sha512-ZQAOr9AT5h13QB7vjjAKiuLqzFCwuEg6/LZBsKr+O05rITzTrsQhguY3IwV8jMCf76Y6Rzq8A39zE3C8eFBioA==
+"@guardian/pkgu@0.6.2":
+  version "0.6.2"
+  resolved "https://registry.yarnpkg.com/@guardian/pkgu/-/pkgu-0.6.2.tgz#5091aba9292bb55b952b8cfdb45f6363b497bd2d"
+  integrity sha512-uTjY4eRMWCuusJIOCrVVXWPkb+/ZCKqVYH/QoLGstPYO0eWJBgNrmAmTdhhNwzcqtcPdxLu0RJZR366OdbkW7w==
   dependencies:
     chalk "^4.1.0"
     execa "^5.0.0"
@@ -351,16 +351,16 @@
     path-exists "^4.0.0"
     pkg-dir "^5.0.0"
     pkg-up "^3.1.0"
-    prettier "^2.2.1"
+    prettier "^2.6.2"
     read-pkg-up "^7.0.1"
     sade "^1.7.4"
     sort-keys "^4.2.0"
     sort-package-json "1.48.1"
 
-"@guardian/prettier@1.0.0":
-  version "1.0.0"
-  resolved "https://registry.npmjs.org/@guardian/prettier/-/prettier-1.0.0.tgz#a5dd832e2ce31c6f723f0af77fe116b32b4695ff"
-  integrity sha512-srnhPn3hcSv14mDotFQN0CfN3k8MaGsXdK8BXAG95QQxM69Ybi16o4/Xqe361fwDEp7m+9jf03sETcMi8WsDlA==
+"@guardian/prettier@2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@guardian/prettier/-/prettier-2.0.0.tgz#2d213e78fab5973285ef5e4f077d3439ec661f49"
+  integrity sha512-xzihXsXQGERmbl6PSfC17o8h/R8SVO2DVHY7npxzSdKhQdGSRivWvIKOOsroEBoO5RsBMqeo2NJ+VSWQtugViw==
 
 "@humanwhocodes/config-array@^0.10.4":
   version "0.10.4"
@@ -841,17 +841,22 @@
   resolved "https://registry.npmjs.org/@octokit/openapi-types/-/openapi-types-11.2.0.tgz#b38d7fc3736d52a1e96b230c1ccd4a58a2f400a6"
   integrity sha512-PBsVO+15KSlGmiI8QAzaqvsNlZlrDlyAJYcrXBCvVUxCp7VnXjkwPoFHgjEJXx3WF9BAwkA6nfCUA7i9sODzKA==
 
+"@octokit/openapi-types@^12.10.0":
+  version "12.10.1"
+  resolved "https://registry.yarnpkg.com/@octokit/openapi-types/-/openapi-types-12.10.1.tgz#57b5cc6c7b4e55d8642c93d06401fb1af4839899"
+  integrity sha512-P+SukKanjFY0ZhsK6wSVnQmxTP2eVPPE8OPSNuxaMYtgVzwJZgfGdwlYjf4RlRU4vLEw4ts2fsE2icG4nZ5ddQ==
+
 "@octokit/openapi-types@^12.11.0":
   version "12.11.0"
   resolved "https://registry.yarnpkg.com/@octokit/openapi-types/-/openapi-types-12.11.0.tgz#da5638d64f2b919bca89ce6602d059f1b52d3ef0"
   integrity sha512-VsXyi8peyRq9PqIz/tpqiL2w3w80OgVMwBHltTml3LmVvXiphgeqmY9mvBw9Wu7e0QWk/fqD37ux8yP5uVekyQ==
 
 "@octokit/plugin-paginate-rest@^3.0.0":
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/@octokit/plugin-paginate-rest/-/plugin-paginate-rest-3.1.0.tgz#86f8be759ce2d6d7c879a31490fd2f7410b731f0"
-  integrity sha512-+cfc40pMzWcLkoDcLb1KXqjX0jTGYXjKuQdFQDc6UAknISJHnZTiBqld6HDwRJvD4DsouDKrWXNbNV0lE/3AXA==
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@octokit/plugin-paginate-rest/-/plugin-paginate-rest-3.0.0.tgz#df779de686aeb21b5e776e4318defc33b0418566"
+  integrity sha512-fvw0Q5IXnn60D32sKeLIxgXCEZ7BTSAjJd8cFAE6QU5qUp0xo7LjFUjjX1J5D7HgN355CN4EXE4+Q1/96JaNUA==
   dependencies:
-    "@octokit/types" "^6.41.0"
+    "@octokit/types" "^6.39.0"
 
 "@octokit/plugin-request-log@^1.0.4":
   version "1.0.4"
@@ -903,6 +908,13 @@
   integrity sha512-s1zLBjWhdEI2zwaoSgyOFoKSl109CUcVBCc7biPJ3aAf6LGLU6szDvi31JPU7bxfla2lqfhjbbg/5DdFNxOwHw==
   dependencies:
     "@octokit/openapi-types" "^11.2.0"
+
+"@octokit/types@^6.39.0":
+  version "6.40.0"
+  resolved "https://registry.yarnpkg.com/@octokit/types/-/types-6.40.0.tgz#f2e665196d419e19bb4265603cf904a820505d0e"
+  integrity sha512-MFZOU5r8SwgJWDMhrLUSvyJPtVsqA6VnbVI3TNbsmw+Jnvrktzvq2fYES/6RiJA/5Ykdwq4mJmtlYUfW7CGjmw==
+  dependencies:
+    "@octokit/openapi-types" "^12.10.0"
 
 "@octokit/types@^6.41.0":
   version "6.41.0"
@@ -5552,15 +5564,10 @@ prettier-linter-helpers@^1.0.0:
   dependencies:
     fast-diff "^1.1.2"
 
-prettier@2.7.1:
+prettier@2.7.1, prettier@^2.6.2:
   version "2.7.1"
-  resolved "https://registry.npmjs.org/prettier/-/prettier-2.7.1.tgz#e235806850d057f97bb08368a4f7d899f7760c64"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.7.1.tgz#e235806850d057f97bb08368a4f7d899f7760c64"
   integrity sha512-ujppO+MkdPqoVINuDFDRLClm7D78qbDt0/NR+wp5FqEZOoTNAjPHWj17QRhu7geIHJfcNhRk1XVQmF8Bp3ye+g==
-
-prettier@^2.2.1:
-  version "2.6.2"
-  resolved "https://registry.npmjs.org/prettier/-/prettier-2.6.2.tgz#e26d71a18a74c3d0f0597f55f01fb6c06c206032"
-  integrity sha512-PkUpF+qoXTqhOeWL9fu7As8LXsIUZ1WYaJiY/a7McAQzxjk82OF0tibkFXVCDImZtWxbvojFjerkiLb0/q8mew==
 
 pretty-format@^27.0.0, pretty-format@^27.5.1:
   version "27.5.1"
