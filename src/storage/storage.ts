@@ -1,3 +1,6 @@
+import { isObject } from '../isObject/isObject';
+import { isString } from '../isString/isString';
+
 class StorageFactory {
 	#storage: Storage | undefined; // https://mdn.io/Private_class_fields
 
@@ -22,27 +25,19 @@ class StorageFactory {
 		return Boolean(this.#storage);
 	}
 
-	/* eslint-disable
-		@typescript-eslint/no-unsafe-assignment,
-		@typescript-eslint/no-explicit-any,
-		@typescript-eslint/no-unsafe-argument
-		--
-		- we're using the `try` to handle anything bad happening
-		- JSON.parse returns an `any`, we really are with an `any`
-	*/
 	/**
 	 * Retrieve an item from storage.
 	 *
 	 * @param key - the name of the item
 	 */
-	get(key: string): any {
+	get(key: string): unknown {
 		try {
-			const { value, expires } = JSON.parse(
-				this.#storage?.getItem(key) ?? '',
-			);
+			const data: unknown = JSON.parse(this.#storage?.getItem(key) ?? '');
+			if (!isObject(data)) return null;
+			const { value, expires } = data;
 
 			// is this item has passed its sell-by-date, remove it
-			if (expires && new Date() > new Date(expires)) {
+			if (isString(expires) && new Date() > new Date(expires)) {
 				this.remove(key);
 				return null;
 			}
@@ -52,11 +47,6 @@ class StorageFactory {
 			return null;
 		}
 	}
-	/* eslint-enable
-		@typescript-eslint/no-unsafe-assignment,
-		@typescript-eslint/no-explicit-any,
-		@typescript-eslint/no-unsafe-argument
-	*/
 
 	/**
 	 * Save a value to storage.
