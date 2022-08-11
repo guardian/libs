@@ -33,4 +33,8 @@ export const teamStyles = {
 		background: '#0F70B7',
 		font: '#ffffff',
 	},
+	identity: {
+		background: '#6F5F8F',
+		font: '#ffffff',
+	},
 } as const;
