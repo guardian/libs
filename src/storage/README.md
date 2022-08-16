@@ -30,7 +30,7 @@ _n.b. the examples below use `storage.local`, but all methods are available for 
 
 ## `get(key)`
 
-Returns: `string` | `number` | `boolean` | `null` | `object` | `array`
+Returns: `unknown`
 
 Retrieves an item from storage.
 
