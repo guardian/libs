@@ -5,6 +5,7 @@ export enum ArticleDesign {
 	Video,
 	Review,
 	Analysis,
+	Explainer,
 	Comment,
 	Letter,
 	Feature,
