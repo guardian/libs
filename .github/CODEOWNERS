@@ -1,6 +1,8 @@
 # if you would like to help maintain this repo,
 # please add yourself in a PR
 
-* @guardian/client-side-infra @gtrufitt
+* @guardian/client-side-infra
 
-src/coreWebVitals*  @guardian/guardian-frontend-team @guardian/commercial-dev
+src/coreWebVitals* @guardian/dotcom-platform @guardian/commercial-dev
+
+/src/format/ @guardian/apps-rendering @guardian/dotcom-platform
