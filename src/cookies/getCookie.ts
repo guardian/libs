@@ -18,11 +18,13 @@ export const getCookie = ({
 	const memoizedCookie = memoizedCookies.get(name);
 	if (memoizedCookie) return memoizedCookie;
 
-	const cookieVal = getCookieValues(name);
+	const value = getCookieValues(name)[0];
 
-	if (shouldMemoize && cookieVal[0]) {
-		memoizedCookies.set(name, cookieVal[0]);
-		return cookieVal[0];
+	if (value) {
+		if (shouldMemoize) {
+			memoizedCookies.set(name, value);
+		}
+		return value;
 	}
 	return null;
 };
