@@ -6,7 +6,6 @@
 		"isolatedModules": true,
 		"noEmit": true,
 		"resolveJsonModule": true,
-		"strict": true,
 		"target": "ES2020"
 	},
 	"include": ["src"],
