@@ -18,7 +18,7 @@ export const getCookie = ({
 	const memoizedCookie = memoizedCookies.get(name);
 	if (memoizedCookie) return memoizedCookie;
 
-	const value = getCookieValues(name)[0];
+	const [value] = getCookieValues(name);
 
 	if (value) {
 		if (shouldMemoize) {
