@@ -20,10 +20,8 @@ export const getCookie = ({
 
 	const cookieVal = getCookieValues(name);
 
-	if (cookieVal[0]) {
-		if (shouldMemoize) {
-			memoizedCookies.set(name, cookieVal[0]);
-		}
+	if (shouldMemoize && cookieVal[0]) {
+		memoizedCookies.set(name, cookieVal[0]);
 		return cookieVal[0];
 	}
 	return null;
