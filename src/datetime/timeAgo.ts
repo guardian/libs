@@ -1,7 +1,7 @@
 type Unit = 's' | 'm' | 'h' | 'd';
 
-const shortMonth = (month: number): string =>
-	[
+const shortMonth = (monthIndex: number): string => {
+	const month = [
 		'Jan',
 		'Feb',
 		'Mar',
@@ -14,10 +14,17 @@ const shortMonth = (month: number): string =>
 		'Oct',
 		'Nov',
 		'Dec',
-	][month];
+	][monthIndex];
 
-const longMonth = (month: number): string =>
-	[
+	if (month) {
+		return month;
+	}
+
+	throw new Error(`Invalid month index: ${monthIndex}`);
+};
+
+const longMonth = (monthIndex: number): string => {
+	const month = [
 		'January',
 		'February',
 		'March',
@@ -30,7 +37,14 @@ const longMonth = (month: number): string =>
 		'October',
 		'November',
 		'December',
-	][month];
+	][monthIndex];
+
+	if (month) {
+		return month;
+	}
+
+	throw new Error(`Invalid month index: ${monthIndex}`);
+};
 
 const pad = (n: number): number | string => n.toString().padStart(2, '0');
 

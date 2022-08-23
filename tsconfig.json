@@ -1,18 +1,19 @@
 {
-  "compilerOptions": {
-    "allowJs": true,
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "isolatedModules": true,
-    "module": "ESNext",
-    "moduleResolution": "node",
-    "noEmit": true,
-    "resolveJsonModule": true,
-    "strict": true,
-    "target": "ES2020"
-  },
-  "include": ["src"],
-  "exclude": ["node_modules", "dist", "coverage"],
-  "ts-node": { "compilerOptions": { "module": "commonjs" } }
+	"extends": "@guardian/tsconfig",
+	"compilerOptions": {
+		"allowJs": true,
+		"allowSyntheticDefaultImports": true,
+		"esModuleInterop": true,
+		"forceConsistentCasingInFileNames": true,
+		"isolatedModules": true,
+		"module": "ESNext",
+		"moduleResolution": "node",
+		"noEmit": true,
+		"resolveJsonModule": true,
+		"strict": true,
+		"target": "ES2020"
+	},
+	"include": ["src"],
+	"exclude": ["node_modules", "dist", "coverage"],
+	"ts-node": { "compilerOptions": { "module": "commonjs" } }
 }

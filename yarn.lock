@@ -362,6 +362,11 @@
   resolved "https://registry.yarnpkg.com/@guardian/prettier/-/prettier-2.0.0.tgz#2d213e78fab5973285ef5e4f077d3439ec661f49"
   integrity sha512-xzihXsXQGERmbl6PSfC17o8h/R8SVO2DVHY7npxzSdKhQdGSRivWvIKOOsroEBoO5RsBMqeo2NJ+VSWQtugViw==
 
+"@guardian/tsconfig@0.1.4":
+  version "0.1.4"
+  resolved "https://registry.npmjs.org/@guardian/tsconfig/-/tsconfig-0.1.4.tgz#6f9b78f36b14dbe9507658e7d8bb49b61398b641"
+  integrity sha512-QLHYlDSUksxQw3hzbAFhdC/NS7RMlw7fsdg0fL2CaOeGmOSwEmPJTbsqJAp3KxvpCuLK3ZtCSDnOY7sLcuQ+Ig==
+
 "@humanwhocodes/config-array@^0.10.4":
   version "0.10.4"
   resolved "https://registry.yarnpkg.com/@humanwhocodes/config-array/-/config-array-0.10.4.tgz#01e7366e57d2ad104feea63e72248f22015c520c"
