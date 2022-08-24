@@ -106,8 +106,8 @@ export const timeAgo = (
 		return [
 			then.getDate(),
 			verbose
-				? then.toLocaleString('default', { month: 'long' })
-				: then.toLocaleString('default', { month: 'short' }),
+				? then.toLocaleString('en-GB', { month: 'long' })
+				: then.toLocaleString('en-GB', { month: 'short' }),
 			then.getFullYear(),
 		].join(' ');
 	}
