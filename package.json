@@ -37,6 +37,7 @@
 		"@guardian/eslint-config-typescript": "1.0.6",
 		"@guardian/pkgu": "0.6.2",
 		"@guardian/prettier": "2.1.1",
+		"@guardian/tsconfig": "0.1.4",
 		"@semantic-release/github": "8.0.5",
 		"@types/jest": "27.4.1",
 		"@types/node": "16.11.47",
