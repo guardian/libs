@@ -102,9 +102,7 @@ describe('Add and remove teams', () => {
 	});
 
 	it('should return the list of registered teams', () => {
-		let teams: string[] = [];
-		if (window.guardian?.logger) teams = window.guardian.logger.teams();
-		console.log(teams);
+		const teams = window.guardian?.logger?.teams();
 		expect(Array.isArray(teams)).toBe(true);
 		expect(teams).toContain('cmp');
 	});
