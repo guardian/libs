@@ -3,6 +3,7 @@
 	"compilerOptions": {
 		"allowJs": true,
 		"forceConsistentCasingInFileNames": true,
+		"importHelpers": true,
 		"isolatedModules": true,
 		"noEmit": true,
 		"target": "ES2020"
