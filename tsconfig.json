@@ -1,15 +1,15 @@
 {
-  "extends": "@guardian/tsconfig",
-  "compilerOptions": {
-    "allowJs": true,
-    "forceConsistentCasingInFileNames": true,
-    "importHelpers": true,
-    "isolatedModules": true,
-    "module": "ESNext",
-    "noEmit": true,
-    "target": "ES2020"
-  },
-  "include": ["src"],
-  "exclude": ["node_modules", "dist", "coverage"],
-  "ts-node": { "compilerOptions": { "module": "commonjs" } }
+	"extends": "@guardian/tsconfig",
+	"compilerOptions": {
+		"allowJs": true,
+		"forceConsistentCasingInFileNames": true,
+		"importHelpers": true,
+		"isolatedModules": true,
+		"module": "ESNext",
+		"noEmit": true,
+		"target": "ES2020"
+	},
+	"include": ["src"],
+	"exclude": ["node_modules", "dist", "coverage"],
+	"ts-node": { "compilerOptions": { "module": "commonjs" } }
 }
