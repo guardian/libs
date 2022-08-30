@@ -5,7 +5,6 @@
 		"forceConsistentCasingInFileNames": true,
 		"importHelpers": true,
 		"isolatedModules": true,
-		"module": "ESNext",
 		"noEmit": true,
 		"target": "ES2020"
 	},
