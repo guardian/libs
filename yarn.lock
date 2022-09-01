@@ -318,12 +318,12 @@
   resolved "https://registry.yarnpkg.com/@gar/promisify/-/promisify-1.1.3.tgz#555193ab2e3bb3b6adc3d551c9c030d9e860daf6"
   integrity sha512-k2Ty1JcVojjJFwrg/ThKi2ujJ7XNLYaFGNB/bWT9wGR+oSMJHMa5w+CUq6p/pVrKeNNgA7pCqEcjSnHVoqJQFw==
 
-"@guardian/eslint-config-typescript@1.0.6":
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/@guardian/eslint-config-typescript/-/eslint-config-typescript-1.0.6.tgz#e58e16e883ab56507573701d2ef7c58a32dd6c30"
-  integrity sha512-lqAIlG2Wd2kbkUe9t8Yw8EbEttWjFRxvqPLWNFYfnQTqHSUqI/QBIrgH/DbF4AryiL/yohxcheXfk6BJptZo6g==
+"@guardian/eslint-config-typescript@1.0.7":
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/@guardian/eslint-config-typescript/-/eslint-config-typescript-1.0.7.tgz#289764409142f7af5452ae32c9b7b010566b49a7"
+  integrity sha512-Sn0AT+DCcQa+9qQQnwwe8pzG35YesjU/aBXUWCcwJ7CK4wNFo10wAj0eGf73MPnW+OFTj2fJ1Ix+o5lau6aqow==
   dependencies:
-    "@guardian/eslint-config" "2.0.0"
+    "@guardian/eslint-config" "2.0.1"
     "@typescript-eslint/eslint-plugin" "5.28.0"
     "@typescript-eslint/parser" "5.31.0"
     eslint-import-resolver-typescript "2.7.1"
@@ -333,6 +333,15 @@
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@guardian/eslint-config/-/eslint-config-2.0.0.tgz#1c43126d9d88538516bdf785d1a2c25fa98575c0"
   integrity sha512-eMmTvv/ipdqhWI1f+tqBCiSD4jYOSnbWWKFYyfoDt6YiiRqppMyp5NuYiVFkhYCphjM9QGuasQy22sOUTtBIZg==
+  dependencies:
+    eslint-config-prettier "8.5.0"
+    eslint-plugin-eslint-comments "3.2.0"
+    eslint-plugin-import "2.26.0"
+
+"@guardian/eslint-config@2.0.1":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@guardian/eslint-config/-/eslint-config-2.0.1.tgz#bbb931f9c0fde1c0c521407df73108a5c443d128"
+  integrity sha512-t/mO6r7RbvEmGlrZphDwfN5LXuHPq4OJKhyBObEHEdExOSqMQwPsNl8mC4ZDDaNT1FH+cttj7FZeE4gf0tB8vA==
   dependencies:
     eslint-config-prettier "8.5.0"
     eslint-plugin-eslint-comments "3.2.0"

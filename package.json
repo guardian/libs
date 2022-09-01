@@ -34,7 +34,7 @@
 	},
 	"devDependencies": {
 		"@guardian/eslint-config": "2.0.0",
-		"@guardian/eslint-config-typescript": "1.0.6",
+		"@guardian/eslint-config-typescript": "1.0.7",
 		"@guardian/pkgu": "0.6.2",
 		"@guardian/prettier": "2.1.1",
 		"@guardian/tsconfig": "0.1.4",
