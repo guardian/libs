@@ -40,7 +40,7 @@
 		"@guardian/tsconfig": "0.1.4",
 		"@semantic-release/github": "8.0.6",
 		"@types/jest": "27.4.1",
-		"@types/node": "16.11.47",
+		"@types/node": "16.11.56",
 		"@types/wcag-contrast": "3.0.0",
 		"conventional-changelog-conventionalcommits": "5.0.0",
 		"eslint": "8.23.0",
